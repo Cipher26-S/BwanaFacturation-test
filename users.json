@@ -1,0 +1,146 @@
+﻿[
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$kMiEJdrFAD0da4poLUPYAw$BsuC2nHQ2/b8VELUgUzCnajysP8L1eTVp9uxJNVMkyA=",
+    "last_login": "2026-04-02T10:26:11.168Z",
+    "is_superuser": true,
+    "username": "konda",
+    "first_name": "Ibrahima",
+    "last_name": "Konda",
+    "email": "kondaibrahima5@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-03-01T17:01:36.794Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 14,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$5P8qPa20xcXzh1rTojJsAS$LMkPbdhiQ6UE9QkASGs7oWNPDr188Lr56cFy7v0KBww=",
+    "last_login": "2026-03-19T07:26:48.186Z",
+    "is_superuser": true,
+    "username": "landry.chapwouo",
+    "first_name": "Landry",
+    "last_name": "Chapwouo",
+    "email": "landryzap@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-03-18T01:30:01.903Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 20,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$yiatNAwPbgQKjtjb2H81pq$9fQWQb/UEqwa4c6A+G4QsmHlnrk0yVivlnlvZjW5TDc=",
+    "last_login": "2026-03-18T15:12:31.425Z",
+    "is_superuser": false,
+    "username": "issouf.kabore",
+    "first_name": "Issouf",
+    "last_name": "Kabore",
+    "email": "ouagagame@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-18T12:20:57.995Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 21,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$638CJc03MtNVZYzzVjcCyW$I54MXQ4aKs43BDTVnopmdOzhEJ4Gghr1kAcFMidVsvQ=",
+    "last_login": "2026-03-18T16:38:12.785Z",
+    "is_superuser": false,
+    "username": "thierry.kiendrebeogo",
+    "first_name": "Thierry",
+    "last_name": "Kiendrebeogo",
+    "email": "thierryk1996@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-18T12:27:25.069Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 22,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$KaxxHtaWkXllKQR3xPAS2M$HMwu45UbeOK3gdCBiLXU6I9WVMm0/TpfAsOC90b9qoQ=",
+    "last_login": "2026-03-18T12:29:21.213Z",
+    "is_superuser": false,
+    "username": "mohamed.fofana",
+    "first_name": "Mohamed",
+    "last_name": "Fofana",
+    "email": "mhdfofana2000@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-18T12:28:41.341Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 23,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$5hv5N0dvM26fw1iiyrddG4$YT/brN/AyyyoIZo9G+GZdlTNtCTX/MX2eTWbgujzdnI=",
+    "last_login": "2026-03-18T13:26:43.278Z",
+    "is_superuser": false,
+    "username": "chamberlin.talakankeu",
+    "first_name": "Chamberlin",
+    "last_name": "Tala kankeu",
+    "email": "chamberlintalakankeu@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-18T13:26:15.992Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 24,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$7EM48eoTG6GUdL2g0Laaje$cIHt73KRfWSP2dL8srhSLWZDwqGuKvyGmIOVYA2IMy8=",
+    "last_login": "2026-03-18T13:37:45.200Z",
+    "is_superuser": false,
+    "username": "arnold.nguechoung",
+    "first_name": "Arnold",
+    "last_name": "Nguechoung",
+    "email": "nguechoungarnold@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-18T13:36:58.926Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 25,
+  "fields": {
+    "password": "pbkdf2_sha256$1000000$LGMIVAyL1tFWN4tDoykWxt$qI5wPqGGckjRFWVIfZjSo2uOwVdOCqTugWsHCEug6KI=",
+    "last_login": "2026-03-19T08:11:53.921Z",
+    "is_superuser": false,
+    "username": "tech.simple",
+    "first_name": "Tech",
+    "last_name": "Simple",
+    "email": "banditchef87@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-03-19T08:10:01.757Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]

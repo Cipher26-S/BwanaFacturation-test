@@ -1,0 +1,443 @@
+﻿[
+{
+  "model": "devis.devis",
+  "pk": 1,
+  "fields": {
+    "utilisateur": 1,
+    "client": 8,
+    "numero": "DEV-202603-0001",
+    "date_creation": "2026-03-26T08:58:06.607Z",
+    "date_validite": "2026-03-27",
+    "statut": "accepte",
+    "notes": "",
+    "fichier_pdf": "devis/pdf/devis_DEV-202603-0001.pdf",
+    "transforme_en_facture": true,
+    "approuve_par": 1,
+    "approuve_le": "2026-03-26T08:58:50.353Z",
+    "commentaire_approbation": "bien",
+    "accepte_par_client": true,
+    "accepte_client_le": "2026-03-26T09:00:18.017Z",
+    "token_approbation": "swfI3icqx7QnFMJ2YOvLpp0X5FoGg8HNnszBYME8HgE",
+    "token_client": "VRxHsRsTobTU-gnnymQ0wc6yPEkMWQVhwBkMB5KSIWY",
+    "pays": "",
+    "type_taxe": "TVA",
+    "taux_taxe": "0.00",
+    "taxes_personnalisees": {},
+    "taxes": []
+  }
+},
+{
+  "model": "devis.devis",
+  "pk": 2,
+  "fields": {
+    "utilisateur": 1,
+    "client": 9,
+    "numero": "DEV-202603-0002",
+    "date_creation": "2026-03-26T14:58:02.829Z",
+    "date_validite": "2026-03-27",
+    "statut": "approuve_superieur",
+    "notes": "",
+    "fichier_pdf": "devis/pdf/devis_DEV-202603-0002.pdf",
+    "transforme_en_facture": false,
+    "approuve_par": 1,
+    "approuve_le": "2026-03-26T14:58:59.894Z",
+    "commentaire_approbation": "",
+    "accepte_par_client": null,
+    "accepte_client_le": null,
+    "token_approbation": "3qR4Kai8HJbJEmljQepzFimbv2m66H0jRw7mXwdNeBM",
+    "token_client": "vMElXj5Ww9WGvYC3znw1ImEWYgFAHCMrSKMkL-BnWnw",
+    "pays": "",
+    "type_taxe": "TVA",
+    "taux_taxe": "0.00",
+    "taxes_personnalisees": {},
+    "taxes": []
+  }
+},
+{
+  "model": "devis.devis",
+  "pk": 3,
+  "fields": {
+    "utilisateur": 1,
+    "client": 8,
+    "numero": "DEV-202603-0003",
+    "date_creation": "2026-03-28T07:27:09.586Z",
+    "date_validite": "2026-03-29",
+    "statut": "expire",
+    "notes": "",
+    "fichier_pdf": "devis/pdf/devis_DEV-202603-0003.pdf",
+    "transforme_en_facture": false,
+    "approuve_par": null,
+    "approuve_le": null,
+    "commentaire_approbation": "",
+    "accepte_par_client": null,
+    "accepte_client_le": null,
+    "token_approbation": "ttBaj9sDOGoMG1Yofd8i6GBFejb3eJ3p6-cVMKC4qpQ",
+    "token_client": "ITr38Dv2jrT_cl9BZquBVBhNzum4r-jAZaCHxKLZkRw",
+    "pays": "",
+    "type_taxe": "TVA",
+    "taux_taxe": "0.00",
+    "taxes_personnalisees": {},
+    "taxes": []
+  }
+},
+{
+  "model": "devis.devis",
+  "pk": 4,
+  "fields": {
+    "utilisateur": 1,
+    "client": 15,
+    "numero": "DEV-202603-0004",
+    "date_creation": "2026-03-28T08:54:55.933Z",
+    "date_validite": "2026-03-29",
+    "statut": "approuve_superieur",
+    "notes": "",
+    "fichier_pdf": "devis/pdf/devis_DEV-202603-0004.pdf",
+    "transforme_en_facture": false,
+    "approuve_par": 1,
+    "approuve_le": "2026-03-28T08:55:13.620Z",
+    "commentaire_approbation": "",
+    "accepte_par_client": null,
+    "accepte_client_le": null,
+    "token_approbation": "Dw49bdoueORFPpIN6JJAvAXJhN7EyQLzP3nTHewpMSM",
+    "token_client": "UWYSteYXZJOgsys6Ke7mmrSiUl4KrlR9zt6xf38HHR8",
+    "pays": "CA",
+    "type_taxe": "TVH",
+    "taux_taxe": "13.00",
+    "taxes_personnalisees": {},
+    "taxes": []
+  }
+},
+{
+  "model": "devis.devis",
+  "pk": 5,
+  "fields": {
+    "utilisateur": 1,
+    "client": 15,
+    "numero": "DEV-202603-0005",
+    "date_creation": "2026-03-28T08:57:08.836Z",
+    "date_validite": "2026-03-29",
+    "statut": "approuve_superieur",
+    "notes": "",
+    "fichier_pdf": "devis/pdf/devis_DEV-202603-0005.pdf",
+    "transforme_en_facture": false,
+    "approuve_par": 1,
+    "approuve_le": "2026-03-30T09:28:35.180Z",
+    "commentaire_approbation": "",
+    "accepte_par_client": null,
+    "accepte_client_le": null,
+    "token_approbation": "hPxJ_1PeHDfwzR4leE5UAefJhSC6uh8CgdPxSUNbS6E",
+    "token_client": "_n-DKuIQDK0u3gJVN8y6WNlRyFVsN48fA_IxjIfUF_U",
+    "pays": "CA",
+    "type_taxe": "TVQ",
+    "taux_taxe": "9.98",
+    "taxes_personnalisees": {},
+    "taxes": []
+  }
+},
+{
+  "model": "devis.devis",
+  "pk": 6,
+  "fields": {
+    "utilisateur": 1,
+    "client": 15,
+    "numero": "DEV-202603-0006",
+    "date_creation": "2026-03-30T09:43:24.355Z",
+    "date_validite": "2026-03-31",
+    "statut": "en_attente",
+    "notes": "",
+    "fichier_pdf": "devis/pdf/devis_DEV-202603-0006.pdf",
+    "transforme_en_facture": false,
+    "approuve_par": null,
+    "approuve_le": null,
+    "commentaire_approbation": "",
+    "accepte_par_client": null,
+    "accepte_client_le": null,
+    "token_approbation": "BO6X5K7w_NUytn7y7gGr6AzvWkz6rqq3TN335PISbQY",
+    "token_client": "NB2kpdIW-DDDgV3Bw3INGc7yxaPm5_OPXWpE3IbuqGA",
+    "pays": "CA",
+    "type_taxe": "TVH",
+    "taux_taxe": "13.00",
+    "taxes_personnalisees": {},
+    "taxes": []
+  }
+},
+{
+  "model": "devis.devis",
+  "pk": 7,
+  "fields": {
+    "utilisateur": 1,
+    "client": 18,
+    "numero": "DEV-202603-0007",
+    "date_creation": "2026-03-30T12:44:10.092Z",
+    "date_validite": "2026-04-29",
+    "statut": "en_attente",
+    "notes": "",
+    "fichier_pdf": "",
+    "transforme_en_facture": false,
+    "approuve_par": null,
+    "approuve_le": null,
+    "commentaire_approbation": "",
+    "accepte_par_client": null,
+    "accepte_client_le": null,
+    "token_approbation": "2Ej476gw8VnGIsjwXUo9reWrAQXQn3RAWnAjw5t3LSk",
+    "token_client": "1VvtDJ4z_bJK9ONNYIRvlLpkpsOg6nG9_0JdNzTjvvw",
+    "pays": "CA",
+    "type_taxe": "TPS + TVQ",
+    "taux_taxe": "14.98",
+    "taxes_personnalisees": {},
+    "taxes": [
+      3,
+      4
+    ]
+  }
+},
+{
+  "model": "devis.devis",
+  "pk": 8,
+  "fields": {
+    "utilisateur": 1,
+    "client": 19,
+    "numero": "DEV-202603-0008",
+    "date_creation": "2026-03-30T12:56:42.012Z",
+    "date_validite": "2026-04-29",
+    "statut": "en_attente",
+    "notes": "",
+    "fichier_pdf": "",
+    "transforme_en_facture": false,
+    "approuve_par": null,
+    "approuve_le": null,
+    "commentaire_approbation": "",
+    "accepte_par_client": null,
+    "accepte_client_le": null,
+    "token_approbation": "YyksDLbiy0hkjqP0G93Np1wXi2pRcFj258hLdf5gFUw",
+    "token_client": "YW3Ie9NAVdSl8749_zC0-82G83Yvdo0Pb8SVSLIcOdw",
+    "pays": "CA",
+    "type_taxe": "TPS + TVQ",
+    "taux_taxe": "14.98",
+    "taxes_personnalisees": {},
+    "taxes": []
+  }
+},
+{
+  "model": "devis.devis",
+  "pk": 9,
+  "fields": {
+    "utilisateur": 1,
+    "client": 19,
+    "numero": "DEV-202603-0009",
+    "date_creation": "2026-03-30T12:57:54.694Z",
+    "date_validite": "2026-04-29",
+    "statut": "en_attente",
+    "notes": "",
+    "fichier_pdf": "devis/pdf/devis_DEV-202603-0009.pdf",
+    "transforme_en_facture": false,
+    "approuve_par": null,
+    "approuve_le": null,
+    "commentaire_approbation": "",
+    "accepte_par_client": null,
+    "accepte_client_le": null,
+    "token_approbation": "xYolQ-QhqXCuU6r7t1Le7Zxx48ccYsQ9vszSLBaqQyY",
+    "token_client": "cNi0GK2Uk3ByYR4CNNwQvdSIFViIvwaI4WR40SfqcCM",
+    "pays": "CA",
+    "type_taxe": "TPS + TVQ",
+    "taux_taxe": "14.98",
+    "taxes_personnalisees": {},
+    "taxes": []
+  }
+},
+{
+  "model": "devis.devis",
+  "pk": 10,
+  "fields": {
+    "utilisateur": 1,
+    "client": 19,
+    "numero": "DEV-202603-0010",
+    "date_creation": "2026-03-30T13:43:49.424Z",
+    "date_validite": "2026-04-29",
+    "statut": "approuve_superieur",
+    "notes": "",
+    "fichier_pdf": "",
+    "transforme_en_facture": false,
+    "approuve_par": 1,
+    "approuve_le": "2026-03-30T14:56:36.863Z",
+    "commentaire_approbation": "",
+    "accepte_par_client": null,
+    "accepte_client_le": null,
+    "token_approbation": "20R8HDY_qUrUzccWXZ6zLjWzVxeDK4_FWrLToPVK3HE",
+    "token_client": "kMlsLEZ1cD3AEKMRr4B8h3ZjBFOCUNSbASwldsOeavs",
+    "pays": "CA",
+    "type_taxe": "TPS + TVQ",
+    "taux_taxe": "14.98",
+    "taxes_personnalisees": {},
+    "taxes": []
+  }
+},
+{
+  "model": "devis.devis",
+  "pk": 11,
+  "fields": {
+    "utilisateur": 1,
+    "client": 17,
+    "numero": "DEV-202603-0011",
+    "date_creation": "2026-03-31T10:44:33.357Z",
+    "date_validite": "2026-04-30",
+    "statut": "en_attente",
+    "notes": "",
+    "fichier_pdf": "",
+    "transforme_en_facture": false,
+    "approuve_par": null,
+    "approuve_le": null,
+    "commentaire_approbation": "",
+    "accepte_par_client": null,
+    "accepte_client_le": null,
+    "token_approbation": "6WJjALttdk-OVAAF0Ym4ovuOnaQOqgFkvOYG0kM_RC4",
+    "token_client": "s05l5Mg4w4sLd6JDQXCe1X2LKUZeuZuxvLT5999rDTM",
+    "pays": "BF",
+    "type_taxe": "TVA",
+    "taux_taxe": "0.00",
+    "taxes_personnalisees": {
+      "custom_1774953821075": {
+        "id": "custom_1774953821075",
+        "nom": "rex",
+        "code": "TRE",
+        "taux": 2.0,
+        "cumulative": false,
+        "personnalisee": true
+      }
+    },
+    "taxes": []
+  }
+},
+{
+  "model": "devis.lignedevis",
+  "pk": 1,
+  "fields": {
+    "devis": 1,
+    "produit": 6,
+    "description": "BONJOUR",
+    "quantite": "1.00",
+    "prix_unitaire": "12000.00",
+    "tva": "0.00"
+  }
+},
+{
+  "model": "devis.lignedevis",
+  "pk": 2,
+  "fields": {
+    "devis": 2,
+    "produit": 2,
+    "description": "DESIGN",
+    "quantite": "1.00",
+    "prix_unitaire": "1500.00",
+    "tva": "0.00"
+  }
+},
+{
+  "model": "devis.lignedevis",
+  "pk": 3,
+  "fields": {
+    "devis": 3,
+    "produit": 6,
+    "description": "BONJOUR",
+    "quantite": "1.00",
+    "prix_unitaire": "12000.00",
+    "tva": "12.00"
+  }
+},
+{
+  "model": "devis.lignedevis",
+  "pk": 4,
+  "fields": {
+    "devis": 4,
+    "produit": 3,
+    "description": "Logiciel",
+    "quantite": "1.00",
+    "prix_unitaire": "120.00",
+    "tva": "13.00"
+  }
+},
+{
+  "model": "devis.lignedevis",
+  "pk": 6,
+  "fields": {
+    "devis": 5,
+    "produit": 3,
+    "description": "Logiciel",
+    "quantite": "1.00",
+    "prix_unitaire": "120.00",
+    "tva": "9.98"
+  }
+},
+{
+  "model": "devis.lignedevis",
+  "pk": 7,
+  "fields": {
+    "devis": 6,
+    "produit": 3,
+    "description": "Logiciel",
+    "quantite": "1.00",
+    "prix_unitaire": "120.00",
+    "tva": "12.98"
+  }
+},
+{
+  "model": "devis.lignedevis",
+  "pk": 8,
+  "fields": {
+    "devis": 7,
+    "produit": 3,
+    "description": "Logiciel",
+    "quantite": "1.00",
+    "prix_unitaire": "120.00",
+    "tva": "4.98"
+  }
+},
+{
+  "model": "devis.lignedevis",
+  "pk": 9,
+  "fields": {
+    "devis": 8,
+    "produit": 3,
+    "description": "Logiciel",
+    "quantite": "1.00",
+    "prix_unitaire": "120.00",
+    "tva": "14.98"
+  }
+},
+{
+  "model": "devis.lignedevis",
+  "pk": 10,
+  "fields": {
+    "devis": 9,
+    "produit": 3,
+    "description": "Logiciel",
+    "quantite": "1.00",
+    "prix_unitaire": "120.00",
+    "tva": "14.97"
+  }
+},
+{
+  "model": "devis.lignedevis",
+  "pk": 11,
+  "fields": {
+    "devis": 10,
+    "produit": 3,
+    "description": "Logiciel",
+    "quantite": "1.00",
+    "prix_unitaire": "120.00",
+    "tva": "14.98"
+  }
+},
+{
+  "model": "devis.lignedevis",
+  "pk": 12,
+  "fields": {
+    "devis": 11,
+    "produit": 6,
+    "description": "BONJOUR",
+    "quantite": "1.00",
+    "prix_unitaire": "12000.00",
+    "tva": "5.00"
+  }
+}
+]

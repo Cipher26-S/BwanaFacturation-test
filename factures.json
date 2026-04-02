@@ -1,0 +1,127 @@
+﻿[
+{
+  "model": "factures.facture",
+  "pk": 4,
+  "fields": {
+    "utilisateur": 1,
+    "client": 8,
+    "devis": null,
+    "numero": "FAC-202603-0002",
+    "date_creation": "2026-03-28T07:33:43.009Z",
+    "date_echeance": "2026-03-29",
+    "statut": "en_attente",
+    "notes": "",
+    "fichier_pdf": "factures/pdf/facture_FAC-202603-0002.pdf",
+    "pays": "",
+    "type_taxe": "TVA",
+    "taux_taxe": "0.00",
+    "taxes_personnalisees": {},
+    "approuve_par": null,
+    "approuve_le": null,
+    "commentaire_approbation": "",
+    "accepte_par_client": null,
+    "accepte_client_le": null,
+    "token_approbation": "YrE9ZNn0i8PA0FYGFWlsYqtzpmPumDCbNVl2OPxIRzA",
+    "token_client": "1r0MbyvvDFMUB8L_xU45gb3NdUr-ETk7w_S99AZvk0A",
+    "taxes": []
+  }
+},
+{
+  "model": "factures.facture",
+  "pk": 5,
+  "fields": {
+    "utilisateur": 1,
+    "client": 15,
+    "devis": null,
+    "numero": "FAC-202603-0003",
+    "date_creation": "2026-03-30T09:53:25.294Z",
+    "date_echeance": "2026-03-31",
+    "statut": "approuvee",
+    "notes": "",
+    "fichier_pdf": "factures/pdf/facture_FAC-202603-0003.pdf",
+    "pays": "CA",
+    "type_taxe": "TVQ",
+    "taux_taxe": "9.98",
+    "taxes_personnalisees": {},
+    "approuve_par": 1,
+    "approuve_le": "2026-03-30T09:56:23.827Z",
+    "commentaire_approbation": "",
+    "accepte_par_client": null,
+    "accepte_client_le": null,
+    "token_approbation": "sjXQfKu9dItGDTcV2HrLBxdKgCgoMDMNkapQHD9INJM",
+    "token_client": "eON1whes4VhQHUlDvgaOs7MEdFSDMqKugIOt7MxqLw8",
+    "taxes": []
+  }
+},
+{
+  "model": "factures.facture",
+  "pk": 6,
+  "fields": {
+    "utilisateur": 1,
+    "client": 19,
+    "devis": null,
+    "numero": "FAC-202603-0004",
+    "date_creation": "2026-03-30T14:29:04.478Z",
+    "date_echeance": "2026-03-31",
+    "statut": "en_attente",
+    "notes": "",
+    "fichier_pdf": "",
+    "pays": "CA",
+    "type_taxe": "TPS + TVQ",
+    "taux_taxe": "14.98",
+    "taxes_personnalisees": {},
+    "approuve_par": null,
+    "approuve_le": null,
+    "commentaire_approbation": "",
+    "accepte_par_client": null,
+    "accepte_client_le": null,
+    "token_approbation": "3jgBW9XZmXnmrpPk4EKs0RWZfmJW6jN6pbHScVwqYlk",
+    "token_client": "082BSfCamPZJJUmiqw48ajAmd1MqzXfrPoO7e8GmdaQ",
+    "taxes": []
+  }
+},
+{
+  "model": "factures.lignefacture",
+  "pk": 8,
+  "fields": {
+    "facture": 4,
+    "description": "DESIGN",
+    "quantite": "123.00",
+    "prix_unitaire": "1500.00",
+    "tva": "0.00"
+  }
+},
+{
+  "model": "factures.lignefacture",
+  "pk": 9,
+  "fields": {
+    "facture": 4,
+    "description": "DESIGN",
+    "quantite": "123.00",
+    "prix_unitaire": "1500.00",
+    "tva": "0.00"
+  }
+},
+{
+  "model": "factures.lignefacture",
+  "pk": 10,
+  "fields": {
+    "facture": 5,
+    "description": "Logiciel",
+    "quantite": "1.00",
+    "prix_unitaire": "120.00",
+    "tva": "9.98"
+  }
+},
+{
+  "model": "factures.lignefacture",
+  "pk": 11,
+  "fields": {
+    "facture": 6,
+    "description": "Logiciel",
+    "quantite": "1.00",
+    "prix_unitaire": "120.00",
+    "tva": "14.98"
+  }
+}
+]

@@ -1,0 +1,2358 @@
+﻿[
+{
+  "model": "produits.unitevente",
+  "pk": 1,
+  "fields": {
+    "code": "piece",
+    "nom": "Pi├¿ce",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 1
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 2,
+  "fields": {
+    "code": "unite",
+    "nom": "Unit├®",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 2
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 3,
+  "fields": {
+    "code": "lot",
+    "nom": "Lot",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 3
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 4,
+  "fields": {
+    "code": "paire",
+    "nom": "Paire",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 4
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 5,
+  "fields": {
+    "code": "douzaine",
+    "nom": "Douzaine",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 5
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 6,
+  "fields": {
+    "code": "carton",
+    "nom": "Carton",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 6
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 7,
+  "fields": {
+    "code": "boite",
+    "nom": "Bo├«te",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 7
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 8,
+  "fields": {
+    "code": "sac",
+    "nom": "Sac",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 8
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 9,
+  "fields": {
+    "code": "sachet",
+    "nom": "Sachet",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 9
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 10,
+  "fields": {
+    "code": "palette",
+    "nom": "Palette",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 10
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 11,
+  "fields": {
+    "code": "colis",
+    "nom": "Colis",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 11
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 12,
+  "fields": {
+    "code": "pack",
+    "nom": "Pack",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 12
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 13,
+  "fields": {
+    "code": "kg",
+    "nom": "Kilogramme",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 13
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 14,
+  "fields": {
+    "code": "g",
+    "nom": "Gramme",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 14
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 15,
+  "fields": {
+    "code": "tonne",
+    "nom": "Tonne",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 15
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 16,
+  "fields": {
+    "code": "litre",
+    "nom": "Litre",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 16
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 17,
+  "fields": {
+    "code": "ml",
+    "nom": "Millilitre",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 17
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 18,
+  "fields": {
+    "code": "m3",
+    "nom": "M├¿tre cube",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 18
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 19,
+  "fields": {
+    "code": "m2",
+    "nom": "M├¿tre carr├®",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 19
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 20,
+  "fields": {
+    "code": "ml_lin",
+    "nom": "M├¿tre lin├®aire",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 20
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 21,
+  "fields": {
+    "code": "heure",
+    "nom": "Heure",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 21
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 22,
+  "fields": {
+    "code": "jour",
+    "nom": "Jour",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 22
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 23,
+  "fields": {
+    "code": "semaine",
+    "nom": "Semaine",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 23
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 24,
+  "fields": {
+    "code": "mois",
+    "nom": "Mois",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 24
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 25,
+  "fields": {
+    "code": "annee",
+    "nom": "Ann├®e",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 25
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 26,
+  "fields": {
+    "code": "forfait",
+    "nom": "Forfait",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 26
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 27,
+  "fields": {
+    "code": "service",
+    "nom": "Service",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 27
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 28,
+  "fields": {
+    "code": "prestation",
+    "nom": "Prestation",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 28
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 29,
+  "fields": {
+    "code": "licence",
+    "nom": "Licence",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 29
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 30,
+  "fields": {
+    "code": "abonnement",
+    "nom": "Abonnement",
+    "user": null,
+    "est_defaut": false,
+    "ordre": 30
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 31,
+  "fields": {
+    "code": "ciment",
+    "nom": "ciment",
+    "user": 1,
+    "est_defaut": false,
+    "ordre": 50
+  }
+},
+{
+  "model": "produits.unitevente",
+  "pk": 32,
+  "fields": {
+    "code": "red",
+    "nom": "red",
+    "user": 1,
+    "est_defaut": false,
+    "ordre": 50
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 1,
+  "fields": {
+    "nom": "video graphie",
+    "description": "",
+    "user": 1,
+    "date_creation": "2026-03-13T01:54:16.617Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 2,
+  "fields": {
+    "nom": "Infographie",
+    "description": "",
+    "user": 1,
+    "date_creation": "2026-03-13T02:47:27.979Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 4,
+  "fields": {
+    "nom": "Informatique",
+    "description": "cr├®ation de logiciel",
+    "user": 21,
+    "date_creation": "2026-03-18T12:33:29.721Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 5,
+  "fields": {
+    "nom": "Data",
+    "description": "",
+    "user": 14,
+    "date_creation": "2026-03-18T13:30:24.981Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 6,
+  "fields": {
+    "nom": "Refaire",
+    "description": "",
+    "user": 1,
+    "date_creation": "2026-03-18T13:35:05.854Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 7,
+  "fields": {
+    "nom": "Refaire4",
+    "description": "",
+    "user": 1,
+    "date_creation": "2026-03-18T13:35:39.281Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 8,
+  "fields": {
+    "nom": "Informatique",
+    "description": "appareil electronique",
+    "user": 24,
+    "date_creation": "2026-03-18T13:42:09.590Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 9,
+  "fields": {
+    "nom": "Design",
+    "description": "",
+    "user": 24,
+    "date_creation": "2026-03-18T13:43:59.143Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 10,
+  "fields": {
+    "nom": "Marketing",
+    "description": "",
+    "user": 24,
+    "date_creation": "2026-03-18T13:44:39.724Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 11,
+  "fields": {
+    "nom": "Vetements Homme",
+    "description": "",
+    "user": 24,
+    "date_creation": "2026-03-18T13:45:00.819Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 12,
+  "fields": {
+    "nom": "Vetements femme",
+    "description": "",
+    "user": 24,
+    "date_creation": "2026-03-18T13:45:16.106Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 13,
+  "fields": {
+    "nom": "Vetements enfants",
+    "description": "",
+    "user": 24,
+    "date_creation": "2026-03-18T13:45:29.143Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 14,
+  "fields": {
+    "nom": "Outils de maintenance",
+    "description": "",
+    "user": 24,
+    "date_creation": "2026-03-18T13:45:46.389Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 15,
+  "fields": {
+    "nom": "materiel de bureau",
+    "description": "",
+    "user": 24,
+    "date_creation": "2026-03-18T13:51:00.239Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 16,
+  "fields": {
+    "nom": "ref",
+    "description": "",
+    "user": 1,
+    "date_creation": "2026-03-18T14:44:26.543Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 17,
+  "fields": {
+    "nom": "reft",
+    "description": "",
+    "user": 1,
+    "date_creation": "2026-03-18T14:49:26.922Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 18,
+  "fields": {
+    "nom": "refd",
+    "description": "",
+    "user": 1,
+    "date_creation": "2026-03-18T14:55:05.608Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 19,
+  "fields": {
+    "nom": "fintest",
+    "description": "",
+    "user": 1,
+    "date_creation": "2026-03-18T14:55:23.562Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 20,
+  "fields": {
+    "nom": "Marketing",
+    "description": "",
+    "user": 20,
+    "date_creation": "2026-03-18T15:14:29.928Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 21,
+  "fields": {
+    "nom": "freeee",
+    "description": "",
+    "user": 1,
+    "date_creation": "2026-03-19T06:50:25.585Z"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 1,
+  "fields": {
+    "code": "BF",
+    "nom": "Burkina Faso",
+    "devise": "XOF",
+    "symbole_devise": "FCFA"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 2,
+  "fields": {
+    "code": "CI",
+    "nom": "C├┤te d'Ivoire",
+    "devise": "XOF",
+    "symbole_devise": "FCFA"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 3,
+  "fields": {
+    "code": "SN",
+    "nom": "S├®n├®gal",
+    "devise": "XOF",
+    "symbole_devise": "FCFA"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 4,
+  "fields": {
+    "code": "ML",
+    "nom": "Mali",
+    "devise": "XOF",
+    "symbole_devise": "FCFA"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 5,
+  "fields": {
+    "code": "NE",
+    "nom": "Niger",
+    "devise": "XOF",
+    "symbole_devise": "FCFA"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 6,
+  "fields": {
+    "code": "TG",
+    "nom": "Togo",
+    "devise": "XOF",
+    "symbole_devise": "FCFA"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 7,
+  "fields": {
+    "code": "BJ",
+    "nom": "B├®nin",
+    "devise": "XOF",
+    "symbole_devise": "FCFA"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 8,
+  "fields": {
+    "code": "CM",
+    "nom": "Cameroun",
+    "devise": "XAF",
+    "symbole_devise": "FCFA"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 9,
+  "fields": {
+    "code": "GA",
+    "nom": "Gabon",
+    "devise": "XAF",
+    "symbole_devise": "FCFA"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 10,
+  "fields": {
+    "code": "CG",
+    "nom": "Congo-Brazzaville",
+    "devise": "XAF",
+    "symbole_devise": "FCFA"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 11,
+  "fields": {
+    "code": "CD",
+    "nom": "R├®publique D├®mocratique du Congo",
+    "devise": "CDF",
+    "symbole_devise": "FC"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 12,
+  "fields": {
+    "code": "MA",
+    "nom": "Maroc",
+    "devise": "MAD",
+    "symbole_devise": "DH"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 13,
+  "fields": {
+    "code": "DZ",
+    "nom": "Alg├®rie",
+    "devise": "DZD",
+    "symbole_devise": "DA"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 14,
+  "fields": {
+    "code": "TN",
+    "nom": "Tunisie",
+    "devise": "TND",
+    "symbole_devise": "DT"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 15,
+  "fields": {
+    "code": "EG",
+    "nom": "├ëgypte",
+    "devise": "EGP",
+    "symbole_devise": "┬ú"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 16,
+  "fields": {
+    "code": "ZA",
+    "nom": "Afrique du Sud",
+    "devise": "ZAR",
+    "symbole_devise": "R"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 17,
+  "fields": {
+    "code": "NG",
+    "nom": "Nigeria",
+    "devise": "NGN",
+    "symbole_devise": "Ôéª"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 18,
+  "fields": {
+    "code": "GH",
+    "nom": "Ghana",
+    "devise": "GHS",
+    "symbole_devise": "ÔéÁ"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 19,
+  "fields": {
+    "code": "KE",
+    "nom": "Kenya",
+    "devise": "KES",
+    "symbole_devise": "KSh"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 20,
+  "fields": {
+    "code": "TZ",
+    "nom": "Tanzanie",
+    "devise": "TZS",
+    "symbole_devise": "TSh"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 21,
+  "fields": {
+    "code": "UG",
+    "nom": "Ouganda",
+    "devise": "UGX",
+    "symbole_devise": "USh"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 22,
+  "fields": {
+    "code": "RW",
+    "nom": "Rwanda",
+    "devise": "RWF",
+    "symbole_devise": "FRw"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 23,
+  "fields": {
+    "code": "ET",
+    "nom": "├ëthiopie",
+    "devise": "ETB",
+    "symbole_devise": "Br"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 24,
+  "fields": {
+    "code": "CA",
+    "nom": "Canada",
+    "devise": "CAD",
+    "symbole_devise": "$"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 25,
+  "fields": {
+    "code": "US",
+    "nom": "├ëtats-Unis",
+    "devise": "USD",
+    "symbole_devise": "$"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 26,
+  "fields": {
+    "code": "MX",
+    "nom": "Mexique",
+    "devise": "MXN",
+    "symbole_devise": "$"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 27,
+  "fields": {
+    "code": "BR",
+    "nom": "Br├®sil",
+    "devise": "BRL",
+    "symbole_devise": "R$"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 28,
+  "fields": {
+    "code": "AR",
+    "nom": "Argentine",
+    "devise": "ARS",
+    "symbole_devise": "$"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 29,
+  "fields": {
+    "code": "CO",
+    "nom": "Colombie",
+    "devise": "COP",
+    "symbole_devise": "$"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 30,
+  "fields": {
+    "code": "CL",
+    "nom": "Chili",
+    "devise": "CLP",
+    "symbole_devise": "$"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 31,
+  "fields": {
+    "code": "PE",
+    "nom": "P├®rou",
+    "devise": "PEN",
+    "symbole_devise": "S/"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 32,
+  "fields": {
+    "code": "VE",
+    "nom": "Venezuela",
+    "devise": "VES",
+    "symbole_devise": "Bs"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 33,
+  "fields": {
+    "code": "GB",
+    "nom": "Royaume-Uni",
+    "devise": "GBP",
+    "symbole_devise": "┬ú"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 34,
+  "fields": {
+    "code": "FR",
+    "nom": "France",
+    "devise": "EUR",
+    "symbole_devise": "Ôé¼"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 35,
+  "fields": {
+    "code": "DE",
+    "nom": "Allemagne",
+    "devise": "EUR",
+    "symbole_devise": "Ôé¼"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 36,
+  "fields": {
+    "code": "IT",
+    "nom": "Italie",
+    "devise": "EUR",
+    "symbole_devise": "Ôé¼"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 37,
+  "fields": {
+    "code": "ES",
+    "nom": "Espagne",
+    "devise": "EUR",
+    "symbole_devise": "Ôé¼"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 38,
+  "fields": {
+    "code": "PT",
+    "nom": "Portugal",
+    "devise": "EUR",
+    "symbole_devise": "Ôé¼"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 39,
+  "fields": {
+    "code": "BE",
+    "nom": "Belgique",
+    "devise": "EUR",
+    "symbole_devise": "Ôé¼"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 40,
+  "fields": {
+    "code": "CH",
+    "nom": "Suisse",
+    "devise": "CHF",
+    "symbole_devise": "Fr"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 41,
+  "fields": {
+    "code": "NL",
+    "nom": "Pays-Bas",
+    "devise": "EUR",
+    "symbole_devise": "Ôé¼"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 42,
+  "fields": {
+    "code": "SE",
+    "nom": "Su├¿de",
+    "devise": "SEK",
+    "symbole_devise": "kr"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 43,
+  "fields": {
+    "code": "NO",
+    "nom": "Norv├¿ge",
+    "devise": "NOK",
+    "symbole_devise": "kr"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 44,
+  "fields": {
+    "code": "DK",
+    "nom": "Danemark",
+    "devise": "DKK",
+    "symbole_devise": "kr"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 45,
+  "fields": {
+    "code": "FI",
+    "nom": "Finlande",
+    "devise": "EUR",
+    "symbole_devise": "Ôé¼"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 46,
+  "fields": {
+    "code": "PL",
+    "nom": "Pologne",
+    "devise": "PLN",
+    "symbole_devise": "z┼é"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 47,
+  "fields": {
+    "code": "CZ",
+    "nom": "R├®publique Tch├¿que",
+    "devise": "CZK",
+    "symbole_devise": "K─ì"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 48,
+  "fields": {
+    "code": "HU",
+    "nom": "Hongrie",
+    "devise": "HUF",
+    "symbole_devise": "Ft"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 49,
+  "fields": {
+    "code": "RU",
+    "nom": "Russie",
+    "devise": "RUB",
+    "symbole_devise": "Ôé¢"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 50,
+  "fields": {
+    "code": "TR",
+    "nom": "Turquie",
+    "devise": "TRY",
+    "symbole_devise": "Ôé║"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 51,
+  "fields": {
+    "code": "CN",
+    "nom": "Chine",
+    "devise": "CNY",
+    "symbole_devise": "┬Ñ"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 52,
+  "fields": {
+    "code": "JP",
+    "nom": "Japon",
+    "devise": "JPY",
+    "symbole_devise": "┬Ñ"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 53,
+  "fields": {
+    "code": "KR",
+    "nom": "Cor├®e du Sud",
+    "devise": "KRW",
+    "symbole_devise": "Ôé®"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 54,
+  "fields": {
+    "code": "IN",
+    "nom": "Inde",
+    "devise": "INR",
+    "symbole_devise": "Ôé╣"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 55,
+  "fields": {
+    "code": "ID",
+    "nom": "Indon├®sie",
+    "devise": "IDR",
+    "symbole_devise": "Rp"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 56,
+  "fields": {
+    "code": "MY",
+    "nom": "Malaisie",
+    "devise": "MYR",
+    "symbole_devise": "RM"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 57,
+  "fields": {
+    "code": "SG",
+    "nom": "Singapour",
+    "devise": "SGD",
+    "symbole_devise": "$"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 58,
+  "fields": {
+    "code": "TH",
+    "nom": "Tha├»lande",
+    "devise": "THB",
+    "symbole_devise": "Ó©┐"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 59,
+  "fields": {
+    "code": "VN",
+    "nom": "Vietnam",
+    "devise": "VND",
+    "symbole_devise": "Ôé½"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 60,
+  "fields": {
+    "code": "PH",
+    "nom": "Philippines",
+    "devise": "PHP",
+    "symbole_devise": "Ôé▒"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 61,
+  "fields": {
+    "code": "PK",
+    "nom": "Pakistan",
+    "devise": "PKR",
+    "symbole_devise": "Ôé¿"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 62,
+  "fields": {
+    "code": "BD",
+    "nom": "Bangladesh",
+    "devise": "BDT",
+    "symbole_devise": "Óº│"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 63,
+  "fields": {
+    "code": "LK",
+    "nom": "Sri Lanka",
+    "devise": "LKR",
+    "symbole_devise": "Ôé¿"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 64,
+  "fields": {
+    "code": "NP",
+    "nom": "N├®pal",
+    "devise": "NPR",
+    "symbole_devise": "Ôé¿"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 65,
+  "fields": {
+    "code": "AU",
+    "nom": "Australie",
+    "devise": "AUD",
+    "symbole_devise": "$"
+  }
+},
+{
+  "model": "produits.pays",
+  "pk": 66,
+  "fields": {
+    "code": "NZ",
+    "nom": "Nouvelle-Z├®lande",
+    "devise": "NZD",
+    "symbole_devise": "$"
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 1,
+  "fields": {
+    "pays": 34,
+    "nom": "Taxe sur la valeur ajout├®e",
+    "code": "TVA",
+    "description": "Taxe sur la valeur ajout├®e - taux standard",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 2,
+  "fields": {
+    "pays": 34,
+    "nom": "TVA r├®duite",
+    "code": "TVA-R",
+    "description": "TVA taux r├®duit",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 3,
+  "fields": {
+    "pays": 35,
+    "nom": "Mehrwertsteuer",
+    "code": "MwSt",
+    "description": "Taxe sur la valeur ajout├®e allemande",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 4,
+  "fields": {
+    "pays": 33,
+    "nom": "Value Added Tax",
+    "code": "VAT",
+    "description": "UK Value Added Tax",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 5,
+  "fields": {
+    "pays": 24,
+    "nom": "TPS (Taxe sur les produits et services)",
+    "code": "TPS",
+    "description": "Taxe f├®d├®rale canadienne",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 6,
+  "fields": {
+    "pays": 24,
+    "nom": "TVQ (Taxe de vente du Qu├®bec)",
+    "code": "TVQ",
+    "description": "Taxe provinciale qu├®b├®coise",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 7,
+  "fields": {
+    "pays": 24,
+    "nom": "TVH (Taxe de vente harmonis├®e)",
+    "code": "TVH",
+    "description": "Taxe harmonis├®e (TPS + TVP)",
+    "est_taxe_composee": true
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 8,
+  "fields": {
+    "pays": 25,
+    "nom": "Sales Tax",
+    "code": "ST",
+    "description": "State Sales Tax",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 9,
+  "fields": {
+    "pays": 1,
+    "nom": "Taxe sur la valeur ajout├®e",
+    "code": "TVA",
+    "description": "TVA Burkina Faso",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 10,
+  "fields": {
+    "pays": 2,
+    "nom": "Taxe sur la valeur ajout├®e",
+    "code": "TVA",
+    "description": "TVA C├┤te d'Ivoire",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 11,
+  "fields": {
+    "pays": 3,
+    "nom": "Taxe sur la valeur ajout├®e",
+    "code": "TVA",
+    "description": "TVA S├®n├®gal",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 12,
+  "fields": {
+    "pays": 4,
+    "nom": "Taxe sur la valeur ajout├®e",
+    "code": "TVA",
+    "description": "TVA Mali",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 13,
+  "fields": {
+    "pays": 5,
+    "nom": "Taxe sur la valeur ajout├®e",
+    "code": "TVA",
+    "description": "TVA Niger",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 14,
+  "fields": {
+    "pays": 6,
+    "nom": "Taxe sur la valeur ajout├®e",
+    "code": "TVA",
+    "description": "TVA Togo",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 15,
+  "fields": {
+    "pays": 7,
+    "nom": "Taxe sur la valeur ajout├®e",
+    "code": "TVA",
+    "description": "TVA B├®nin",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 16,
+  "fields": {
+    "pays": 8,
+    "nom": "Taxe sur la valeur ajout├®e",
+    "code": "TVA",
+    "description": "TVA Cameroun",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 17,
+  "fields": {
+    "pays": 9,
+    "nom": "Taxe sur la valeur ajout├®e",
+    "code": "TVA",
+    "description": "TVA Gabon",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 18,
+  "fields": {
+    "pays": 12,
+    "nom": "Taxe sur la valeur ajout├®e",
+    "code": "TVA",
+    "description": "TVA Maroc",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 19,
+  "fields": {
+    "pays": 14,
+    "nom": "Taxe sur la valeur ajout├®e",
+    "code": "TVA",
+    "description": "TVA Tunisie",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 20,
+  "fields": {
+    "pays": 16,
+    "nom": "Value Added Tax",
+    "code": "VAT",
+    "description": "South Africa VAT",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 21,
+  "fields": {
+    "pays": 17,
+    "nom": "Value Added Tax",
+    "code": "VAT",
+    "description": "Nigeria VAT",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 22,
+  "fields": {
+    "pays": 54,
+    "nom": "Goods and Services Tax",
+    "code": "GST",
+    "description": "Indian GST",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 23,
+  "fields": {
+    "pays": 27,
+    "nom": "ICMS",
+    "code": "ICMS",
+    "description": "Imposto sobre Circula├º├úo de Mercadorias",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 24,
+  "fields": {
+    "pays": 27,
+    "nom": "ISS",
+    "code": "ISS",
+    "description": "Imposto Sobre Servi├ºos",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 25,
+  "fields": {
+    "pays": 27,
+    "nom": "IPI",
+    "code": "IPI",
+    "description": "Imposto sobre Produtos Industrializados",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 26,
+  "fields": {
+    "pays": 65,
+    "nom": "Goods and Services Tax",
+    "code": "GST",
+    "description": "Australian GST",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 27,
+  "fields": {
+    "pays": 66,
+    "nom": "Goods and Services Tax",
+    "code": "GST",
+    "description": "New Zealand GST",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 28,
+  "fields": {
+    "pays": 52,
+    "nom": "Consumption Tax",
+    "code": "CT",
+    "description": "Japanese Consumption Tax",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.typetaxe",
+  "pk": 29,
+  "fields": {
+    "pays": 26,
+    "nom": "IVA",
+    "code": "IVA",
+    "description": "Impuesto al Valor Agregado",
+    "est_taxe_composee": false
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 1,
+  "fields": {
+    "type_taxe": 1,
+    "region": "France m├®tropolitaine",
+    "code_region": "FR",
+    "taux": "20.00",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 2,
+  "fields": {
+    "type_taxe": 1,
+    "region": "Corse",
+    "code_region": "COR",
+    "taux": "10.00",
+    "est_defaut": false
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 3,
+  "fields": {
+    "type_taxe": 2,
+    "region": "France",
+    "code_region": "FR",
+    "taux": "5.50",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 4,
+  "fields": {
+    "type_taxe": 3,
+    "region": "Allemagne",
+    "code_region": "DE",
+    "taux": "19.00",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 5,
+  "fields": {
+    "type_taxe": 3,
+    "region": "Allemagne r├®duit",
+    "code_region": "DE-R",
+    "taux": "7.00",
+    "est_defaut": false
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 6,
+  "fields": {
+    "type_taxe": 4,
+    "region": "Royaume-Uni",
+    "code_region": "UK",
+    "taux": "20.00",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 7,
+  "fields": {
+    "type_taxe": 5,
+    "region": "Canada",
+    "code_region": "CA",
+    "taux": "5.00",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 8,
+  "fields": {
+    "type_taxe": 6,
+    "region": "Qu├®bec",
+    "code_region": "QC",
+    "taux": "9.98",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 9,
+  "fields": {
+    "type_taxe": 7,
+    "region": "Ontario",
+    "code_region": "ON",
+    "taux": "13.00",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 10,
+  "fields": {
+    "type_taxe": 7,
+    "region": "Nouveau-Brunswick",
+    "code_region": "NB",
+    "taux": "15.00",
+    "est_defaut": false
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 11,
+  "fields": {
+    "type_taxe": 7,
+    "region": "Nouvelle-├ëcosse",
+    "code_region": "NS",
+    "taux": "15.00",
+    "est_defaut": false
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 12,
+  "fields": {
+    "type_taxe": 7,
+    "region": "├Äle-du-Prince-├ëdouard",
+    "code_region": "PE",
+    "taux": "15.00",
+    "est_defaut": false
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 13,
+  "fields": {
+    "type_taxe": 7,
+    "region": "Terre-Neuve",
+    "code_region": "NL",
+    "taux": "15.00",
+    "est_defaut": false
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 14,
+  "fields": {
+    "type_taxe": 8,
+    "region": "California",
+    "code_region": "CA",
+    "taux": "7.25",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 15,
+  "fields": {
+    "type_taxe": 8,
+    "region": "New York",
+    "code_region": "NY",
+    "taux": "8.88",
+    "est_defaut": false
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 16,
+  "fields": {
+    "type_taxe": 8,
+    "region": "Texas",
+    "code_region": "TX",
+    "taux": "6.25",
+    "est_defaut": false
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 17,
+  "fields": {
+    "type_taxe": 8,
+    "region": "Florida",
+    "code_region": "FL",
+    "taux": "6.00",
+    "est_defaut": false
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 18,
+  "fields": {
+    "type_taxe": 9,
+    "region": "Burkina Faso",
+    "code_region": "BF",
+    "taux": "18.00",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 19,
+  "fields": {
+    "type_taxe": 10,
+    "region": "C├┤te d'Ivoire",
+    "code_region": "CI",
+    "taux": "18.00",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 20,
+  "fields": {
+    "type_taxe": 11,
+    "region": "S├®n├®gal",
+    "code_region": "SN",
+    "taux": "18.00",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 21,
+  "fields": {
+    "type_taxe": 12,
+    "region": "Mali",
+    "code_region": "ML",
+    "taux": "18.00",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 22,
+  "fields": {
+    "type_taxe": 13,
+    "region": "Niger",
+    "code_region": "NE",
+    "taux": "19.00",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 23,
+  "fields": {
+    "type_taxe": 14,
+    "region": "Togo",
+    "code_region": "TG",
+    "taux": "18.00",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 24,
+  "fields": {
+    "type_taxe": 15,
+    "region": "B├®nin",
+    "code_region": "BJ",
+    "taux": "18.00",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 25,
+  "fields": {
+    "type_taxe": 16,
+    "region": "Cameroun",
+    "code_region": "CM",
+    "taux": "19.25",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 26,
+  "fields": {
+    "type_taxe": 17,
+    "region": "Gabon",
+    "code_region": "GA",
+    "taux": "18.00",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 27,
+  "fields": {
+    "type_taxe": 18,
+    "region": "Maroc",
+    "code_region": "MA",
+    "taux": "20.00",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 28,
+  "fields": {
+    "type_taxe": 19,
+    "region": "Tunisie",
+    "code_region": "TN",
+    "taux": "19.00",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 29,
+  "fields": {
+    "type_taxe": 20,
+    "region": "Afrique du Sud",
+    "code_region": "ZA",
+    "taux": "15.00",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 30,
+  "fields": {
+    "type_taxe": 21,
+    "region": "Nigeria",
+    "code_region": "NG",
+    "taux": "7.50",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 31,
+  "fields": {
+    "type_taxe": 22,
+    "region": "Inde standard",
+    "code_region": "IN",
+    "taux": "18.00",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 32,
+  "fields": {
+    "type_taxe": 22,
+    "region": "Inde r├®duit",
+    "code_region": "IN-R",
+    "taux": "12.00",
+    "est_defaut": false
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 33,
+  "fields": {
+    "type_taxe": 23,
+    "region": "S├úo Paulo",
+    "code_region": "SP",
+    "taux": "18.00",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 34,
+  "fields": {
+    "type_taxe": 23,
+    "region": "Rio de Janeiro",
+    "code_region": "RJ",
+    "taux": "18.00",
+    "est_defaut": false
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 35,
+  "fields": {
+    "type_taxe": 24,
+    "region": "Br├®sil",
+    "code_region": "BR",
+    "taux": "5.00",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 36,
+  "fields": {
+    "type_taxe": 26,
+    "region": "Australie",
+    "code_region": "AU",
+    "taux": "10.00",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 37,
+  "fields": {
+    "type_taxe": 27,
+    "region": "Nouvelle-Z├®lande",
+    "code_region": "NZ",
+    "taux": "15.00",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 38,
+  "fields": {
+    "type_taxe": 28,
+    "region": "Japon",
+    "code_region": "JP",
+    "taux": "10.00",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.tauxtaxe",
+  "pk": 39,
+  "fields": {
+    "type_taxe": 29,
+    "region": "Mexique",
+    "code_region": "MX",
+    "taux": "16.00",
+    "est_defaut": true
+  }
+},
+{
+  "model": "produits.province",
+  "pk": 1,
+  "fields": {
+    "pays": 24,
+    "code": "QC",
+    "nom": "Qu├®bec",
+    "tps": "5.00",
+    "tvq": "9.98",
+    "tvh": false
+  }
+},
+{
+  "model": "produits.province",
+  "pk": 2,
+  "fields": {
+    "pays": 24,
+    "code": "ON",
+    "nom": "Ontario",
+    "tps": "0.00",
+    "tvq": "0.00",
+    "tvh": true
+  }
+},
+{
+  "model": "produits.province",
+  "pk": 3,
+  "fields": {
+    "pays": 24,
+    "code": "BC",
+    "nom": "Colombie-Britannique",
+    "tps": "5.00",
+    "tvq": "7.00",
+    "tvh": false
+  }
+},
+{
+  "model": "produits.province",
+  "pk": 4,
+  "fields": {
+    "pays": 24,
+    "code": "AB",
+    "nom": "Alberta",
+    "tps": "5.00",
+    "tvq": "0.00",
+    "tvh": false
+  }
+},
+{
+  "model": "produits.province",
+  "pk": 5,
+  "fields": {
+    "pays": 24,
+    "code": "MB",
+    "nom": "Manitoba",
+    "tps": "5.00",
+    "tvq": "7.00",
+    "tvh": false
+  }
+},
+{
+  "model": "produits.province",
+  "pk": 6,
+  "fields": {
+    "pays": 24,
+    "code": "SK",
+    "nom": "Saskatchewan",
+    "tps": "5.00",
+    "tvq": "6.00",
+    "tvh": false
+  }
+},
+{
+  "model": "produits.province",
+  "pk": 7,
+  "fields": {
+    "pays": 24,
+    "code": "NB",
+    "nom": "Nouveau-Brunswick",
+    "tps": "0.00",
+    "tvq": "0.00",
+    "tvh": true
+  }
+},
+{
+  "model": "produits.province",
+  "pk": 8,
+  "fields": {
+    "pays": 24,
+    "code": "NS",
+    "nom": "Nouvelle-├ëcosse",
+    "tps": "0.00",
+    "tvq": "0.00",
+    "tvh": true
+  }
+},
+{
+  "model": "produits.province",
+  "pk": 9,
+  "fields": {
+    "pays": 24,
+    "code": "PE",
+    "nom": "├Äle-du-Prince-├ëdouard",
+    "tps": "0.00",
+    "tvq": "0.00",
+    "tvh": true
+  }
+},
+{
+  "model": "produits.province",
+  "pk": 10,
+  "fields": {
+    "pays": 24,
+    "code": "NL",
+    "nom": "Terre-Neuve-et-Labrador",
+    "tps": "0.00",
+    "tvq": "0.00",
+    "tvh": true
+  }
+},
+{
+  "model": "produits.province",
+  "pk": 11,
+  "fields": {
+    "pays": 24,
+    "code": "YT",
+    "nom": "Yukon",
+    "tps": "5.00",
+    "tvq": "0.00",
+    "tvh": false
+  }
+},
+{
+  "model": "produits.province",
+  "pk": 12,
+  "fields": {
+    "pays": 24,
+    "code": "NT",
+    "nom": "Territoires du Nord-Ouest",
+    "tps": "5.00",
+    "tvq": "0.00",
+    "tvh": false
+  }
+},
+{
+  "model": "produits.province",
+  "pk": 13,
+  "fields": {
+    "pays": 24,
+    "code": "NU",
+    "nom": "Nunavut",
+    "tps": "5.00",
+    "tvq": "0.00",
+    "tvh": false
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 2,
+  "fields": {
+    "reference": "REF-04",
+    "nom": "DESIGN",
+    "slug": "ref-04-design",
+    "description": "",
+    "categorie": 2,
+    "prix_ht": "1500.00",
+    "pays": null,
+    "type_taxe": null,
+    "taux_taxe_personnalise": "0.00",
+    "province": null,
+    "unite_vente": null,
+    "unite": "service",
+    "stock": null,
+    "stock_alerte": null,
+    "user": 1,
+    "actif": true,
+    "date_creation": "2026-03-13T02:48:39.861Z",
+    "date_modification": "2026-03-13T02:48:39.861Z"
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 3,
+  "fields": {
+    "reference": "REF-05",
+    "nom": "Logiciel",
+    "slug": "ref-05-logiciel",
+    "description": "",
+    "categorie": 2,
+    "prix_ht": "120.00",
+    "pays": 24,
+    "type_taxe": null,
+    "taux_taxe_personnalise": "0.00",
+    "province": null,
+    "unite_vente": null,
+    "unite": "service",
+    "stock": null,
+    "stock_alerte": null,
+    "user": 1,
+    "actif": true,
+    "date_creation": "2026-03-13T03:51:27.862Z",
+    "date_modification": "2026-03-13T03:51:27.862Z"
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 4,
+  "fields": {
+    "reference": "REF-09",
+    "nom": "cli",
+    "slug": "ref-09-cli",
+    "description": "",
+    "categorie": 1,
+    "prix_ht": "100.00",
+    "pays": 2,
+    "type_taxe": null,
+    "taux_taxe_personnalise": "0.00",
+    "province": null,
+    "unite_vente": null,
+    "unite": "service",
+    "stock": null,
+    "stock_alerte": null,
+    "user": 1,
+    "actif": true,
+    "date_creation": "2026-03-13T05:04:04.858Z",
+    "date_modification": "2026-03-13T05:04:04.858Z"
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 6,
+  "fields": {
+    "reference": "REF-030",
+    "nom": "FREEEE",
+    "slug": "ref-030-freeee",
+    "description": "BONJOUR",
+    "categorie": 2,
+    "prix_ht": "12000.00",
+    "pays": 2,
+    "type_taxe": null,
+    "taux_taxe_personnalise": "0.00",
+    "province": null,
+    "unite_vente": null,
+    "unite": "service",
+    "stock": null,
+    "stock_alerte": null,
+    "user": 1,
+    "actif": true,
+    "date_creation": "2026-03-13T14:17:39.004Z",
+    "date_modification": "2026-03-13T14:17:39.004Z"
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 7,
+  "fields": {
+    "reference": "REF-045",
+    "nom": "MANGE",
+    "slug": "ref-045-mange",
+    "description": "",
+    "categorie": 2,
+    "prix_ht": "12000.00",
+    "pays": 40,
+    "type_taxe": null,
+    "taux_taxe_personnalise": "0.00",
+    "province": null,
+    "unite_vente": null,
+    "unite": "m2",
+    "stock": null,
+    "stock_alerte": null,
+    "user": 1,
+    "actif": false,
+    "date_creation": "2026-03-16T06:36:24.530Z",
+    "date_modification": "2026-03-16T15:11:01.738Z"
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 8,
+  "fields": {
+    "reference": "REF-0093",
+    "nom": "graphisme",
+    "slug": "ref-0093-graphisme",
+    "description": "video graphie",
+    "categorie": 2,
+    "prix_ht": "4999.78",
+    "pays": 2,
+    "type_taxe": null,
+    "taux_taxe_personnalise": "0.00",
+    "province": null,
+    "unite_vente": null,
+    "unite": "service",
+    "stock": null,
+    "stock_alerte": null,
+    "user": 1,
+    "actif": true,
+    "date_creation": "2026-03-16T15:10:48.462Z",
+    "date_modification": "2026-03-18T13:44:22.551Z"
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 10,
+  "fields": {
+    "reference": "AB-001",
+    "nom": "Analyse de donn├®es",
+    "slug": "an-001-analyse-de-donnees",
+    "description": "Analyse de donn├®es",
+    "categorie": 4,
+    "prix_ht": "500.00",
+    "pays": 1,
+    "type_taxe": null,
+    "taux_taxe_personnalise": "0.00",
+    "province": null,
+    "unite_vente": null,
+    "unite": "piece",
+    "stock": null,
+    "stock_alerte": null,
+    "user": 21,
+    "actif": true,
+    "date_creation": "2026-03-18T12:35:42.992Z",
+    "date_modification": "2026-03-18T13:44:09.683Z"
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 11,
+  "fields": {
+    "reference": "REF001",
+    "nom": "Analyse de donn├®es",
+    "slug": "ref001-analyse-de-donnees",
+    "description": "Analyse de donn├®es",
+    "categorie": 5,
+    "prix_ht": "20.00",
+    "pays": 24,
+    "type_taxe": null,
+    "taux_taxe_personnalise": "0.00",
+    "province": 1,
+    "unite_vente": null,
+    "unite": "heure",
+    "stock": null,
+    "stock_alerte": null,
+    "user": 14,
+    "actif": true,
+    "date_creation": "2026-03-18T13:40:21.072Z",
+    "date_modification": "2026-03-18T13:40:21.072Z"
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 12,
+  "fields": {
+    "reference": "REF007",
+    "nom": "Ordinateur core i7  8Go RAM SSD 520 Go",
+    "slug": "ref007-ordinateur-core-i7-8go-ram-ssd-520-go",
+    "description": "juste un pc slim pour le coding",
+    "categorie": 8,
+    "prix_ht": "250000.00",
+    "pays": 6,
+    "type_taxe": null,
+    "taux_taxe_personnalise": "0.00",
+    "province": null,
+    "unite_vente": null,
+    "unite": "piece",
+    "stock": null,
+    "stock_alerte": null,
+    "user": 24,
+    "actif": true,
+    "date_creation": "2026-03-18T13:48:56.848Z",
+    "date_modification": "2026-03-18T13:51:50.825Z"
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 13,
+  "fields": {
+    "reference": "Ref-03",
+    "nom": "Facebook",
+    "slug": "ref-03-facebook",
+    "description": "",
+    "categorie": 20,
+    "prix_ht": "12.00",
+    "pays": 34,
+    "type_taxe": null,
+    "taux_taxe_personnalise": "0.00",
+    "province": null,
+    "unite_vente": null,
+    "unite": "service",
+    "stock": null,
+    "stock_alerte": null,
+    "user": 20,
+    "actif": true,
+    "date_creation": "2026-03-18T15:28:47.082Z",
+    "date_modification": "2026-03-18T15:28:47.082Z"
+  }
+}
+]

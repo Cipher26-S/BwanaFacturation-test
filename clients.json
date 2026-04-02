@@ -1,0 +1,242 @@
+﻿[
+{
+  "model": "clients.client",
+  "pk": 8,
+  "fields": {
+    "utilisateur": 1,
+    "nom": "kone",
+    "prenom": "abdoul",
+    "email": "basolabe@gmail.com",
+    "indicatif": "+243",
+    "telephone": "23232323",
+    "pays_obj": 11,
+    "adresse": "rue matoubou",
+    "ville": "Brassaville",
+    "code_postal": "1000",
+    "province": "Haut-Katanga",
+    "entreprise": "faso lab",
+    "logo": "clients/logos/logo_final_png.png",
+    "date_creation": "2026-03-16T15:09:35.901Z"
+  }
+},
+{
+  "model": "clients.client",
+  "pk": 9,
+  "fields": {
+    "utilisateur": 1,
+    "nom": "Ouedraogo",
+    "prenom": "Issouf",
+    "email": "kabore2@gmail.com",
+    "indicatif": "+226",
+    "telephone": "54975802",
+    "pays_obj": 11,
+    "adresse": "Burkina Faso",
+    "ville": "Ouagadougou",
+    "code_postal": "1000",
+    "province": "kadiogo",
+    "entreprise": "RIDE DEG",
+    "logo": "clients/logos/logo_final_png_HG7YnEx.png",
+    "date_creation": "2026-03-16T15:21:18.981Z"
+  }
+},
+{
+  "model": "clients.client",
+  "pk": 11,
+  "fields": {
+    "utilisateur": 21,
+    "nom": "kiendrebeogo",
+    "prenom": "thierry",
+    "email": "thierryk1996@gmail.com",
+    "indicatif": "+226",
+    "telephone": "55855275",
+    "pays_obj": 11,
+    "adresse": "Bp 36",
+    "ville": "Koudougou",
+    "code_postal": "BP 36",
+    "province": "Kadiogo",
+    "entreprise": "Datawise",
+    "logo": "clients/logos/Photo_Thierry.png",
+    "date_creation": "2026-03-18T12:32:23.374Z"
+  }
+},
+{
+  "model": "clients.client",
+  "pk": 12,
+  "fields": {
+    "utilisateur": 14,
+    "nom": "Bwana",
+    "prenom": "Services",
+    "email": "info@bwanaservices.ca",
+    "indicatif": "+1",
+    "telephone": "6398322779",
+    "pays_obj": 11,
+    "adresse": "4463 BLV DES GRANDES PRAIRIES",
+    "ville": "RDL",
+    "code_postal": "G5R 4T5",
+    "province": "QC",
+    "entreprise": "Bwana Services Informatique Inc.",
+    "logo": "clients/logos/Bwana_Services_English.png",
+    "date_creation": "2026-03-18T13:24:58.782Z"
+  }
+},
+{
+  "model": "clients.client",
+  "pk": 13,
+  "fields": {
+    "utilisateur": 24,
+    "nom": "GROUP",
+    "prenom": "CLIENT",
+    "email": "demo@entreprise.com",
+    "indicatif": "+226",
+    "telephone": "+228 97 16 71 99",
+    "pays_obj": 11,
+    "adresse": "",
+    "ville": "",
+    "code_postal": "",
+    "province": "",
+    "entreprise": "",
+    "logo": "",
+    "date_creation": "2026-03-18T13:41:01.532Z"
+  }
+},
+{
+  "model": "clients.client",
+  "pk": 14,
+  "fields": {
+    "utilisateur": 20,
+    "nom": "Faso",
+    "prenom": "Tree",
+    "email": "kabore@gmail.com",
+    "indicatif": "+33",
+    "telephone": "54975802",
+    "pays_obj": 11,
+    "adresse": "Paris",
+    "ville": "Paris",
+    "code_postal": "1020",
+    "province": "Paris",
+    "entreprise": "Clique fr",
+    "logo": "clients/logos/1000827207.jpg",
+    "date_creation": "2026-03-18T15:30:31.452Z"
+  }
+},
+{
+  "model": "clients.client",
+  "pk": 15,
+  "fields": {
+    "utilisateur": 1,
+    "nom": "Jan",
+    "prenom": "Ives",
+    "email": "jan@gmail.com",
+    "indicatif": "+1",
+    "telephone": "21212121",
+    "pays_obj": 11,
+    "adresse": "Montréa",
+    "ville": "Montr├®al",
+    "code_postal": "01 BP",
+    "province": "Montréal",
+    "entreprise": "M&D group",
+    "logo": "clients/logos/brain_7827754.png",
+    "date_creation": "2026-03-28T08:16:28.814Z"
+  }
+},
+{
+  "model": "clients.client",
+  "pk": 16,
+  "fields": {
+    "utilisateur": 1,
+    "nom": "Konda",
+    "prenom": "Ibrahima",
+    "email": "kondaibrahima5@gmail.com",
+    "indicatif": "+1",
+    "telephone": "54975802",
+    "pays_obj": 11,
+    "adresse": "Montr├®al",
+    "ville": "Montr├®al",
+    "code_postal": "01 BP",
+    "province": "kadiogo",
+    "entreprise": "Faso shopk",
+    "logo": "clients/logos/4_fa├ºons_dappr├¬ter_les_brochettes_grill├®es_sur_le_barbecue.jpeg",
+    "date_creation": "2026-03-28T08:34:30.108Z"
+  }
+},
+{
+  "model": "clients.client",
+  "pk": 17,
+  "fields": {
+    "utilisateur": 1,
+    "nom": "Jan",
+    "prenom": "Ives",
+    "email": "janz@gmail.com",
+    "indicatif": "+1",
+    "telephone": "3344344",
+    "pays_obj": 11,
+    "adresse": "Montréal",
+    "ville": "Montréal",
+    "code_postal": "1000",
+    "province": "Quebec",
+    "entreprise": "CLIENT NOM ENTREPRISE",
+    "logo": "clients/logos/74c1cd764bb461c63c0065e0df709dbf.png",
+    "date_creation": "2026-03-30T12:31:50.869Z"
+  }
+},
+{
+  "model": "clients.client",
+  "pk": 18,
+  "fields": {
+    "utilisateur": 1,
+    "nom": "Test Canada",
+    "prenom": "",
+    "email": "test@canada.com",
+    "indicatif": "+226",
+    "telephone": "",
+    "pays_obj": 1,
+    "adresse": "123 rue Test",
+    "ville": "Montréal",
+    "code_postal": "",
+    "province": "",
+    "entreprise": "",
+    "logo": "",
+    "date_creation": "2026-03-30T12:37:51.444Z"
+  }
+},
+{
+  "model": "clients.client",
+  "pk": 19,
+  "fields": {
+    "utilisateur": 1,
+    "nom": "yacou",
+    "prenom": "issa",
+    "email": "yacou@gmail.com",
+    "indicatif": "+1",
+    "telephone": "222222",
+    "pays_obj": 1,
+    "adresse": "Montr├®al",
+    "ville": "Montr├®al",
+    "code_postal": "1000",
+    "province": "Quebec",
+    "entreprise": "tecyac",
+    "logo": "clients/logos/74c1cd764bb461c63c0065e0df709dbf_1Nq1UXr.png",
+    "date_creation": "2026-03-30T12:46:41.437Z"
+  }
+},
+{
+  "model": "clients.client",
+  "pk": 20,
+  "fields": {
+    "utilisateur": 1,
+    "nom": "M. Chapwouo",
+    "prenom": "Landry Paul",
+    "email": "Info@Bwanaservice.ca",
+    "indicatif": "+1",
+    "telephone": "4444444",
+    "pays_obj": 1,
+    "adresse": "Montréal Qu├®bec",
+    "ville": "Montréal",
+    "code_postal": "H1R 1A5",
+    "province": "Québec",
+    "entreprise": "Bwana Tech",
+    "logo": "clients/logos/logo.png",
+    "date_creation": "2026-04-02T10:27:58.744Z"
+  }
+}
+]
