@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 from django.contrib.messages import constants as messages
+from django.core.exceptions import ImproperlyConfigured
 
 # Charger le fichier .env
 load_dotenv()
@@ -13,14 +14,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SÉCURITÉ
 # ══════════════════════════════════════════
 SECRET_KEY = os.environ.get(
-    'SECRET_KEY',
-    'django-insecure-ij+$)-5x_aq7_jjjtvur-%mjegs4k*%4++1)&!)%9+v1f%p8^r'
+    'SECRET_KEY'
 )
+if not SECRET_KEY:
+    raise ImproperlyConfigured('SECRET_KEY doit être défini dans l’environnement.')
 
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-# ⚠️ Domains autorisés
-ALLOWED_HOSTS = ['srv1230775.hstgr.cloud', '127.0.0.1', 'localhost']
+# Domaines autorisés, complétés par ALLOWED_HOSTS dans .env.
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.environ.get(
+        'ALLOWED_HOSTS',
+        'srv1230775.hstgr.cloud,127.0.0.1,localhost'
+    ).split(',')
+    if host.strip()
+]
 
 # Redirections HTTPS – seulement en production
 if DEBUG:
@@ -33,7 +42,6 @@ else:
     SESSION_COOKIE_SECURE = True
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-CSRF_COOKIE_HTTPONLY = True
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = 'Lax'
 
@@ -192,7 +200,12 @@ X_FRAME_OPTIONS = 'DENY'
 
 # CSRF trusted origins
 CSRF_TRUSTED_ORIGINS = [
-    'https://srv1230775.hstgr.cloud',
+    origin.strip()
+    for origin in os.environ.get(
+        'CSRF_TRUSTED_ORIGINS',
+        'https://srv1230775.hstgr.cloud'
+    ).split(',')
+    if origin.strip()
 ]
 
 if DEBUG:

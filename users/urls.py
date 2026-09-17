@@ -12,6 +12,7 @@ urlpatterns = [
     # ── Activation email
     path('activer/<uidb64>/<token>/',
          views.activer_compte, name='activer_compte'),
+    path('renvoyer-activation/', views.renvoyer_activation, name='renvoyer_activation'),
 
     # ── Mot de passe oublié
     path('password-reset/',

@@ -5,13 +5,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import SetPasswordForm
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib import messages
-from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.conf import settings
 from .tokens import token_activation
 from .forms import InscriptionForm
+from .email_service import send_transactional_email
 
 
 # ══════════════════════════════════════════
@@ -44,20 +44,15 @@ def inscription(request):
                     'users/emails/activation_email.html',
                     {'user': user, 'activation_url': activation_url}
                 )
-                send_mail(
-                    subject='🧾 Bwana Facturation — Activez votre compte',
-                    message=f'Activation : {activation_url}',
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=[user.email],
-                    html_message=html_message,
-                    fail_silently=False,
+                send_transactional_email(
+                    subject='Activation de votre compte Bwana Facturation',
+                    recipient=user.email,
+                    text_body=f'Activation : {activation_url}',
+                    html_body=html_message,
                 )
             except Exception:
-                user.is_active = True
-                user.save()
-                login(request, user)
-                messages.success(request, "Compte créé avec succès !")
-                return redirect('tableau_de_bord')
+                messages.error(request, "Le compte a été créé mais l'email d'activation n'a pas pu être envoyé. Réessayez plus tard ou contactez le support.")
+                return render(request, 'users/activation_envoyee.html', {'email': user.email})
 
             return render(request, 'users/activation_envoyee.html', {'email': user.email})
     else:
@@ -82,6 +77,37 @@ def activer_compte(request, uidb64, token):
         return render(request, 'users/activation_succes.html')
     else:
         return render(request, 'users/activation_invalide.html')
+
+
+def renvoyer_activation(request):
+    """Renvoie un lien d'activation sans jamais activer un compte automatiquement."""
+    if request.method != 'POST':
+        return redirect('inscription')
+
+    email = request.POST.get('email', '').strip()
+    user = User.objects.filter(email=email, is_active=False).first()
+    if user:
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+        token = token_activation.make_token(user)
+        activation_url = f"{settings.SITE_URL}/users/activer/{uid}/{token}/"
+        try:
+            html_message = render_to_string(
+                'users/emails/activation_email.html',
+                {'user': user, 'activation_url': activation_url}
+            )
+            send_transactional_email(
+                subject='Activation de votre compte Bwana Facturation',
+                recipient=user.email,
+                text_body=f'Activation : {activation_url}',
+                html_body=html_message,
+            )
+        except Exception:
+            messages.error(request, "L'email d'activation n'a pas pu être envoyé. Réessayez plus tard.")
+            return render(request, 'users/activation_envoyee.html', {'email': email})
+
+    # Même réponse pour ne pas révéler l'existence d'un compte.
+    messages.success(request, "Si un compte non activé correspond à cette adresse, un nouveau lien a été envoyé.")
+    return render(request, 'users/activation_envoyee.html', {'email': email})
 
 
 # ══════════════════════════════════════════
@@ -215,16 +241,17 @@ def password_reset_request(request):
                 'users/emails/reset_password_email.html',
                 {'user': user, 'reset_url': reset_url}
             )
-            send_mail(
-                subject='🔑 Bwana Facturation — Réinitialisation mot de passe',
-                message=f'Reset : {reset_url}',
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[user.email],
-                html_message=html_message,
-                fail_silently=False,
+            send_transactional_email(
+                subject='Réinitialisation de votre mot de passe Bwana Facturation',
+                recipient=user.email,
+                text_body=f'Reset : {reset_url}',
+                html_body=html_message,
             )
         except User.DoesNotExist:
             pass
+        except Exception:
+            messages.error(request, "L'email de réinitialisation n'a pas pu être envoyé. Réessayez plus tard.")
+            return render(request, 'users/password_reset.html')
         return render(request, 'users/password_reset_envoye.html')
     return render(request, 'users/password_reset.html')
 

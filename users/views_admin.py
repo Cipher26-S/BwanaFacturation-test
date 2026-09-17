@@ -4,14 +4,16 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db.models import Count
 from django.utils import timezone
-from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from functools import wraps
+import logging
 from .admin_models import LoginHistory, Annonce, MaintenanceMode, ConfigurationEmail  # ✅ Ajout ConfigurationEmail
-from django.core.mail import get_connection, EmailMessage  # ✅ Pour les tests email
+from .email_service import send_transactional_email
+
+logger = logging.getLogger(__name__)
 
 
 # ══════════════════════════════════════════
@@ -217,17 +219,15 @@ def admin_reset_password(request, pk):
             'users/emails/reset_password_email.html',
             {'user': user, 'reset_url': reset_url}
         )
-        send_mail(
+        send_transactional_email(
             subject='🔑 Bwana Facturation — Réinitialisation de votre mot de passe',
-            message=f'Reset : {reset_url}',
-            from_email=settings.DEFAULT_FROM_EMAIL,
-            recipient_list=[user.email],
-            html_message=html_message,
-            fail_silently=False,
+            text_body=f'Reset : {reset_url}',
+            html_body=html_message,
         )
         messages.success(request, f"✅ Email de réinitialisation envoyé à {user.email}.")
-    except Exception as e:
-        messages.error(request, f"❌ Erreur envoi email : {e}")
+    except Exception:
+        logger.exception("Réinitialisation administrateur impossible pour l'utilisateur %s", user.pk)
+        messages.error(request, "❌ L'e-mail de réinitialisation n'a pas pu être envoyé.")
     return redirect('admin_detail_user', pk=pk)
 
 
@@ -453,33 +453,23 @@ def admin_config_email_tester(request, pk):
             return redirect('admin_config_email')
         
         try:
-            connection = get_connection(
-                host=config.host,
-                port=config.port,
-                username=config.username,
-                password=config.password,
-                use_tls=config.use_tls,
-                use_ssl=config.use_ssl,
-            )
-            
-            email = EmailMessage(
+            send_transactional_email(
                 subject=f"Test email - {config.nom}",
-                body=f"Ceci est un email de test depuis la configuration '{config.nom}'.\n\n"
+                text_body=f"Ceci est un email de test depuis la configuration '{config.nom}'.\n\n"
                      f"Date du test : {timezone.now().strftime('%d/%m/%Y %H:%M:%S')}\n\n"
                      f"Si vous recevez ce message, la configuration fonctionne correctement.",
-                from_email=config.from_email,
-                to=[email_test],
-                connection=connection,
+                recipient=email_test,
+                email_config=config,
             )
-            email.send(fail_silently=False)
             
             config.test_envoye = True
             config.date_dernier_test = timezone.now()
             config.save()
             
             messages.success(request, f"✅ Email test envoyé avec succès à {email_test} depuis {config.nom}.")
-        except Exception as e:
-            messages.error(request, f"❌ Erreur lors de l'envoi du test : {str(e)}")
+        except Exception:
+            logger.exception("Test de configuration email %s impossible", config.pk)
+            messages.error(request, "❌ Le test de configuration e-mail a échoué.")
         
         return redirect('admin_config_email')
     

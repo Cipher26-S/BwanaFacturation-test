@@ -1,0 +1,641 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [7 0 R 9 0 R 11 0 R 13 0 R] /Count 4 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Courier >>
+endobj
+6 0 obj
+<< /Length 3446 >>
+stream
+BT
+/F2 22 Tf
+54 800 Td
+(Guide debutant pour pousser un projet dans un) Tj
+-54 -26 Td
+/F2 22 Tf
+54 774 Td
+(repo GitHub) Tj
+-54 -26 Td
+/F1 10 Tf
+54 748 Td
+(Ce document explique comment envoyer un projet local vers un depot GitHub, les) Tj
+-54 -14 Td
+/F1 10 Tf
+54 734 Td
+(problemes frequents, et comment les resoudre. L'exemple reprend le cas du projet) Tj
+-54 -14 Td
+/F1 10 Tf
+54 720 Td
+(BwanaFacturation.) Tj
+-54 -14 Td
+/F2 15 Tf
+54 706 Td
+(1. Comprendre les mots importants) Tj
+-54 -19 Td
+/F1 10 Tf
+54 687 Td
+(Git est l'outil qui garde l'historique du code sur ton ordinateur. GitHub est le site) Tj
+-54 -14 Td
+/F1 10 Tf
+54 673 Td
+(qui heberge ton depot en ligne. Un commit est une sauvegarde officielle. Un remote est) Tj
+-54 -14 Td
+/F1 10 Tf
+54 659 Td
+(l'adresse du depot en ligne, souvent appelee origin. Un push envoie tes commits vers) Tj
+-54 -14 Td
+/F1 10 Tf
+54 645 Td
+(GitHub.) Tj
+-54 -14 Td
+/F2 15 Tf
+54 631 Td
+(2. Se placer dans le bon dossier) Tj
+-54 -19 Td
+/F1 10 Tf
+54 612 Td
+(Avant toute commande, il faut entrer dans le dossier du projet. Dans notre cas, le) Tj
+-54 -14 Td
+/F1 10 Tf
+54 598 Td
+(vrai dossier Git etait gestion_devis_factures.) Tj
+-54 -14 Td
+/F3 9 Tf
+54 584 Td
+(cd "C:\\Users\\USER\\Downloads\\Telegram) Tj
+-54 -13 Td
+/F3 9 Tf
+54 571 Td
+(Desktop\\Code_source_BwanaFacturation\\gestion_devis_factures") Tj
+-54 -13 Td
+/F1 10 Tf
+54 558 Td
+(Ensuite, on verifie que Git reconnait le projet.) Tj
+-54 -14 Td
+/F3 9 Tf
+54 544 Td
+(git status) Tj
+-54 -13 Td
+/F1 10 Tf
+54 531 Td
+(Si Git affiche une branche comme main, tu es dans le bon depot. Si Git dit que ce) Tj
+-54 -14 Td
+/F1 10 Tf
+54 517 Td
+(n'est pas un depot Git, tu n'es pas dans le bon dossier ou le projet n'a pas encore) Tj
+-54 -14 Td
+/F1 10 Tf
+54 503 Td
+(ete initialise avec Git.) Tj
+-54 -14 Td
+/F2 15 Tf
+54 489 Td
+(3. Verifier le depot GitHub configure) Tj
+-54 -19 Td
+/F1 10 Tf
+54 470 Td
+(Pour voir ou ton projet va etre pousse, utilise cette commande :) Tj
+-54 -14 Td
+/F3 9 Tf
+54 456 Td
+(git remote -v) Tj
+-54 -13 Td
+/F1 10 Tf
+54 443 Td
+(Un resultat correct ressemble a ceci :) Tj
+-54 -14 Td
+/F3 9 Tf
+54 429 Td
+(origin  https://github.com/bwanatechnologie-hub/BwanaFacturation.git \(fetch\)) Tj
+-54 -13 Td
+/F3 9 Tf
+54 416 Td
+(origin  https://github.com/bwanatechnologie-hub/BwanaFacturation.git \(push\)) Tj
+-54 -13 Td
+/F1 10 Tf
+54 403 Td
+(Si l'adresse est mauvaise, on la remplace :) Tj
+-54 -14 Td
+/F3 9 Tf
+54 389 Td
+(git remote set-url origin https://github.com/bwanatechnologie-) Tj
+-54 -13 Td
+/F3 9 Tf
+54 376 Td
+(hub/BwanaFacturation.git) Tj
+-54 -13 Td
+/F1 10 Tf
+54 363 Td
+(Si aucun remote n'existe encore, on l'ajoute :) Tj
+-54 -14 Td
+/F3 9 Tf
+54 349 Td
+(git remote add origin https://github.com/bwanatechnologie-hub/BwanaFacturation.git) Tj
+-54 -13 Td
+/F2 15 Tf
+54 336 Td
+(4. Verifier ce qui va etre envoye) Tj
+-54 -19 Td
+/F1 10 Tf
+54 317 Td
+(Avant de pousser, regarde l'etat du projet :) Tj
+-54 -14 Td
+/F3 9 Tf
+54 303 Td
+(git status --short --branch) Tj
+-54 -13 Td
+/F1 10 Tf
+54 290 Td
+(S'il y a des fichiers modifies, il faut les ajouter puis creer un commit :) Tj
+-54 -14 Td
+/F3 9 Tf
+54 276 Td
+(git add .) Tj
+-54 -13 Td
+/F3 9 Tf
+54 263 Td
+(git commit -m "Description courte des changements") Tj
+-54 -13 Td
+/F2 10 Tf
+54 250 Td
+(Attention : Attention : git add . ajoute beaucoup de choses. Avant de) Tj
+-54 -14 Td
+/F1 10 Tf
+54 236 Td
+(l'utiliser, verifie que tu ne vas pas envoyer des secrets, un fichier .env,) Tj
+-54 -14 Td
+/F1 8 Tf
+500 32 Td
+(Page 1) Tj
+ET
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 6 0 R >>
+endobj
+8 0 obj
+<< /Length 3394 >>
+stream
+BT
+/F1 10 Tf
+54 800 Td
+(une base de donnees locale, des donnees clients, ou node_modules.) Tj
+-54 -14 Td
+/F2 15 Tf
+54 786 Td
+(5. Pousser vers GitHub) Tj
+-54 -19 Td
+/F1 10 Tf
+54 767 Td
+(La commande principale est :) Tj
+-54 -14 Td
+/F3 9 Tf
+54 753 Td
+(git push -u origin main) Tj
+-54 -13 Td
+/F1 10 Tf
+54 740 Td
+(Le -u dit a Git que ta branche locale main doit suivre la branche main sur GitHub.) Tj
+-54 -14 Td
+/F1 10 Tf
+54 726 Td
+(Apres ca, les prochains envois peuvent souvent se faire avec une commande plus courte) Tj
+-54 -14 Td
+/F1 10 Tf
+54 712 Td
+(:) Tj
+-54 -14 Td
+/F3 9 Tf
+54 698 Td
+(git push) Tj
+-54 -13 Td
+/F2 15 Tf
+54 685 Td
+(6. Probleme : Git n'est pas reconnu) Tj
+-54 -19 Td
+/F1 10 Tf
+54 666 Td
+(Erreur possible :) Tj
+-54 -14 Td
+/F3 9 Tf
+54 652 Td
+(git : Le terme git n'est pas reconnu...) Tj
+-54 -13 Td
+/F1 10 Tf
+54 639 Td
+(Cela veut dire que Git n'est pas installe ou n'est pas dans le PATH Windows.) Tj
+-54 -14 Td
+/F1 10 Tf
+54 625 Td
+(Solutions : installer Git pour Windows, fermer et rouvrir PowerShell, ou utiliser un) Tj
+-54 -14 Td
+/F1 10 Tf
+54 611 Td
+(git.exe deja installe ailleurs. Dans notre cas, Git existait dans Visual Studio Build) Tj
+-54 -14 Td
+/F1 10 Tf
+54 597 Td
+(Tools.) Tj
+-54 -14 Td
+/F3 9 Tf
+54 583 Td
+(& "C:\\Program Files \(x86\)\\Microsoft Visual) Tj
+-54 -13 Td
+/F3 9 Tf
+54 570 Td
+(Studio\\2019\\BuildTools\\Common7\\IDE\\CommonExtensions\\Microsoft\\TeamFoundation\\Team) Tj
+-54 -13 Td
+/F3 9 Tf
+54 557 Td
+(Explorer\\Git\\cmd\\git.exe" status) Tj
+-54 -13 Td
+/F2 15 Tf
+54 544 Td
+(7. Probleme : mauvais repo GitHub) Tj
+-54 -19 Td
+/F1 10 Tf
+54 525 Td
+(Erreur possible :) Tj
+-54 -14 Td
+/F3 9 Tf
+54 511 Td
+(remote: Repository not found.) Tj
+-54 -13 Td
+/F3 9 Tf
+54 498 Td
+(fatal: repository 'https://github.com/ancien/repo.git/' not found) Tj
+-54 -13 Td
+/F1 10 Tf
+54 485 Td
+(Cela veut dire que l'adresse du depot est mauvaise ou que ton compte n'a pas acces au) Tj
+-54 -14 Td
+/F1 10 Tf
+54 471 Td
+(depot.) Tj
+-54 -14 Td
+/F1 10 Tf
+54 457 Td
+(Solution : corriger le remote puis verifier :) Tj
+-54 -14 Td
+/F3 9 Tf
+54 443 Td
+(git remote set-url origin https://github.com/bon-owner/bon-repo.git) Tj
+-54 -13 Td
+/F3 9 Tf
+54 430 Td
+(git remote -v) Tj
+-54 -13 Td
+/F2 15 Tf
+54 417 Td
+(8. Probleme : mauvais compte GitHub) Tj
+-54 -19 Td
+/F1 10 Tf
+54 398 Td
+(Erreur possible :) Tj
+-54 -14 Td
+/F3 9 Tf
+54 384 Td
+(remote: Permission to owner/repo.git denied to AncienCompte.) Tj
+-54 -13 Td
+/F3 9 Tf
+54 371 Td
+(fatal: unable to access ... The requested URL returned error: 403) Tj
+-54 -13 Td
+/F1 10 Tf
+54 358 Td
+(Cela veut dire que GitHub a reconnu un compte, mais ce compte n'a pas le droit) Tj
+-54 -14 Td
+/F1 10 Tf
+54 344 Td
+(d'ecrire dans le repo.) Tj
+-54 -14 Td
+/F1 10 Tf
+54 330 Td
+(Dans notre cas, Git utilisait Cipher6-sks alors que le collaborateur attendu etait) Tj
+-54 -14 Td
+/F1 10 Tf
+54 316 Td
+(Cipher26-S.) Tj
+-54 -14 Td
+/F1 10 Tf
+54 302 Td
+(Solutions : verifier que le bon compte est collaborateur avec permission Write, puis) Tj
+-54 -14 Td
+/F1 10 Tf
+54 288 Td
+(supprimer l'ancien identifiant GitHub memorise par Windows.) Tj
+-54 -14 Td
+/F3 9 Tf
+54 274 Td
+(cmdkey /list) Tj
+-54 -13 Td
+/F3 9 Tf
+54 261 Td
+(cmdkey /delete:git:https://github.com) Tj
+-54 -13 Td
+/F1 10 Tf
+54 248 Td
+(Ensuite, relance le push. GitHub demandera une nouvelle connexion dans le navigateur.) Tj
+-54 -14 Td
+/F3 9 Tf
+54 234 Td
+(git push -u origin main) Tj
+-54 -13 Td
+/F1 8 Tf
+500 32 Td
+(Page 2) Tj
+ET
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 8 0 R >>
+endobj
+10 0 obj
+<< /Length 3354 >>
+stream
+BT
+/F2 10 Tf
+54 800 Td
+(Note : Important : user.name dans Git sert surtout a signer les commits. Le) Tj
+-54 -14 Td
+/F1 10 Tf
+54 786 Td
+(droit de pousser depend du compte GitHub authentifie.) Tj
+-54 -14 Td
+/F2 15 Tf
+54 772 Td
+(9. Probleme : le repo distant contient deja quelque chose) Tj
+-54 -19 Td
+/F1 10 Tf
+54 753 Td
+(Erreur possible :) Tj
+-54 -14 Td
+/F3 9 Tf
+54 739 Td
+(! [rejected] main -> main \(fetch first\)) Tj
+-54 -13 Td
+/F3 9 Tf
+54 726 Td
+(error: failed to push some refs) Tj
+-54 -13 Td
+/F3 9 Tf
+54 713 Td
+(hint: Updates were rejected because the remote contains work that you do not have) Tj
+-54 -13 Td
+/F3 9 Tf
+54 700 Td
+(locally.) Tj
+-54 -13 Td
+/F1 10 Tf
+54 687 Td
+(Cela veut dire que GitHub a deja un commit que ton ordinateur n'a pas.) Tj
+-54 -14 Td
+/F1 10 Tf
+54 673 Td
+(Solution propre : recuperer l'etat distant, regarder les differences, puis fusionner.) Tj
+-54 -14 Td
+/F3 9 Tf
+54 659 Td
+(git fetch origin) Tj
+-54 -13 Td
+/F3 9 Tf
+54 646 Td
+(git log --oneline --decorate --graph --left-right main...origin/main) Tj
+-54 -13 Td
+/F1 10 Tf
+54 633 Td
+(Si les deux historiques sont separes, on peut fusionner avec :) Tj
+-54 -14 Td
+/F3 9 Tf
+54 619 Td
+(git merge origin/main --allow-unrelated-histories -m "Fusion du depot distant) Tj
+-54 -13 Td
+/F3 9 Tf
+54 606 Td
+(initial") Tj
+-54 -13 Td
+/F2 15 Tf
+54 593 Td
+(10. Probleme : conflit pendant le merge) Tj
+-54 -19 Td
+/F1 10 Tf
+54 574 Td
+(Erreur possible :) Tj
+-54 -14 Td
+/F3 9 Tf
+54 560 Td
+(CONFLICT \(add/add\): Merge conflict in README.md) Tj
+-54 -13 Td
+/F3 9 Tf
+54 547 Td
+(Automatic merge failed; fix conflicts and then commit the result.) Tj
+-54 -13 Td
+/F1 10 Tf
+54 534 Td
+(Un conflit veut dire que Git ne sait pas quelle version garder.) Tj
+-54 -14 Td
+/F1 10 Tf
+54 520 Td
+(Pour garder ta version locale :) Tj
+-54 -14 Td
+/F3 9 Tf
+54 506 Td
+(git checkout --ours README.md) Tj
+-54 -13 Td
+/F3 9 Tf
+54 493 Td
+(git add README.md) Tj
+-54 -13 Td
+/F3 9 Tf
+54 480 Td
+(git commit --no-edit) Tj
+-54 -13 Td
+/F1 10 Tf
+54 467 Td
+(Pour garder la version GitHub :) Tj
+-54 -14 Td
+/F3 9 Tf
+54 453 Td
+(git checkout --theirs README.md) Tj
+-54 -13 Td
+/F3 9 Tf
+54 440 Td
+(git add README.md) Tj
+-54 -13 Td
+/F3 9 Tf
+54 427 Td
+(git commit --no-edit) Tj
+-54 -13 Td
+/F1 10 Tf
+54 414 Td
+(Apres le commit de fusion, on pousse a nouveau :) Tj
+-54 -14 Td
+/F3 9 Tf
+54 400 Td
+(git push -u origin main) Tj
+-54 -13 Td
+/F2 15 Tf
+54 387 Td
+(11. Probleme : fichiers sensibles ou inutiles dans Git) Tj
+-54 -19 Td
+/F1 10 Tf
+54 368 Td
+(Avant de pousser, verifie les fichiers suivis. Il faut eviter de publier .env,) Tj
+-54 -14 Td
+/F1 10 Tf
+54 354 Td
+(db.sqlite3, node_modules, mots de passe, tokens, donnees clients, utilisateurs,) Tj
+-54 -14 Td
+/F1 10 Tf
+54 340 Td
+(factures ou devis reels.) Tj
+-54 -14 Td
+/F1 10 Tf
+54 326 Td
+(Ajoute les fichiers a ignorer dans .gitignore :) Tj
+-54 -14 Td
+/F3 9 Tf
+54 312 Td
+(.env) Tj
+-54 -13 Td
+/F3 9 Tf
+54 299 Td
+(*.env) Tj
+-54 -13 Td
+/F3 9 Tf
+54 286 Td
+(db.sqlite3) Tj
+-54 -13 Td
+/F3 9 Tf
+54 273 Td
+(node_modules/) Tj
+-54 -13 Td
+/F3 9 Tf
+54 260 Td
+(media/) Tj
+-54 -13 Td
+/F3 9 Tf
+54 247 Td
+(__pycache__/) Tj
+-54 -13 Td
+/F3 9 Tf
+54 234 Td
+(*.pyc) Tj
+-54 -13 Td
+/F1 10 Tf
+54 221 Td
+(Si un fichier est deja suivi par Git, .gitignore ne suffit pas. Il faut le retirer du) Tj
+-54 -14 Td
+/F1 10 Tf
+54 207 Td
+(suivi sans le supprimer de ton ordinateur :) Tj
+-54 -14 Td
+/F1 8 Tf
+500 32 Td
+(Page 3) Tj
+ET
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 10 0 R >>
+endobj
+12 0 obj
+<< /Length 1221 >>
+stream
+BT
+/F3 9 Tf
+54 800 Td
+(git rm --cached .env) Tj
+-54 -13 Td
+/F3 9 Tf
+54 787 Td
+(git rm -r --cached node_modules) Tj
+-54 -13 Td
+/F3 9 Tf
+54 774 Td
+(git add .gitignore) Tj
+-54 -13 Td
+/F3 9 Tf
+54 761 Td
+(git commit -m "Nettoyage des fichiers ignores") Tj
+-54 -13 Td
+/F2 10 Tf
+54 748 Td
+(Attention : Si un secret a deja ete pousse sur GitHub, considere-le comme) Tj
+-54 -14 Td
+/F1 10 Tf
+54 734 Td
+(compromis. Change le mot de passe ou la cle, puis nettoie l'historique si) Tj
+-54 -14 Td
+/F1 10 Tf
+54 720 Td
+(necessaire.) Tj
+-54 -14 Td
+/F2 15 Tf
+54 706 Td
+(12. Resume de notre cas BwanaFacturation) Tj
+-54 -19 Td
+/F1 10 Tf
+54 687 Td
+(On a trouve le vrai dossier Git, corrige le remote vers bwanatechnologie-) Tj
+-54 -14 Td
+/F1 10 Tf
+54 673 Td
+(hub/BwanaFacturation, regle le probleme du mauvais compte GitHub, recupere le commit) Tj
+-54 -14 Td
+/F1 10 Tf
+54 659 Td
+(initial present sur GitHub, fusionne les historiques, resolu le conflit README.md,) Tj
+-54 -14 Td
+/F1 10 Tf
+54 645 Td
+(puis pousse main avec succes.) Tj
+-54 -14 Td
+/F2 10 Tf
+54 631 Td
+(OK : Resultat final : le projet local est synchronise avec GitHub, et main) Tj
+-54 -14 Td
+/F1 10 Tf
+54 617 Td
+(suit origin/main.) Tj
+-54 -14 Td
+/F1 8 Tf
+500 32 Td
+(Page 4) Tj
+ET
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R /F3 5 0 R >> >> /Contents 12 0 R >>
+endobj
+xref
+0 14
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000135 00000 n 
+0000000205 00000 n 
+0000000280 00000 n 
+0000000348 00000 n 
+0000003846 00000 n 
+0000003992 00000 n 
+0000007438 00000 n 
+0000007584 00000 n 
+0000010991 00000 n 
+0000011139 00000 n 
+0000012413 00000 n 
+trailer
+<< /Size 14 /Root 1 0 R >>
+startxref
+12561
+%%EOF

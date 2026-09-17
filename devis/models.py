@@ -5,6 +5,8 @@ from clients.models import Client
 from produits.models import Produit
 import secrets
 from decimal import Decimal
+from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 
 class Devis(models.Model):
@@ -14,6 +16,7 @@ class Devis(models.Model):
         ('rejete_superieur', 'Rejeté par supérieur'),
         ('accepte', 'Accepté'),
         ('refuse', 'Refusé'),
+        ('expire', 'Expiré'),
     ]
 
     # ── Champs existants ──
@@ -94,6 +97,47 @@ class Devis(models.Model):
         """Génère des tokens uniques pour les liens d'approbation et client"""
         self.token_approbation = secrets.token_urlsafe(32)
         self.token_client = secrets.token_urlsafe(32)
+
+    def _transitionner(self, statut, autorises, acteur=None, commentaire=''):
+        """Applique une transition de devis et laisse une trace d'audit."""
+        if self.statut not in autorises:
+            raise ValidationError("Cette transition de devis n'est pas autorisée.")
+        ancien_statut = self.statut
+        self.statut = statut
+        self.save()
+        HistoriqueDevis.objects.create(
+            devis=self, action=statut, ancien_statut=ancien_statut,
+            nouveau_statut=statut, acteur=acteur if getattr(acteur, 'is_authenticated', False) else None,
+            commentaire=commentaire,
+        )
+
+    def soumettre_a_approbation(self, acteur=None, commentaire=''):
+        """Un devis créé est prêt à être traité par le supérieur."""
+        if self.statut != 'en_attente':
+            raise ValidationError("Seul un devis en attente peut être soumis.")
+
+    def approuver(self, acteur=None, commentaire=''):
+        self.approuve_par = acteur if getattr(acteur, 'is_authenticated', False) else None
+        self.approuve_le = timezone.now()
+        self.commentaire_approbation = commentaire
+        self._transitionner('approuve_superieur', {'en_attente'}, acteur, commentaire)
+
+    def rejeter(self, acteur=None, commentaire=''):
+        self.commentaire_approbation = commentaire
+        self._transitionner('rejete_superieur', {'en_attente'}, acteur, commentaire)
+
+    def accepter_par_client(self, acteur=None, commentaire=''):
+        self.accepte_par_client = True
+        self.accepte_client_le = timezone.now()
+        self._transitionner('accepte', {'approuve_superieur'}, acteur, commentaire)
+
+    def refuser_par_client(self, acteur=None, commentaire=''):
+        self.accepte_par_client = False
+        self.accepte_client_le = timezone.now()
+        self._transitionner('refuse', {'approuve_superieur'}, acteur, commentaire)
+
+    def expirer(self, acteur=None, commentaire=''):
+        self._transitionner('expire', {'en_attente'}, acteur, commentaire)
 
     def __str__(self):
         return f"Devis {self.numero} - {self.client}"
@@ -315,6 +359,22 @@ class Devis(models.Model):
         ordering = ['-date_creation']
         verbose_name = 'Devis'
         verbose_name_plural = 'Devis'
+
+
+class HistoriqueDevis(models.Model):
+    """Journal immuable des événements qui affectent le cycle de vie d'un devis."""
+    devis = models.ForeignKey(Devis, on_delete=models.CASCADE, related_name='historique')
+    action = models.CharField(max_length=80)
+    ancien_statut = models.CharField(max_length=20, blank=True)
+    nouveau_statut = models.CharField(max_length=20, blank=True)
+    acteur = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    commentaire = models.TextField(blank=True)
+    cree_le = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-cree_le']
+        verbose_name = 'Historique de devis'
+        verbose_name_plural = 'Historiques de devis'
 
 
 class LigneDevis(models.Model):

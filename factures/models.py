@@ -5,6 +5,7 @@ from clients.models import Client
 from devis.models import Devis
 import secrets
 from decimal import Decimal
+from django.core.exceptions import ValidationError
 
 
 class Facture(models.Model):
@@ -27,6 +28,8 @@ class Facture(models.Model):
     statut = models.CharField(max_length=20, choices=STATUT_CHOICES, default='en_attente')
     notes = models.TextField(blank=True)
     fichier_pdf = models.FileField(upload_to='factures/pdf/', blank=True, null=True)
+    # Copie d'audit des données du devis à l'origine de la facture.
+    snapshot_source = models.JSONField(default=dict, blank=True)
 
     # ── Taxe par pays (ancien système - gardé pour compatibilité) ──
     pays = models.CharField(max_length=100, blank=True, default='',
@@ -99,6 +102,48 @@ class Facture(models.Model):
         """Génère des tokens uniques pour les liens d'approbation et client"""
         self.token_approbation = secrets.token_urlsafe(32)
         self.token_client = secrets.token_urlsafe(32)
+
+    def _transitionner(self, statut, autorises, acteur=None, commentaire=''):
+        """Applique une transition de facture et crée l'événement d'audit."""
+        if self.statut not in autorises:
+            raise ValidationError("Cette transition de facture n'est pas autorisée.")
+        ancien_statut = self.statut
+        self.statut = statut
+        self.save()
+        HistoriqueFacture.objects.create(
+            facture=self, action=statut, ancien_statut=ancien_statut,
+            nouveau_statut=statut, acteur=acteur if getattr(acteur, 'is_authenticated', False) else None,
+            commentaire=commentaire,
+        )
+
+    def approuver(self, acteur=None, commentaire=''):
+        from django.utils import timezone
+        self.approuve_par = acteur if getattr(acteur, 'is_authenticated', False) else None
+        self.approuve_le = timezone.now()
+        self.commentaire_approbation = commentaire
+        self._transitionner('approuvee', {'en_attente'}, acteur, commentaire)
+
+    def rejeter(self, acteur=None, commentaire=''):
+        self.commentaire_approbation = commentaire
+        self._transitionner('rejetee', {'en_attente', 'approuvee'}, acteur, commentaire)
+
+    def accepter_par_client(self, acteur=None, commentaire=''):
+        from django.utils import timezone
+        self.accepte_par_client = True
+        self.accepte_client_le = timezone.now()
+        self._transitionner('non_payee', {'approuvee'}, acteur, commentaire)
+
+    def refuser_par_client(self, acteur=None, commentaire=''):
+        from django.utils import timezone
+        self.accepte_par_client = False
+        self.accepte_client_le = timezone.now()
+        self._transitionner('rejetee', {'approuvee'}, acteur, commentaire)
+
+    def marquer_payee(self, acteur=None, commentaire=''):
+        self._transitionner('payee', {'non_payee'}, acteur, commentaire)
+
+    def annuler(self, acteur=None, commentaire=''):
+        self._transitionner('annulee', {'non_payee'}, acteur, commentaire)
 
     def __str__(self):
         return f"Facture {self.numero} - {self.client}"
@@ -313,6 +358,22 @@ class Facture(models.Model):
         ordering = ['-date_creation']
         verbose_name = 'Facture'
         verbose_name_plural = 'Factures'
+
+
+class HistoriqueFacture(models.Model):
+    """Journal immuable des événements qui affectent le cycle de vie d'une facture."""
+    facture = models.ForeignKey(Facture, on_delete=models.CASCADE, related_name='historique')
+    action = models.CharField(max_length=80)
+    ancien_statut = models.CharField(max_length=20, blank=True)
+    nouveau_statut = models.CharField(max_length=20, blank=True)
+    acteur = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    commentaire = models.TextField(blank=True)
+    cree_le = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-cree_le']
+        verbose_name = 'Historique de facture'
+        verbose_name_plural = 'Historiques de factures'
 
 
 class LigneFacture(models.Model):

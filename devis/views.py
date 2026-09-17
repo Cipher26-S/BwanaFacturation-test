@@ -2,7 +2,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Devis, LigneDevis
+from .models import Devis, LigneDevis, HistoriqueDevis
 from .forms import DevisForm, LigneDevisForm, LigneDevisFormSet
 from .utils import generer_numero_devis
 from django.http import HttpResponse
@@ -11,53 +11,32 @@ import json
 from django.conf import settings
 from produits.models import Produit
 from django.db.models import Q
+from django.db import transaction
 from django.urls import reverse
 from django.utils import timezone
-from django.core.mail import send_mail, get_connection, EmailMessage
+import logging
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from taxes.models import Taxe
+from users.email_service import send_transactional_email
+
+logger = logging.getLogger(__name__)
 
 
-# ✅ Helper pour obtenir la configuration email depuis la base de données
-def get_email_config(type_email='principal'):
-    """Récupère la configuration email depuis la base de données"""
-    try:
-        from users.admin_models import ConfigurationEmail
-        config = ConfigurationEmail.objects.get(type_email=type_email, actif=True)
-        return config
-    except Exception:
-        return None
-
-
-def get_email_connection(type_email='principal'):
-    """Retourne une connexion SMTP basée sur la configuration en base"""
-    config = get_email_config(type_email)
-    if config:
-        return get_connection(
-            host=config.host,
-            port=config.port,
-            username=config.username,
-            password=config.password,
-            use_tls=config.use_tls,
-            use_ssl=config.use_ssl,
-        )
-    # Fallback sur les settings
-    return get_connection(
-        host=getattr(settings, 'FACTURE_EMAIL_HOST', 'smtp.gmail.com'),
-        port=getattr(settings, 'FACTURE_EMAIL_PORT', 587),
-        username=getattr(settings, 'FACTURE_EMAIL_HOST_USER', ''),
-        password=getattr(settings, 'FACTURE_EMAIL_HOST_PASSWORD', ''),
-        use_tls=True,
+def journaliser_devis(devis, action, ancien_statut='', acteur=None, commentaire=''):
+    """Conserve la trace des transitions et opérations métier sensibles."""
+    HistoriqueDevis.objects.create(
+        devis=devis,
+        action=action,
+        ancien_statut=ancien_statut,
+        nouveau_statut=devis.statut,
+        acteur=acteur if getattr(acteur, 'is_authenticated', False) else None,
+        commentaire=commentaire,
     )
 
 
-def get_from_email(type_email='principal'):
-    """Retourne l'adresse d'expédition depuis la base ou les settings"""
-    config = get_email_config(type_email)
-    if config:
-        return config.from_email
-    return getattr(settings, 'FACTURE_DEFAULT_FROM_EMAIL', settings.DEFAULT_FROM_EMAIL)
+def devis_modifiable(devis):
+    return devis.statut == 'en_attente' and not devis.transforme_en_facture
 
 
 @login_required
@@ -108,6 +87,8 @@ def ajouter_devis(request):
             devis = form.save(commit=False)
             devis.utilisateur = request.user
             devis.numero = generer_numero_devis(request.user)
+            # Le statut initial n'est jamais choisi depuis un formulaire utilisateur.
+            devis.statut = 'en_attente'
             
             # Générer les tokens pour l'approbation
             devis.generer_tokens()
@@ -132,6 +113,7 @@ def ajouter_devis(request):
                 devis.type_taxe = form.cleaned_data.get('type_taxe', 'TVA')
             
             devis.save()
+            journaliser_devis(devis, 'creation', acteur=request.user)
             
             # Sauvegarder les taxes sélectionnées (ManyToMany)
             if form.cleaned_data.get('taxes'):
@@ -198,11 +180,12 @@ def gestion_liens_devis(request, pk):
     })
 
 
+@transaction.atomic
 def visualiser_devis_approbation(request, token):
     """Page publique pour que le supérieur approuve le devis"""
-    devis = get_object_or_404(Devis, token_approbation=token)
+    devis = get_object_or_404(Devis.objects.select_for_update(), token_approbation=token)
     
-    if devis.approuve_par:
+    if devis.statut != 'en_attente':
         return render(request, 'devis/public/approbation.html', {
             'devis': devis,
             'deja_traite': True,
@@ -214,22 +197,13 @@ def visualiser_devis_approbation(request, token):
         commentaire = request.POST.get('commentaire', '')
         
         if action == 'approuver':
-            devis.approuve_par = request.user if request.user.is_authenticated else None
-            devis.approuve_le = timezone.now()
-            devis.commentaire_approbation = commentaire
-            devis.statut = 'approuve_superieur'
-            devis.save()
+            devis.approuver(request.user, commentaire)
             
             try:
-                send_mail(
-                    subject=f'✅ Devis {devis.numero} approuvé',
-                    message=f'Votre devis {devis.numero} a été approuvé.\n\nCommentaire : {commentaire}',
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=[devis.utilisateur.email],
-                    fail_silently=True,
-                )
-            except:
-                pass
+                send_transactional_email(subject=f'Devis {devis.numero} approuvé', recipient=devis.utilisateur.email,
+                                         text_body=f'Votre devis {devis.numero} a été approuvé.\n\nCommentaire : {commentaire}')
+            except Exception:
+                logger.exception("Notification d'approbation du devis %s non envoyée", devis.numero)
             
             return render(request, 'devis/public/approbation.html', {
                 'devis': devis,
@@ -239,20 +213,13 @@ def visualiser_devis_approbation(request, token):
             })
             
         elif action == 'rejeter':
-            devis.statut = 'rejete_superieur'
-            devis.commentaire_approbation = commentaire
-            devis.save()
+            devis.rejeter(request.user, commentaire)
             
             try:
-                send_mail(
-                    subject=f'❌ Devis {devis.numero} rejeté',
-                    message=f'Votre devis {devis.numero} a été rejeté.\n\nMotif : {commentaire}',
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=[devis.utilisateur.email],
-                    fail_silently=True,
-                )
-            except:
-                pass
+                send_transactional_email(subject=f'Devis {devis.numero} rejeté', recipient=devis.utilisateur.email,
+                                         text_body=f'Votre devis {devis.numero} a été rejeté.\n\nMotif : {commentaire}')
+            except Exception:
+                logger.exception("Notification de rejet du devis %s non envoyée", devis.numero)
             
             return render(request, 'devis/public/approbation.html', {
                 'devis': devis,
@@ -267,9 +234,10 @@ def visualiser_devis_approbation(request, token):
     })
 
 
+@transaction.atomic
 def visualiser_devis_client(request, token):
     """Page publique pour que le client accepte/refuse le devis"""
-    devis = get_object_or_404(Devis, token_client=token)
+    devis = get_object_or_404(Devis.objects.select_for_update(), token_client=token)
     
     if devis.statut != 'approuve_superieur':
         return render(request, 'devis/public/client.html', {
@@ -289,21 +257,13 @@ def visualiser_devis_client(request, token):
         action = request.POST.get('action')
         
         if action == 'accepter':
-            devis.accepte_par_client = True
-            devis.accepte_client_le = timezone.now()
-            devis.statut = 'accepte'
-            devis.save()
+            devis.accepter_par_client(commentaire='Acceptation via lien client')
             
             try:
-                send_mail(
-                    subject=f'✅ Devis {devis.numero} accepté',
-                    message=f'Le client {devis.client.nom} a accepté le devis {devis.numero}.',
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=[devis.utilisateur.email],
-                    fail_silently=True,
-                )
-            except:
-                pass
+                send_transactional_email(subject=f'Devis {devis.numero} accepté', recipient=devis.utilisateur.email,
+                                         text_body=f'Le client {devis.client.nom} a accepté le devis {devis.numero}.')
+            except Exception:
+                logger.exception("Notification d'acceptation du devis %s non envoyée", devis.numero)
             
             return render(request, 'devis/public/client.html', {
                 'devis': devis,
@@ -312,21 +272,13 @@ def visualiser_devis_client(request, token):
             })
             
         elif action == 'refuser':
-            devis.accepte_par_client = False
-            devis.accepte_client_le = timezone.now()
-            devis.statut = 'refuse'
-            devis.save()
+            devis.refuser_par_client(commentaire='Refus via lien client')
             
             try:
-                send_mail(
-                    subject=f'❌ Devis {devis.numero} refusé',
-                    message=f'Le client {devis.client.nom} a refusé le devis {devis.numero}.',
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=[devis.utilisateur.email],
-                    fail_silently=True,
-                )
-            except:
-                pass
+                send_transactional_email(subject=f'Devis {devis.numero} refusé', recipient=devis.utilisateur.email,
+                                         text_body=f'Le client {devis.client.nom} a refusé le devis {devis.numero}.')
+            except Exception:
+                logger.exception("Notification de refus du devis %s non envoyée", devis.numero)
             
             return render(request, 'devis/public/client.html', {
                 'devis': devis,
@@ -345,8 +297,7 @@ def detail_devis(request, pk):
     lignes = devis.lignes.all().select_related('produit')
     
     if devis.date_validite < timezone.now().date() and devis.statut == 'en_attente':
-        devis.statut = 'expire'
-        devis.save(update_fields=['statut'])
+        devis.expirer()
 
     return render(request, 'devis/detail_devis.html', {
         'devis': devis,
@@ -355,11 +306,12 @@ def detail_devis(request, pk):
 
 
 @login_required
+@transaction.atomic
 def modifier_devis(request, pk):
     devis = get_object_or_404(Devis, pk=pk, utilisateur=request.user)
 
-    if devis.transforme_en_facture:
-        messages.error(request, '❌ Ce devis a déjà été transformé en facture.')
+    if not devis_modifiable(devis):
+        messages.error(request, '❌ Seul un devis en attente peut être modifié.')
         return redirect('detail_devis', pk=pk)
 
     if request.method == 'POST':
@@ -414,6 +366,12 @@ def modifier_devis(request, pk):
                 messages.error(request, '❌ Veuillez ajouter au moins un produit ou service.')
                 return render_modification_devis(request, devis, form, formset)
 
+            journaliser_devis(
+                devis,
+                'modification',
+                acteur=request.user,
+                commentaire='Devis modifié avant approbation',
+            )
             messages.success(request, f'✏️ Devis {devis.numero} modifié avec succès !')
             return redirect('detail_devis', pk=devis.pk)
         else:
@@ -449,6 +407,10 @@ def render_modification_devis(request, devis, form, formset, lignes_existantes=N
 def supprimer_devis(request, pk):
     devis = get_object_or_404(Devis, pk=pk, utilisateur=request.user)
 
+    if not devis_modifiable(devis):
+        messages.error(request, '❌ Seul un devis en attente peut être supprimé.')
+        return redirect('detail_devis', pk=pk)
+
     if request.method == 'POST':
         numero = devis.numero
         devis.delete()
@@ -459,8 +421,9 @@ def supprimer_devis(request, pk):
 
 
 @login_required
+@transaction.atomic
 def transformer_en_facture(request, pk):
-    devis = get_object_or_404(Devis, pk=pk, utilisateur=request.user)
+    devis = get_object_or_404(Devis.objects.select_for_update(), pk=pk, utilisateur=request.user)
 
     if devis.statut != 'accepte':
         messages.error(request, '❌ Seul un devis accepté peut être transformé en facture.')
@@ -487,10 +450,26 @@ def transformer_en_facture(request, pk):
             numero=generer_numero_facture(request.user),
             date_echeance=timezone.now().date() + datetime.timedelta(days=30),
             notes=devis.notes,
-            statut='non_payee',
+            statut='en_attente',
             pays=pays_facture,
             type_taxe=type_taxe_facture,
             taux_taxe=taux_taxe_facture,
+            devise_choisie=devis.devise_choisie,
+            snapshot_source={
+                'devis_numero': devis.numero,
+                'client': {'nom': client.nom, 'email': client.email},
+                'notes': devis.notes,
+                'devise': devis.devise_choisie,
+                'taxes_personnalisees': devis.taxes_personnalisees or {},
+                'lignes': [
+                    {
+                        'description': ligne.description,
+                        'quantite': str(ligne.quantite),
+                        'prix_unitaire': str(ligne.prix_unitaire),
+                    }
+                    for ligne in devis.lignes.all()
+                ],
+            },
         )
         
         if devis.taxes.exists():
@@ -510,7 +489,9 @@ def transformer_en_facture(request, pk):
             )
 
         devis.transforme_en_facture = True
-        devis.save()
+        devis.save(update_fields=['transforme_en_facture'])
+        journaliser_devis(devis, 'transformation_en_facture', devis.statut, request.user,
+                          f'Facture {facture.numero} créée depuis ce devis')
 
         messages.success(request, f'✅ Facture {facture.numero} créée avec succès !')
         return redirect('detail_facture', pk=facture.pk)
@@ -589,52 +570,19 @@ def envoyer_devis_email(request, pk):
     html_message = render_to_string('devis/emails/devis_email.html', context)
     plain_message = strip_tags(html_message)
     
-    # ✅ Utiliser la configuration depuis la base de données
     sujet = f"Devis {devis.numero} - {devis.client.nom}"
-    
-    # Récupérer la connexion et l'expéditeur depuis la base de données
-    # Note: les devis utilisent aussi le type 'factures' car ils sont envoyés par le même serveur
-    connection = get_connection(
-        host=getattr(settings, 'FACTURE_EMAIL_HOST', 'smtp.gmail.com'),
-        port=getattr(settings, 'FACTURE_EMAIL_PORT', 587),
-        username=getattr(settings, 'FACTURE_EMAIL_HOST_USER', ''),
-        password=getattr(settings, 'FACTURE_EMAIL_HOST_PASSWORD', ''),
-        use_tls=True,
-    )
-    
-    # Essayer d'utiliser la configuration en base pour les factures
-    config = get_email_config('factures')
-    if config:
-        connection = get_connection(
-            host=config.host,
-            port=config.port,
-            username=config.username,
-            password=config.password,
-            use_tls=config.use_tls,
-            use_ssl=config.use_ssl,
-        )
-        from_email = config.from_email
-    else:
-        from_email = getattr(settings, 'FACTURE_DEFAULT_FROM_EMAIL', settings.DEFAULT_FROM_EMAIL)
-    
-    email = EmailMessage(
-        subject=sujet,
-        body=html_message,
-        from_email=from_email,
-        to=[email_destinataire],
-        reply_to=[request.user.email],
-        connection=connection,
-    )
-    email.content_subtype = 'html'
-    
-    # Ajouter le PDF en pièce jointe
-    email.attach(f"devis_{devis.numero}.pdf", buffer.getvalue(), 'application/pdf')
-    
     try:
-        email.send()
+        send_transactional_email(
+            subject=sujet, recipient=email_destinataire, text_body=plain_message,
+            html_body=html_message, type_email='factures', reply_to=request.user.email,
+            attachments=[(f"devis_{devis.numero}.pdf", buffer.getvalue(), 'application/pdf')],
+        )
+        journaliser_devis(devis, 'envoi_email', acteur=request.user,
+                          commentaire=f'Email envoyé à {email_destinataire}')
         messages.success(request, f"Devis {devis.numero} envoyé par email à {email_destinataire}")
-    except Exception as e:
-        messages.error(request, f"Erreur lors de l'envoi : {str(e)}")
+    except Exception:
+        logger.exception("Envoi du devis %s vers %s impossible", devis.numero, email_destinataire)
+        messages.error(request, "L'e-mail n'a pas pu être envoyé. Vérifiez la configuration SMTP ou réessayez plus tard.")
     
     return redirect('liste_devis')
 
