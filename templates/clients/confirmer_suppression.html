@@ -19,10 +19,10 @@
                         Tous ses devis et factures seront également supprimés.
                     </span>
                 </p>
-                <div class="d-flex gap-3 justify-content-center mt-4">
-                    <form method="post">
+                <div class="d-flex flex-wrap gap-3 justify-content-center mt-4 page-actions">
+                    <form method="post" class="d-inline">
                         {% csrf_token %}
-                        <button type="submit" class="btn btn-danger px-4">
+                        <button type="submit" class="btn btn-danger px-4 w-100">
                             <i class="bi bi-trash me-2"></i>Oui, supprimer
                         </button>
                     </form>
@@ -35,4 +35,11 @@
     </div>
 </div>
 
+<style>
+@media (max-width: 575px) {
+    .card-body.p-5 {
+        padding: 1.75rem !important;
+    }
+}
+</style>
 {% endblock %}

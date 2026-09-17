@@ -22,7 +22,7 @@
 
                     {% if profil.logo %}
                     <div class="mb-3">
-                        <img src="{{ profil.logo.url }}" alt="Logo"
+                        <img src="{{ profil.logo.url }}" alt="Logo de l'entreprise"
                              class="rounded border p-2 img-fluid"
                              style="max-height: 100px; object-fit: contain;">
                     </div>
@@ -40,10 +40,10 @@
                     </div>
                     {% endif %}
 
-                    <label class="form-label fw-semibold small" style="color: #1e3a5f;">
+                    <label for="id_logo" class="form-label fw-semibold small" style="color: #1e3a5f;">
                         {% if profil.logo %}Remplacer{% else %}Ajouter{% endif %} le logo
                     </label>
-                    <input type="file" name="logo" class="form-control form-control-sm"
+                    <input type="file" name="logo" id="id_logo" class="form-control form-control-sm"
                            accept="image/png,image/jpeg,image/gif,image/webp">
                     <small class="text-muted d-block mt-1">PNG, JPG — max 2 Mo — utilisé dans les PDF</small>
                 </div>
@@ -90,23 +90,23 @@
                 </h6>
                 <div class="row g-3">
                     <div class="col-12">
-                        <label class="form-label fw-semibold small" style="color: #1e3a5f;">Prénom</label>
-                        <input type="text" name="first_name" class="form-control"
+                        <label for="id_first_name" class="form-label fw-semibold small" style="color: #1e3a5f;">Prénom</label>
+                        <input type="text" name="first_name" id="id_first_name" class="form-control"
                                value="{{ user.first_name }}" placeholder="Votre prénom">
                     </div>
                     <div class="col-12">
-                        <label class="form-label fw-semibold small" style="color: #1e3a5f;">Nom</label>
-                        <input type="text" name="last_name" class="form-control"
+                        <label for="id_last_name" class="form-label fw-semibold small" style="color: #1e3a5f;">Nom</label>
+                        <input type="text" name="last_name" id="id_last_name" class="form-control"
                                value="{{ user.last_name }}" placeholder="Votre nom">
                     </div>
                     <div class="col-12">
-                        <label class="form-label fw-semibold small" style="color: #1e3a5f;">Email</label>
-                        <input type="email" name="email" class="form-control"
+                        <label for="id_email" class="form-label fw-semibold small" style="color: #1e3a5f;">Email</label>
+                        <input type="email" name="email" id="id_email" class="form-control"
                                value="{{ user.email }}" placeholder="votre@email.com">
                     </div>
                     <div class="col-12">
-                        <label class="form-label fw-semibold small" style="color: #1e3a5f;">Nom d'utilisateur</label>
-                        <input type="text" class="form-control bg-light"
+                        <label for="id_username" class="form-label fw-semibold small" style="color: #1e3a5f;">Nom d'utilisateur</label>
+                        <input type="text" id="id_username" class="form-control bg-light"
                                value="{{ user.username }}" disabled>
                         <small class="text-muted">Non modifiable</small>
                     </div>
@@ -123,26 +123,26 @@
                 </h6>
                 <div class="row g-3">
                     <div class="col-12">
-                        <label class="form-label fw-semibold small" style="color: #1e3a5f;">Nom de l'entreprise</label>
-                        <input type="text" name="nom_entreprise" class="form-control"
+                        <label for="id_nom_entreprise" class="form-label fw-semibold small" style="color: #1e3a5f;">Nom de l'entreprise</label>
+                        <input type="text" name="nom_entreprise" id="id_nom_entreprise" class="form-control"
                                value="{{ profil.nom_entreprise }}"
                                placeholder="Ex: BwanaTech SARL">
                     </div>
                     <div class="col-12">
-                        <label class="form-label fw-semibold small" style="color: #1e3a5f;">Téléphone</label>
-                        <input type="text" name="telephone" class="form-control"
+                        <label for="id_telephone" class="form-label fw-semibold small" style="color: #1e3a5f;">Téléphone</label>
+                        <input type="text" name="telephone" id="id_telephone" class="form-control"
                                value="{{ profil.telephone }}"
                                placeholder="+226 XX XX XX XX">
                     </div>
                     <div class="col-12">
-                        <label class="form-label fw-semibold small" style="color: #1e3a5f;">Email entreprise</label>
-                        <input type="email" name="email_entreprise" class="form-control"
+                        <label for="id_email_entreprise" class="form-label fw-semibold small" style="color: #1e3a5f;">Email entreprise</label>
+                        <input type="email" name="email_entreprise" id="id_email_entreprise" class="form-control"
                                value="{{ profil.email_entreprise }}"
                                placeholder="contact@entreprise.com">
                     </div>
                     <div class="col-12">
-                        <label class="form-label fw-semibold small" style="color: #1e3a5f;">Site web</label>
-                        <input type="url" name="site_web" class="form-control"
+                        <label for="id_site_web" class="form-label fw-semibold small" style="color: #1e3a5f;">Site web</label>
+                        <input type="url" name="site_web" id="id_site_web" class="form-control"
                                value="{{ profil.site_web }}"
                                placeholder="https://www.entreprise.com">
                     </div>
@@ -158,23 +158,23 @@
                 </h6>
                 <div class="row g-3">
                     <div class="col-12">
-                        <label class="form-label fw-semibold small" style="color: #1e3a5f;">Adresse complète</label>
-                        <textarea name="adresse" class="form-control" rows="2"
+                        <label for="id_adresse" class="form-label fw-semibold small" style="color: #1e3a5f;">Adresse complète</label>
+                        <textarea name="adresse" id="id_adresse" class="form-control" rows="2"
                                   placeholder="Rue, quartier...">{{ profil.adresse }}</textarea>
                     </div>
                     <div class="col-12">
-                        <label class="form-label fw-semibold small" style="color: #1e3a5f;">Ville</label>
-                        <input type="text" name="ville" class="form-control"
+                        <label for="id_ville" class="form-label fw-semibold small" style="color: #1e3a5f;">Ville</label>
+                        <input type="text" name="ville" id="id_ville" class="form-control"
                                value="{{ profil.ville }}" placeholder="Ouagadougou">
                     </div>
                     <div class="col-12">
-                        <label class="form-label fw-semibold small" style="color: #1e3a5f;">Code postal</label>
-                        <input type="text" name="code_postal" class="form-control"
+                        <label for="id_code_postal" class="form-label fw-semibold small" style="color: #1e3a5f;">Code postal</label>
+                        <input type="text" name="code_postal" id="id_code_postal" class="form-control"
                                value="{{ profil.code_postal }}" placeholder="01 BP...">
                     </div>
                     <div class="col-12">
-                        <label class="form-label fw-semibold small" style="color: #1e3a5f;">Pays</label>
-                        <input type="text" name="pays" class="form-control"
+                        <label for="id_pays_profil" class="form-label fw-semibold small" style="color: #1e3a5f;">Pays</label>
+                        <input type="text" name="pays" id="id_pays_profil" class="form-control"
                                value="{{ profil.pays }}" placeholder="Burkina Faso">
                     </div>
                 </div>

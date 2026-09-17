@@ -9,7 +9,7 @@
         <div class="col-lg-8">
             <div class="card border-0 shadow-lg">
                 <div class="card-header bg-white border-0 text-center pt-4">
-                    <h3 class="fw-bold" style="color: #1e3a5f;">📄 Demande d'approbation</h3>
+                    <h3 class="fw-bold" style="color: #1e3a5f;"><i class="bi bi-file-earmark-text me-2"></i>Demande d'approbation</h3>
                     <p class="text-muted">Facture n° <strong>{{ facture.numero }}</strong></p>
                 </div>
                 
@@ -75,7 +75,7 @@
                             <textarea name="commentaire" class="form-control" rows="2" placeholder="Ajoutez un commentaire..."></textarea>
                         </div>
                         
-                        <div class="d-flex gap-3 justify-content-center mt-4">
+                        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mt-4">
                             <button type="submit" name="action" value="approuver" class="btn btn-success btn-lg px-4"
                                     onclick="return confirm('Approuver cette facture ?')">
                                 <i class="bi bi-check-circle me-2"></i>Approuver

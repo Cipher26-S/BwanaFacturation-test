@@ -9,6 +9,14 @@
 <form method="post" id="formDevis">
 {% csrf_token %}
 
+{% if form.non_field_errors or formset.non_form_errors %}
+<div class="alert alert-danger" role="alert">
+    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+    {% for error in form.non_field_errors %}<div>{{ error }}</div>{% endfor %}
+    {% for error in formset.non_form_errors %}<div>{{ error }}</div>{% endfor %}
+</div>
+{% endif %}
+
 {# ── Champs cachés remplis par JS ── #}
 <input type="hidden" name="pays" id="id_pays" value="{{ form.pays.value|default:'' }}">
 <input type="hidden" name="type_taxe" id="id_type_taxe" value="{{ form.type_taxe.value|default:'' }}">
@@ -33,6 +41,9 @@
                             <i class="bi bi-person me-1"></i>Client <span class="text-danger">*</span>
                         </label>
                         {{ form.client }}
+                        {% if form.client.errors %}
+                        <div class="invalid-feedback d-block small">{{ form.client.errors|striptags }}</div>
+                        {% endif %}
                         <div id="client-info" class="mt-2 d-none">
                             <span class="badge" id="client-devise-badge" style="background: #2d6a9f;"></span>
                             <span class="badge ms-1" id="client-pays-badge" style="background: #344e65;"></span>
@@ -48,6 +59,9 @@
                                title="Choisissez la devise pour ce document. La devise du client est pré-sélectionnée."></i>
                         </label>
                         {{ form.devise }}
+                        {% if form.devise.errors %}
+                        <div class="invalid-feedback d-block small">{{ form.devise.errors|striptags }}</div>
+                        {% endif %}
                         <small class="text-muted" id="devise-info">
                             Devise du client: <span id="client-devise-value">FCFA</span>
                         </small>
@@ -70,24 +84,24 @@
                         <small class="text-muted d-block mt-1" id="taxes-info"></small>
                     </div>
 
-                    <div class="col-6 col-md-3">
+                    <div class="col-12 col-md-6">
                         <label class="form-label fw-semibold" style="color: #1e3a5f;">
                             <i class="bi bi-calendar-check me-1"></i>Validité <span class="text-danger">*</span>
                         </label>
                         {{ form.date_validite }}
+                        {% if form.date_validite.errors %}
+                        <div class="invalid-feedback d-block small">{{ form.date_validite.errors|striptags }}</div>
+                        {% endif %}
                         <small class="text-muted">Doit être postérieure à aujourd'hui</small>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <label class="form-label fw-semibold" style="color: #1e3a5f;">
-                            <i class="bi bi-tag me-1"></i>Statut
-                        </label>
-                        {{ form.statut }}
                     </div>
                     <div class="col-12">
                         <label class="form-label fw-semibold" style="color: #1e3a5f;">
                             <i class="bi bi-pencil-square me-1"></i>Notes
                         </label>
                         {{ form.notes }}
+                        {% if form.notes.errors %}
+                        <div class="invalid-feedback d-block small">{{ form.notes.errors|striptags }}</div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -180,7 +194,7 @@
                                     </span>
                                  </td>
                                 <td class="text-center">
-                                    <button type="button" class="btn btn-sm btn-outline-danger btn-supprimer-ligne" title="Supprimer">
+                                    <button type="button" class="btn btn-sm btn-outline-danger btn-supprimer-ligne" title="Supprimer" aria-label="Supprimer cette ligne">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                  </td>
@@ -193,7 +207,7 @@
                             <tr class="ligne-row" id="row-{{ forloop.counter0 }}">
                                 <td data-label="Produit">
                                     <select name="lignes-{{ forloop.counter0 }}-produit"
-                                            class="form-select form-select-sm select-produit"
+                                            class="form-select form-select-sm select-produit{% if ligne_form.produit.errors %} is-invalid{% endif %}"
                                             id="id_lignes-{{ forloop.counter0 }}-produit"
                                             data-row="{{ forloop.counter0 }}">
                                         <option value="">--- Sélectionnez ---</option>
@@ -207,32 +221,44 @@
                                         </option>
                                         {% endfor %}
                                     </select>
+                                    {% if ligne_form.produit.errors %}
+                                    <div class="invalid-feedback d-block">{{ ligne_form.produit.errors|striptags }}</div>
+                                    {% endif %}
                                  </td>
                                 <td data-label="Description">
                                     <input type="text"
                                            name="lignes-{{ forloop.counter0 }}-description"
                                            value=""
-                                           class="form-control form-control-sm description-input"
+                                           class="form-control form-control-sm description-input{% if ligne_form.description.errors %} is-invalid{% endif %}"
                                            placeholder="Description">
+                                    {% if ligne_form.description.errors %}
+                                    <div class="invalid-feedback d-block">{{ ligne_form.description.errors|striptags }}</div>
+                                    {% endif %}
                                  </td>
                                 <td data-label="Qté">
                                     <input type="number"
                                            name="lignes-{{ forloop.counter0 }}-quantite"
                                            value="1"
-                                           class="form-control form-control-sm quantite-input"
+                                           class="form-control form-control-sm quantite-input{% if ligne_form.quantite.errors %} is-invalid{% endif %}"
                                            step="0.01" min="0"
                                            onchange="calculerTotaux()" onkeyup="calculerTotaux()">
+                                    {% if ligne_form.quantite.errors %}
+                                    <div class="invalid-feedback d-block">{{ ligne_form.quantite.errors|striptags }}</div>
+                                    {% endif %}
                                  </td>
                                 <td data-label="Prix HT">
                                     <div class="input-group input-group-sm">
                                         <input type="number"
                                                name="lignes-{{ forloop.counter0 }}-prix_unitaire"
                                                value="0"
-                                               class="form-control prix-unitaire"
+                                               class="form-control prix-unitaire{% if ligne_form.prix_unitaire.errors %} is-invalid{% endif %}"
                                                step="0.01" min="0"
                                                onchange="calculerTotaux()" onkeyup="calculerTotaux()">
                                         <span class="input-group-text devise-symbole bg-light">FCFA</span>
                                     </div>
+                                    {% if ligne_form.prix_unitaire.errors %}
+                                    <div class="invalid-feedback d-block">{{ ligne_form.prix_unitaire.errors|striptags }}</div>
+                                    {% endif %}
                                     <small class="text-warning devise-warning d-none"></small>
                                  </td>
                                 <td data-label="Total HT">
@@ -242,11 +268,18 @@
                                     {% if ligne_form.DELETE %}
                                         <div style="display:none">{{ ligne_form.DELETE }}</div>
                                     {% endif %}
-                                    <button type="button" class="btn btn-sm btn-outline-danger btn-supprimer-ligne" title="Supprimer">
+                                    <button type="button" class="btn btn-sm btn-outline-danger btn-supprimer-ligne" title="Supprimer" aria-label="Supprimer cette ligne">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                  </td>
                              </tr>
+                            {% if ligne_form.non_field_errors %}
+                            <tr class="ligne-erreur">
+                                <td colspan="6" class="text-danger small">
+                                    <i class="bi bi-exclamation-triangle me-1"></i>{{ ligne_form.non_field_errors|striptags }}
+                                </td>
+                            </tr>
+                            {% endif %}
                             {% endfor %}
                         {% endif %}
 
@@ -254,7 +287,7 @@
                     </table>
                 </div>
 
-                <div class="d-flex gap-2 mt-3">
+                <div class="d-flex flex-wrap gap-2 mt-3">
                     <button type="button" class="btn btn-outline-primary btn-sm" id="btn-ajouter-ligne">
                         <i class="bi bi-plus-lg me-1"></i>Ajouter une ligne
                     </button>
@@ -1008,7 +1041,7 @@ if (btnAjouter) {
                 <span class="ligne-total-ht fw-semibold" style="color: #2d6a9f;">0 ${deviseSelectionnee}</span>
             </td>
             <td class="text-center">
-                <button type="button" class="btn btn-sm btn-outline-danger btn-supprimer-ligne" title="Supprimer">
+                <button type="button" class="btn btn-sm btn-outline-danger btn-supprimer-ligne" title="Supprimer" aria-label="Supprimer cette ligne">
                     <i class="bi bi-trash"></i>
                 </button>
             </td>`;
@@ -1070,6 +1103,13 @@ input[readonly] { background-color: #f8f9fa; }
     .table td .input-group { flex-wrap: nowrap; justify-content: flex-end; }
     .table td .input-group .form-control { width: auto; text-align: right; }
     .table td .input-group .input-group-text { width: auto; }
+    .btn-supprimer-ligne {
+        min-width: 40px;
+        min-height: 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
 }
 
 @media (max-width: 575px) {

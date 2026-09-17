@@ -43,6 +43,9 @@
                                 <i class="bi bi-person me-1"></i>Prénom
                             </label>
                             {{ form.prenom }}
+                            {% if form.prenom.errors %}
+                                <div class="text-danger small mt-1">{{ form.prenom.errors }}</div>
+                            {% endif %}
                         </div>
 
                         <div class="col-md-6">
@@ -50,6 +53,9 @@
                                 <i class="bi bi-building me-1"></i>Entreprise
                             </label>
                             {{ form.entreprise }}
+                            {% if form.entreprise.errors %}
+                                <div class="text-danger small mt-1">{{ form.entreprise.errors }}</div>
+                            {% endif %}
                         </div>
 
                         <div class="col-md-6">
@@ -71,6 +77,12 @@
                                 {{ form.indicatif }}
                                 {{ form.telephone }}
                             </div>
+                            {% if form.indicatif.errors %}
+                                <div class="text-danger small mt-1">{{ form.indicatif.errors }}</div>
+                            {% endif %}
+                            {% if form.telephone.errors %}
+                                <div class="text-danger small mt-1">{{ form.telephone.errors }}</div>
+                            {% endif %}
                             <small class="text-muted">Choisissez l'indicatif puis entrez le numéro</small>
                         </div>
 
@@ -90,6 +102,9 @@
                                    title="Utilisé dans les PDF de devis et factures"></i>
                             </label>
                             {{ form.logo }}
+                            {% if form.logo.errors %}
+                                <div class="text-danger small mt-1">{{ form.logo.errors }}</div>
+                            {% endif %}
                             <small class="text-muted">PNG, JPG — utilisé dans les PDF</small>
                         </div>
 
@@ -122,6 +137,9 @@
                                    title="Détermine la devise et la TVA pour les devis/factures"></i>
                             </label>
                             {{ form.pays_obj }}
+                            {% if form.pays_obj.errors %}
+                                <div class="text-danger small mt-1">{{ form.pays_obj.errors }}</div>
+                            {% endif %}
                             <small class="text-muted" id="devise-info">Détermine la devise et la TVA</small>
                         </div>
 
@@ -131,6 +149,9 @@
                                 <i class="bi bi-map me-1"></i>Province / État / Région
                             </label>
                             {{ form.province }}
+                            {% if form.province.errors %}
+                                <div class="text-danger small mt-1">{{ form.province.errors }}</div>
+                            {% endif %}
                             <small class="text-muted">Ex: Québec, Ontario, California...</small>
                         </div>
 
@@ -140,6 +161,9 @@
                                 <i class="bi bi-building me-1"></i>Ville
                             </label>
                             {{ form.ville }}
+                            {% if form.ville.errors %}
+                                <div class="text-danger small mt-1">{{ form.ville.errors }}</div>
+                            {% endif %}
                         </div>
 
                         <!-- Code postal -->
@@ -148,6 +172,9 @@
                                 <i class="bi bi-envelope me-1"></i>Code postal
                             </label>
                             {{ form.code_postal }}
+                            {% if form.code_postal.errors %}
+                                <div class="text-danger small mt-1">{{ form.code_postal.errors }}</div>
+                            {% endif %}
                         </div>
 
                         <!-- Adresse complète -->
@@ -156,6 +183,9 @@
                                 <i class="bi bi-house me-1"></i>Adresse complète
                             </label>
                             {{ form.adresse }}
+                            {% if form.adresse.errors %}
+                                <div class="text-danger small mt-1">{{ form.adresse.errors }}</div>
+                            {% endif %}
                         </div>
 
                         <!-- Badge devise/TVA détectés -->
@@ -170,16 +200,14 @@
 
                     <hr class="my-4" style="border-color: #e0e0e0;">
 
-                    <div class="d-flex gap-2 justify-content-between flex-wrap">
-                        <div class="d-flex gap-2">
-                            <button type="submit" class="btn px-4 py-2 fw-bold" 
-                                    style="background: linear-gradient(135deg, #1e3a5f, #2d6a9f); color: white; border: none; border-radius: 10px;">
-                                <i class="bi bi-check-lg me-2"></i>{{ bouton }}
-                            </button>
-                            <a href="{% url 'liste_clients' %}" class="btn btn-outline-secondary px-4 py-2">
-                                <i class="bi bi-x me-2"></i>Annuler
-                            </a>
-                        </div>
+                    <div class="d-flex gap-2 flex-wrap page-actions">
+                        <button type="submit" class="btn px-4 py-2 fw-bold"
+                                style="background: linear-gradient(135deg, #1e3a5f, #2d6a9f); color: white; border: none; border-radius: 10px;">
+                            <i class="bi bi-check-lg me-2"></i>{{ bouton }}
+                        </button>
+                        <a href="{% url 'liste_clients' %}" class="btn btn-outline-secondary px-4 py-2">
+                            <i class="bi bi-x me-2"></i>Annuler
+                        </a>
                     </div>
                 </form>
             </div>
@@ -314,16 +342,6 @@ textarea.form-control {
     }
     .form-label {
         font-size: 0.85rem;
-    }
-    .d-flex.gap-2.justify-content-between {
-        flex-direction: column;
-        gap: 1rem !important;
-    }
-    .d-flex.gap-2.justify-content-between > div {
-        width: 100%;
-    }
-    .d-flex.gap-2.justify-content-between .btn {
-        flex: 1;
     }
     #id_indicatif {
         min-width: 150px;

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content_auth %}
-<div class="min-vh-100 d-flex align-items-center justify-content-center"
+<div class="auth-login d-flex align-items-start align-items-sm-center justify-content-center"
      style="background: linear-gradient(135deg, #1e3a5f, #2d6a9f);">
     <div class="card p-4 shadow-lg border-0" style="width: 100%; max-width: 420px; border-radius: 20px;">
         
@@ -68,7 +68,8 @@
                     <button type="button"
                             class="input-group-text bg-light border-start-0"
                             onclick="togglePassword('id_password', this)"
-                            title="Afficher / masquer le mot de passe">
+                            title="Afficher / masquer le mot de passe"
+                            aria-label="Afficher / masquer le mot de passe">
                         <i class="bi bi-eye" style="color: #1e3a5f;"></i>
                     </button>
                 </div>
@@ -116,6 +117,13 @@
 </div>
 
 <style>
+.auth-login {
+    min-height: calc(100vh - 43px);
+    max-height: calc(100vh - 43px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 24px 16px;
+}
 .logo-circle {
     width: 100px;
     height: 100px;

@@ -104,16 +104,16 @@
                     {% if not u.is_superuser %}
                     <!-- Impersonner -->
                     <a href="{% url 'admin_impersonate' u.pk %}"
-                       class="btn btn-outline-info"
-                       onclick="return confirm('Se connecter en tant que {{ u.get_full_name|default:u.username }} ?')">
+                       class="btn btn-outline-warning"
+                       onclick="return confirm('Se connecter en tant que {{ u.get_full_name|default:u.username }} ? Vous agirez avec ses droits.')">
                         <i class="bi bi-person-badge me-2"></i>Se connecter en tant que lui
                     </a>
 
                     <!-- Promouvoir admin -->
                     <a href="{% url 'admin_toggle_superuser' u.pk %}"
-                       class="btn btn-outline-secondary"
+                       class="btn btn-outline-warning"
                        onclick="return confirm('Modifier le statut admin de {{ u.get_full_name|default:u.username }} ?')">
-                        <i class="bi bi-shield me-2"></i>
+                        <i class="bi bi-shield-exclamation me-2"></i>
                         {% if u.is_superuser %}Rétrograder utilisateur{% else %}Promouvoir administrateur{% endif %}
                     </a>
 
@@ -253,19 +253,7 @@
 </div>
 
 <style>
-/* Style des cartes */
-.card {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border-radius: 16px;
-    overflow: hidden;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
-}
-
-/* Animation */
+/* Animation d'entrée (le style des cartes/hover est géré par base.html) */
 .card {
     animation: fadeInUp 0.4s ease-out;
 }

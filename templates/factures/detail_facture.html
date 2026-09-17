@@ -28,7 +28,7 @@
             </span>
         </div>
     </div>
-    <div class="d-flex flex-wrap gap-2">
+    <div class="d-flex flex-wrap gap-2 page-actions">
         <a href="{% url 'gestion_liens_facture' facture.pk %}" class="btn btn-outline-info">
             <i class="bi bi-link me-2"></i>Liens d'approbation
         </a>
@@ -37,9 +37,11 @@
             <i class="bi bi-file-pdf me-2"></i>PDF
         </a>
         {% if facture.statut != 'payee' and facture.statut != 'approuvee' %}
+        {% if facture.statut == 'en_attente' %}
         <a href="{% url 'modifier_facture' facture.pk %}" class="btn btn-warning">
             <i class="bi bi-pencil me-2"></i>Modifier
         </a>
+        {% endif %}
         {% endif %}
         <a href="{% url 'liste_factures' %}" class="btn btn-outline-secondary">
             <i class="bi bi-arrow-left me-2"></i>Retour
@@ -137,15 +139,15 @@
                                 <div class="text-muted small">Statut</div>
                                 <div>
                                     {% if facture.statut == 'en_attente' %}
-                                        <span class="badge" style="background: #ffc107; color: #1e3a5f;">⏳ En attente d'approbation</span>
+                                        <span class="badge" style="background: #ffc107; color: #1e3a5f;">En attente d'approbation</span>
                                     {% elif facture.statut == 'approuvee' %}
-                                        <span class="badge" style="background: #17a2b8; color: white;">✅ Approuvée</span>
+                                        <span class="badge" style="background: #17a2b8; color: white;">Approuvée</span>
                                     {% elif facture.statut == 'rejetee' %}
-                                        <span class="badge" style="background: #dc3545; color: white;">❌ Rejetée</span>
+                                        <span class="badge" style="background: #dc3545; color: white;">Rejetée</span>
                                     {% elif facture.statut == 'non_payee' %}
-                                        <span class="badge" style="background: #dc3545; color: white;">Non payée</span>
+                                        <span class="badge" style="background: #0d6efd; color: white;">Non payée</span>
                                     {% elif facture.statut == 'payee' %}
-                                        <span class="badge" style="background: #2d6a9f; color: white;">Payée</span>
+                                        <span class="badge" style="background: #198754; color: white;">Payée</span>
                                     {% else %}
                                         <span class="badge" style="background: #6c757d; color: white;">Annulée</span>
                                     {% endif %}
@@ -345,19 +347,13 @@
                 <form method="post" action="{% url 'changer_statut_facture' facture.pk %}">
                     {% csrf_token %}
                     <div class="d-grid gap-2">
-                        {% if facture.statut == 'approuvee' %}
-                        <button type="submit" name="statut" value="non_payee" class="btn" 
-                                style="background: #ffc107; color: #1e3a5f;">
-                            <i class="bi bi-hourglass-split me-2"></i>Marquer non payée
-                        </button>
-                        {% endif %}
                         {% if facture.statut == 'non_payee' %}
                         <button type="submit" name="statut" value="payee" class="btn" 
                                 style="background: #2d6a9f; color: white;">
                             <i class="bi bi-check-circle me-2"></i>Marquer payée
                         </button>
                         {% endif %}
-                        {% if facture.statut != 'annulee' and facture.statut != 'payee' and facture.statut != 'rejetee' %}
+                        {% if facture.statut == 'en_attente' or facture.statut == 'non_payee' %}
                         <button type="submit" name="statut" value="annulee" class="btn btn-outline-secondary">
                             <i class="bi bi-slash-circle me-2"></i>Annuler la facture
                         </button>
@@ -391,10 +387,12 @@
                         <i class="bi bi-file-text me-2"></i>Voir le devis
                     </a>
                     {% endif %}
+                    {% if facture.statut == 'en_attente' %}
                     <a href="{% url 'supprimer_facture' facture.pk %}" class="btn btn-outline-danger"
-                       onclick="return confirm('Supprimer définitivement cette facture ?')">
+                        onclick="return confirm('Supprimer définitivement cette facture ?')">
                         <i class="bi bi-trash me-2"></i>Supprimer
                     </a>
+                    {% endif %}
                 </div>
                 
                 <hr class="my-3">

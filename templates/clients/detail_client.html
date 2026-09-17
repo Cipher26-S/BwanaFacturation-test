@@ -55,7 +55,7 @@
                 
                 <hr class="my-3">
                 
-                <div class="d-flex gap-2 justify-content-center">
+                <div class="d-flex flex-wrap gap-2 justify-content-center page-actions">
                     <a href="{% url 'modifier_client' client.pk %}"
                        class="btn btn-sm" style="background: #ffc107; color: #1e3a5f;">
                         <i class="bi bi-pencil me-1"></i>Modifier
@@ -125,7 +125,8 @@
                                 </td>
                                 <td data-label="Action" class="text-center">
                                     <a href="{% url 'detail_devis' d.pk %}"
-                                       class="btn btn-sm btn-outline-info" title="Voir le devis">
+                                       class="btn btn-sm btn-outline-info" title="Voir le devis"
+                                       aria-label="Voir le devis {{ d.numero }}">
                                         <i class="bi bi-eye"></i>
                                     </a>
                                 </td>
@@ -198,7 +199,8 @@
                                 </td>
                                 <td data-label="Action" class="text-center">
                                     <a href="{% url 'detail_facture' f.pk %}"
-                                       class="btn btn-sm btn-outline-info" title="Voir la facture">
+                                       class="btn btn-sm btn-outline-info" title="Voir la facture"
+                                       aria-label="Voir la facture {{ f.numero }}">
                                         <i class="bi bi-eye"></i>
                                     </a>
                                 </td>
@@ -222,19 +224,19 @@
         
         <!-- Statistiques rapides -->
         <div class="row g-3 mt-2">
-            <div class="col-6 col-sm-4">
+            <div class="col-4">
                 <div class="card border-0 shadow-sm text-center p-2">
                     <div class="small text-muted">Total devis</div>
                     <div class="fw-bold fs-4" style="color: #1e3a5f;">{{ devis.count }}</div>
                 </div>
             </div>
-            <div class="col-6 col-sm-4">
+            <div class="col-4">
                 <div class="card border-0 shadow-sm text-center p-2">
                     <div class="small text-muted">Total factures</div>
                     <div class="fw-bold fs-4" style="color: #2d6a9f;">{{ factures.count }}</div>
                 </div>
             </div>
-            <div class="col-6 col-sm-4">
+            <div class="col-4">
                 <div class="card border-0 shadow-sm text-center p-2">
                     <div class="small text-muted">Montant total</div>
                     <div class="fw-bold fs-6" style="color: #344e65;">
@@ -352,6 +354,12 @@
     }
     .row.g-3.mt-2 {
         margin-top: 1rem !important;
+    }
+    .row.g-3.mt-2 .fs-4 {
+        font-size: 1.15rem !important;
+    }
+    .row.g-3.mt-2 .fs-6 {
+        font-size: 0.8rem !important;
     }
 }
 </style>

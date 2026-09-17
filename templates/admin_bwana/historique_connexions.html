@@ -20,37 +20,41 @@
                 <tbody>
                     {% for log in historique %}
                     <tr>
-                        <td>
+                        <td data-label="Utilisateur">
                             <a href="{% url 'admin_detail_user' log.user.pk %}" class="text-decoration-none fw-semibold">
                                 {{ log.user.get_full_name|default:log.user.username }}
                             </a>
                         </td>
-                        <td class="small text-muted">{{ log.date|date:"d/m/Y H:i" }}</td>
-                        <td class="small font-monospace">{{ log.ip_address|default:"—" }}</td>
-                        <td class="small">
+                        <td class="small text-muted" data-label="Date">{{ log.date|date:"d/m/Y H:i" }}</td>
+                        <td class="small font-monospace" data-label="IP">{{ log.ip_address|default:"—" }}</td>
+                        <td class="small" data-label="Navigateur">
                             {% if log.navigateur == 'Chrome' %}<i class="bi bi-browser-chrome me-1 text-warning"></i>
                             {% elif log.navigateur == 'Firefox' %}<i class="bi bi-browser-firefox me-1 text-warning"></i>
                             {% else %}<i class="bi bi-globe me-1"></i>{% endif %}
                             {{ log.navigateur }}
                         </td>
-                        <td class="small">
+                        <td class="small" data-label="OS">
                             {% if log.os == 'Windows' %}<i class="bi bi-windows me-1"></i>
                             {% elif log.os == 'Android' or log.os == 'iPhone' %}<i class="bi bi-phone me-1"></i>
                             {% elif log.os == 'Mac' %}<i class="bi bi-apple me-1"></i>
                             {% else %}<i class="bi bi-laptop me-1"></i>{% endif %}
                             {{ log.os }}
                         </td>
-                        <td class="text-center">
+                        <td class="text-center" data-label="Statut">
                             {% if log.succes %}
-                                <span class="badge bg-success">✅ Succès</span>
+                                <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>Succès</span>
                             {% else %}
-                                <span class="badge bg-danger">❌ Échec</span>
+                                <span class="badge bg-danger"><i class="bi bi-x-circle me-1"></i>Échec</span>
                             {% endif %}
                         </td>
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="6" class="text-center text-muted py-4">Aucun historique</td>
+                        <td colspan="6" class="text-center py-5">
+                            <i class="bi bi-clock-history display-1 text-muted" style="color: #344e65 !important;"></i>
+                            <h5 class="mt-3" style="color: #344e65;">Aucun historique</h5>
+                            <p class="text-muted mb-0">Aucune connexion n'a encore été enregistrée</p>
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -64,4 +68,49 @@
         <i class="bi bi-arrow-left me-2"></i>Retour
     </a>
 </div>
+
+<style>
+/* Tableau en cartes empilées sur mobile, cohérent avec le reste de l'app */
+@media (max-width: 767px) {
+    .table thead {
+        display: none;
+    }
+    .table tr {
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid #dee2e6;
+        border-radius: 12px;
+        padding: 0.5rem;
+        background: white;
+    }
+    .table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: right;
+        border: none;
+        padding: 0.5rem;
+        border-bottom: 1px solid #f0f0f0;
+    }
+    .table td:last-child {
+        border-bottom: none;
+    }
+    .table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: #1e3a5f;
+        text-align: left;
+        margin-right: 10px;
+        flex: 1;
+    }
+    /* Cellule d'état vide (icône + titre + texte) : ne doit pas être aplatie en ligne */
+    .table td.text-center {
+        display: block;
+        text-align: center;
+    }
+    .table td.text-center::before {
+        display: none;
+    }
+}
+</style>
 {% endblock %}

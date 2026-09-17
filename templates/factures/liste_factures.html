@@ -172,9 +172,9 @@
                             {% elif f.statut == 'rejetee' %}
                                 <span class="badge" style="background: #dc3545; color: white;">Rejetée</span>
                             {% elif f.statut == 'non_payee' %}
-                                <span class="badge" style="background: #dc3545; color: white;">Non payée</span>
+                                <span class="badge" style="background: #0d6efd; color: white;">Non payée</span>
                             {% elif f.statut == 'payee' %}
-                                <span class="badge" style="background: #2d6a9f; color: white;">Payée</span>
+                                <span class="badge" style="background: #198754; color: white;">Payée</span>
                             {% else %}
                                 <span class="badge" style="background: #6c757d; color: white;">Annulée</span>
                             {% endif %}
@@ -182,19 +182,22 @@
                         <td data-label="Actions" class="text-center">
                             <div class="d-flex gap-1 justify-content-center">
                                 <a href="{% url 'detail_facture' f.pk %}"
-                                   class="btn btn-sm btn-outline-info" title="Voir">
+                                   class="btn btn-sm btn-outline-info" title="Voir" aria-label="Voir la facture {{ f.numero }}">
                                     <i class="bi bi-eye"></i>
                                 </a>
+                                {% if f.statut == 'en_attente' %}
                                 <a href="{% url 'modifier_facture' f.pk %}"
-                                   class="btn btn-sm btn-outline-warning" title="Modifier">
+                                   class="btn btn-sm btn-outline-warning" title="Modifier" aria-label="Modifier la facture {{ f.numero }}">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                
-                                <!-- ✅ Bouton d'envoi par email - UNIQUEMENT si facture validée -->
+                                {% endif %}
+
+                                <!-- Bouton d'envoi par email - uniquement si facture validée -->
                                 {% if f.statut == 'approuvee' or f.statut == 'non_payee' or f.statut == 'payee' %}
                                     <button type="button"
                                             class="btn btn-sm btn-outline-primary"
                                             title="Envoyer par email"
+                                            aria-label="Envoyer la facture {{ f.numero }} par email"
                                             data-bs-toggle="modal"
                                             data-bs-target="#emailModal{{ f.pk }}">
                                         <i class="bi bi-envelope"></i>
@@ -203,17 +206,21 @@
                                     <button type="button"
                                             class="btn btn-sm btn-outline-secondary"
                                             title="Facture non approuvée - Envoi impossible"
+                                            aria-label="Envoi par email impossible - facture non approuvée"
                                             disabled>
                                         <i class="bi bi-envelope"></i>
                                     </button>
                                 {% endif %}
-                                
+
+                                {% if f.statut == 'en_attente' %}
                                 <a href="{% url 'supprimer_facture' f.pk %}"
                                    class="btn btn-sm btn-outline-danger"
                                    title="Supprimer"
+                                   aria-label="Supprimer la facture {{ f.numero }}"
                                    onclick="return confirm('Supprimer définitivement cette facture ?')">
                                     <i class="bi bi-trash"></i>
                                 </a>
+                                {% endif %}
                             </div>
                         </td>
                     </tr>
@@ -450,8 +457,26 @@ document.addEventListener('DOMContentLoaded', function() {
         margin-right: 15px;
         flex: 1;
     }
+    /* Cellule d'état vide (icône + titre + texte + bouton) : ne doit pas être aplatie en ligne */
+    .table td.text-center {
+        display: block;
+        text-align: center;
+    }
+    .table td.text-center::before {
+        display: none;
+    }
     .table td .d-flex {
         justify-content: flex-end;
+    }
+    .table td[data-label="Actions"] .d-flex {
+        gap: 0.5rem !important;
+    }
+    .table td[data-label="Actions"] .btn {
+        min-width: 40px;
+        min-height: 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 

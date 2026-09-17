@@ -2,9 +2,9 @@
 {% load static %}
 
 {% block content_auth %}
-<div class="min-vh-100 d-flex align-items-center justify-content-center"
+<div class="auth-registration d-flex align-items-start align-items-lg-center justify-content-center"
      style="background: linear-gradient(135deg, #1e3a5f, #2d6a9f);">
-    <div class="card p-4 shadow-lg border-0" style="width: 100%; max-width: 480px; border-radius: 20px;">
+    <div class="card auth-registration-card p-4 shadow-lg border-0">
         
         <!-- Logo et titre -->
         <div class="text-center mb-4">
@@ -107,7 +107,8 @@
                     <button type="button"
                             class="input-group-text bg-light border-start-0"
                             onclick="togglePassword('id_password1', this)"
-                            title="Afficher / masquer le mot de passe">
+                            title="Afficher / masquer le mot de passe"
+                            aria-label="Afficher / masquer le mot de passe">
                         <i class="bi bi-eye" style="color: #1e3a5f;"></i>
                     </button>
                 </div>
@@ -131,7 +132,8 @@
                     <button type="button"
                             class="input-group-text bg-light border-start-0"
                             onclick="togglePassword('id_password2', this)"
-                            title="Afficher / masquer le mot de passe">
+                            title="Afficher / masquer le mot de passe"
+                            aria-label="Afficher / masquer le mot de passe">
                         <i class="bi bi-eye" style="color: #1e3a5f;"></i>
                     </button>
                 </div>
@@ -186,6 +188,19 @@
     justify-content: center;
     box-shadow: 0 10px 20px rgba(0, 75, 173, 0.3);
 }
+.auth-registration {
+    min-height: calc(100vh - 43px);
+    max-height: calc(100vh - 43px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 24px 16px;
+}
+.auth-registration-card {
+    width: 100%;
+    max-width: 480px;
+    border-radius: 20px;
+    margin: auto 0;
+}
 .card { animation: slideUp 0.5s ease-out; }
 @keyframes slideUp {
     from { opacity: 0; transform: translateY(30px); }
@@ -217,7 +232,14 @@
 }
 
 @media (max-width: 576px) {
-    .card { margin: 15px; padding: 20px !important; }
+    .auth-registration { padding: 12px; }
+    .auth-registration-card { padding: 20px !important; }
+    .auth-registration-card .text-center.mb-4 { margin-bottom: 1.25rem !important; }
+    .logo-circle { width: 72px; height: 72px; }
+    .logo-circle img { width: 52px !important; height: 52px !important; }
+    .auth-registration-card .mb-4 { margin-bottom: 1rem !important; }
+    .auth-registration-card .form-control,
+    .auth-registration-card .input-group-text { padding: 10px; }
 }
 </style>
 

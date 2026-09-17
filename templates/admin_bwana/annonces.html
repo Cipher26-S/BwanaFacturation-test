@@ -94,7 +94,7 @@
                                     </span>
                                 </div>
                             </div>
-                         </tr>
+                         </td>
                         <td class="py-3">
                             {% if annonce.type_annonce == 'info' %}
                                 <span class="badge px-3 py-2" style="background: #e8f0fe; color: #1e3a5f;">
@@ -113,14 +113,14 @@
                                     <i class="bi bi-exclamation-octagon me-1"></i>Urgent
                                 </span>
                             {% endif %}
-                         </tr>
+                         </td>
                         <td class="py-3 d-none d-md-table-cell small text-muted">
                             <i class="bi bi-calendar-check me-1"></i>{{ annonce.date_debut|date:"d/m/Y H:i" }}
-                         </tr>
+                         </td>
                         <td class="py-3 d-none d-lg-table-cell small text-muted">
                             <i class="bi bi-calendar-x me-1"></i>
                             {% if annonce.date_fin %}{{ annonce.date_fin|date:"d/m/Y H:i" }}{% else %}—{% endif %}
-                         </tr>
+                         </td>
                         <td class="text-center py-3">
                             {% if annonce.active %}
                                 <span class="badge px-3 py-2" style="background: #2d6a9f; color: white;">
@@ -131,23 +131,25 @@
                                     <i class="bi bi-x-circle me-1"></i>Inactive
                                 </span>
                             {% endif %}
-                         </tr>
+                         </td>
                         <td class="text-center py-3">
                             <div class="d-flex gap-1 gap-md-2 justify-content-center">
                                 <a href="{% url 'admin_toggle_annonce' annonce.pk %}"
                                    class="btn btn-sm {% if annonce.active %}btn-outline-warning{% else %}btn-outline-success{% endif %}"
                                    title="{% if annonce.active %}Désactiver{% else %}Activer{% endif %}"
+                                   aria-label="{% if annonce.active %}Désactiver l'annonce {{ annonce.titre }}{% else %}Activer l'annonce {{ annonce.titre }}{% endif %}"
                                    onclick="return confirm('{% if annonce.active %}Désactiver cette annonce ?{% else %}Activer cette annonce ?{% endif %}')">
                                     <i class="bi bi-{% if annonce.active %}pause-circle{% else %}play-circle{% endif %}"></i>
                                 </a>
                                 <a href="{% url 'admin_supprimer_annonce' annonce.pk %}"
                                    class="btn btn-sm btn-outline-danger"
                                    onclick="return confirm('Supprimer définitivement cette annonce ?')"
-                                   title="Supprimer">
+                                   title="Supprimer"
+                                   aria-label="Supprimer l'annonce {{ annonce.titre }}">
                                     <i class="bi bi-trash"></i>
                                 </a>
                             </div>
-                         </tr>
+                         </td>
                     </tr>
                     {% empty %}
                     <tr>
@@ -175,19 +177,7 @@
 </div>
 
 <style>
-/* Style des cartes */
-.card {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border-radius: 16px;
-    overflow: hidden;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
-}
-
-/* Animation */
+/* Animation d'entrée (le style des cartes/hover est géré par base.html) */
 .card {
     animation: fadeInUp 0.4s ease-out;
 }
@@ -298,6 +288,14 @@
         text-align: left;
         margin-right: 15px;
         flex: 1;
+    }
+    /* Cellule d'état vide (icône + titre + texte + bouton) : ne doit pas être aplatie en ligne */
+    .table td.text-center {
+        display: block;
+        text-align: center;
+    }
+    .table td.text-center::before {
+        display: none;
     }
     .table td .d-flex {
         justify-content: flex-end;

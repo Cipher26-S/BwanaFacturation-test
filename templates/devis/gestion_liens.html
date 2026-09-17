@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}Liens du Devis {{ devis.numero }}{% endblock %}
-{% block page_title %}📋 Liens du Devis {{ devis.numero }}{% endblock %}
+{% block page_title %}Liens du Devis {{ devis.numero }}{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
@@ -19,15 +19,15 @@
                     </div>
                     <div>
                         {% if devis.statut == 'en_attente' %}
-                            <span class="badge bg-warning text-dark fs-6 px-3 py-2">⏳ En attente d'approbation</span>
+                            <span class="badge bg-warning text-dark fs-6 px-3 py-2">En attente d'approbation</span>
                         {% elif devis.statut == 'approuve_superieur' %}
-                            <span class="badge bg-info text-dark fs-6 px-3 py-2">✅ Approuvé - En attente client</span>
+                            <span class="badge bg-info text-dark fs-6 px-3 py-2">Approuvé - En attente client</span>
                         {% elif devis.statut == 'accepte' %}
-                            <span class="badge bg-success fs-6 px-3 py-2">🎉 Accepté par le client</span>
+                            <span class="badge bg-success fs-6 px-3 py-2">Accepté par le client</span>
                         {% elif devis.statut == 'refuse' %}
-                            <span class="badge bg-danger fs-6 px-3 py-2">❌ Refusé par le client</span>
+                            <span class="badge bg-danger fs-6 px-3 py-2">Refusé par le client</span>
                         {% elif devis.statut == 'rejete_superieur' %}
-                            <span class="badge bg-danger fs-6 px-3 py-2">❌ Rejeté par le supérieur</span>
+                            <span class="badge bg-danger fs-6 px-3 py-2">Rejeté par le supérieur</span>
                         {% endif %}
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                 {% elif devis.statut == 'approuve_superieur' %}
                     <div class="alert alert-success">
                         <i class="bi bi-check-circle-fill me-2"></i>
-                        ✅ Devis approuvé par le supérieur le {{ devis.approuve_le|date:"d/m/Y H:i" }}
+                        Devis approuvé par le supérieur le {{ devis.approuve_le|date:"d/m/Y H:i" }}
                         {% if devis.commentaire_approbation %}
                             <br><small class="text-muted">Commentaire : {{ devis.commentaire_approbation }}</small>
                         {% endif %}
@@ -67,7 +67,7 @@
                 {% elif devis.statut == 'rejete_superieur' %}
                     <div class="alert alert-danger">
                         <i class="bi bi-x-circle-fill me-2"></i>
-                        ❌ Devis rejeté par le supérieur
+                        Devis rejeté par le supérieur
                         {% if devis.commentaire_approbation %}
                             <br><small>Motif : {{ devis.commentaire_approbation }}</small>
                         {% endif %}
@@ -101,12 +101,12 @@
                 {% elif devis.statut == 'accepte' %}
                     <div class="alert alert-success">
                         <i class="bi bi-check-circle-fill me-2"></i>
-                        ✅ Devis accepté par le client le {{ devis.accepte_client_le|date:"d/m/Y H:i" }}
+                        Devis accepté par le client le {{ devis.accepte_client_le|date:"d/m/Y H:i" }}
                     </div>
                 {% elif devis.statut == 'refuse' %}
                     <div class="alert alert-danger">
                         <i class="bi bi-x-circle-fill me-2"></i>
-                        ❌ Devis refusé par le client le {{ devis.accepte_client_le|date:"d/m/Y H:i" }}
+                        Devis refusé par le client le {{ devis.accepte_client_le|date:"d/m/Y H:i" }}
                     </div>
                 {% elif devis.statut == 'en_attente' %}
                     <div class="alert alert-secondary">
@@ -117,7 +117,7 @@
             </div>
         </div>
         
-        <div class="d-flex gap-2">
+        <div class="d-flex flex-wrap gap-2 page-actions">
             <a href="{% url 'detail_devis' devis.pk %}" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left me-2"></i>Retour au devis
             </a>
@@ -130,12 +130,18 @@
     </div>
 </div>
 
+<style>
+@media (max-width: 420px) {
+    #lienAppro, #lienClient { font-size: 0.75rem; }
+}
+</style>
+
 <script>
 function copierLien(id) {
     const input = document.getElementById(id);
     input.select();
     input.setSelectionRange(0, 99999);
-    document.execCommand('copy');
+    navigator.clipboard && navigator.clipboard.writeText ? navigator.clipboard.writeText(input.value) : document.execCommand('copy');
     alert('Lien copié dans le presse-papier !');
 }
 </script>

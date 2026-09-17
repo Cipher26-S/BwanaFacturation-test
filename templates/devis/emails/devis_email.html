@@ -1,36 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Devis {{ devis.numero }}</title>
-    <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; }
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .header { background: #1e3a5f; color: white; padding: 20px; text-align: center; }
-        .content { padding: 20px; }
-        .btn { background: #2d6a9f; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; }
-        .footer { font-size: 12px; color: #666; text-align: center; margin-top: 20px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devis {{ devis.numero }}</title>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>Devis {{ devis.numero }}</h1>
-        </div>
-        <div class="content">
-            <p>Bonjour <strong>{{ client.nom }} {{ client.prenom }}</strong>,</p>
-            <p>Veuillez trouver ci-joint votre devis n°<strong>{{ devis.numero }}</strong>.</p>
-            <p><strong>Montant total :</strong> {{ total_ttc|floatformat:0 }} {{ devise }}</p>
-            <p><strong>Date de validité :</strong> {{ devis.date_validite|date:"d/m/Y" }}</p>
-            <div style="text-align: center; margin: 25px 0;">
-                <a href="{{ lien_devis }}" class="btn">Voir le devis en ligne</a>
-            </div>
-            <p>Nous restons à votre disposition.</p>
-            <p>Cordialement.</p>
-        </div>
-        <div class="footer">
-            <p>Ce message est généré automatiquement.</p>
-        </div>
-    </div>
+<body style="margin:0; padding:0; background-color:#f4f4f4;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f4f4f4; padding:24px 0;">
+<tr>
+<td align="center">
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%; max-width:600px; background-color:#ffffff; border-radius:12px; overflow:hidden; font-family:Arial, Helvetica, sans-serif; color:#333333;">
+<tr>
+<td style="background-color:#1e3a5f; padding:24px; text-align:center;">
+<span style="color:#a8c4e0; font-size:12px; letter-spacing:1px; text-transform:uppercase;">Bwana Facturation</span><br>
+<span style="color:#ffffff; font-size:22px; font-weight:bold;">Devis {{ devis.numero }}</span>
+</td>
+</tr>
+<tr>
+<td style="padding:30px 28px;">
+<p style="margin:0 0 16px; font-size:15px; line-height:1.6;">Bonjour <strong>{{ client.nom }} {{ client.prenom }}</strong>,</p>
+<p style="margin:0 0 20px; font-size:15px; line-height:1.6;">Veuillez trouver ci-joint votre devis n°<strong>{{ devis.numero }}</strong>.</p>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#f8f9fa; border-left:4px solid #2d6a9f; border-radius:8px; margin:0 0 20px;">
+<tr>
+<td style="padding:15px 20px; font-size:14px;">
+<p style="margin:0 0 6px;"><strong>Montant total :</strong> {{ total_ttc|floatformat:0 }} {{ devise }}</p>
+<p style="margin:0;"><strong>Date de validité :</strong> {{ devis.date_validite|date:"d/m/Y" }}</p>
+</td>
+</tr>
+</table>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:0 auto 24px;">
+<tr>
+<td align="center" style="border-radius:8px; background-color:#2d6a9f;">
+<a href="{{ lien_devis }}" style="display:inline-block; padding:12px 28px; font-size:15px; font-weight:bold; color:#ffffff; text-decoration:none; border-radius:8px;">
+Voir le devis en ligne
+</a>
+</td>
+</tr>
+</table>
+<p style="margin:0 0 8px; font-size:15px;">Nous restons à votre disposition.</p>
+<p style="margin:0; font-size:15px;">Cordialement.</p>
+</td>
+</tr>
+<tr>
+<td style="padding:16px 24px; background-color:#f8f9fa; border-top:1px solid #eeeeee; text-align:center;">
+<p style="margin:0; color:#888888; font-size:12px;">Ce message est généré automatiquement, merci de ne pas y répondre.</p>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
 </body>
 </html>

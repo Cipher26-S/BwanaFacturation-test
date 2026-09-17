@@ -101,17 +101,20 @@
                             <i class="bi bi-calendar3 me-1 text-muted"></i>{{ client.date_creation|date:"d/m/Y" }}
                          </td>
                         <td data-label="Actions" class="text-center">
-                            <div class="d-flex gap-1 justify-content-center">
+                            <div class="d-flex gap-2 justify-content-center">
                                 <a href="{% url 'detail_client' client.pk %}"
-                                   class="btn btn-sm btn-outline-info" title="Voir">
+                                   class="btn btn-sm btn-outline-info" title="Voir"
+                                   aria-label="Voir la fiche de {{ client.nom }} {{ client.prenom }}">
                                     <i class="bi bi-eye"></i>
                                 </a>
                                 <a href="{% url 'modifier_client' client.pk %}"
-                                   class="btn btn-sm btn-outline-warning" title="Modifier">
+                                   class="btn btn-sm btn-outline-warning" title="Modifier"
+                                   aria-label="Modifier {{ client.nom }} {{ client.prenom }}">
                                     <i class="bi bi-pencil"></i>
                                 </a>
                                 <a href="{% url 'supprimer_client' client.pk %}"
                                    class="btn btn-sm btn-outline-danger" title="Supprimer"
+                                   aria-label="Supprimer {{ client.nom }} {{ client.prenom }}"
                                    onclick="return confirm('Supprimer définitivement ce client ?')">
                                     <i class="bi bi-trash"></i>
                                 </a>
@@ -257,6 +260,14 @@
     .table td .d-flex {
         justify-content: flex-end;
     }
+    /* Cellule d'état vide (icône + titre + texte + bouton) : ne doit pas être aplatie en ligne */
+    .table td.text-center {
+        display: block;
+        text-align: center;
+    }
+    .table td.text-center::before {
+        display: none;
+    }
 }
 
 /* Barre de recherche responsive */
@@ -281,13 +292,14 @@
 
 /* Ajustements très petits écrans */
 @media (max-width: 480px) {
-    .btn-sm {
-        font-size: 0.7rem;
-        padding: 0.2rem 0.4rem;
-    }
     .table td {
         font-size: 0.85rem;
         padding: 0.5rem;
+    }
+    .table td .btn-sm {
+        min-width: 38px;
+        min-height: 38px;
+        padding: 0.4rem;
     }
 }
 </style>

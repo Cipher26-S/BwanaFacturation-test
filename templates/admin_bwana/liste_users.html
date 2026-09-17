@@ -121,7 +121,7 @@
                 <tbody>
                     {% for u in users %}
                     <tr class="border-bottom">
-                        <td class="py-3 px-4">
+                        <td class="py-3 px-4" data-label="Utilisateur">
                             <div class="d-flex align-items-center gap-3">
                                 <div class="rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
                                      style="width: 44px; height: 44px; background: linear-gradient(135deg, #1e3a5f, #2d6a9f);">
@@ -135,7 +135,7 @@
                                 </div>
                             </div>
                           </td>
-                        <td class="py-3">
+                        <td class="py-3" data-label="Email">
                             {% if u.email %}
                                 <a href="mailto:{{ u.email }}" class="text-decoration-none" style="color: #2d6a9f;">
                                     <i class="bi bi-envelope me-1"></i>{{ u.email }}
@@ -144,16 +144,16 @@
                                 <span class="text-muted">—</span>
                             {% endif %}
                           </td>
-                        <td class="py-3 text-muted small">
+                        <td class="py-3 text-muted small" data-label="Inscrit le">
                             <i class="bi bi-calendar3 me-1"></i>{{ u.date_joined|date:"d/m/Y" }}
                           </td>
-                        <td class="text-center py-3">
+                        <td class="text-center py-3" data-label="Devis">
                             <span class="fw-semibold" style="color: #344e65;">{{ u.nb_devis }}</span>
                           </td>
-                        <td class="text-center py-3">
+                        <td class="text-center py-3" data-label="Factures">
                             <span class="fw-semibold" style="color: #2d6a9f;">{{ u.nb_factures }}</span>
                           </td>
-                        <td class="text-center py-3">
+                        <td class="text-center py-3" data-label="Statut">
                             {% if u.is_superuser %}
                                 <span class="badge px-3 py-2" style="background: #ffc107; color: #1e3a5f;">
                                     <i class="bi bi-shield-check me-1"></i>Admin
@@ -168,22 +168,25 @@
                                 </span>
                             {% endif %}
                           </td>
-                        <td class="text-center py-3">
+                        <td class="text-center py-3" data-label="Actions">
                             <div class="d-flex gap-2 justify-content-center">
                                 <a href="{% url 'admin_detail_user' u.pk %}"
-                                   class="btn btn-sm btn-outline-primary" title="Voir détail">
+                                   class="btn btn-sm btn-outline-primary" title="Voir détail"
+                                   aria-label="Voir le détail de {{ u.get_full_name|default:u.username }}">
                                     <i class="bi bi-eye"></i>
                                 </a>
                                 {% if not u.is_superuser %}
                                 <a href="{% url 'admin_toggle_user' u.pk %}"
                                    class="btn btn-sm {% if u.is_active %}btn-outline-warning{% else %}btn-outline-success{% endif %}"
                                    title="{% if u.is_active %}Désactiver{% else %}Activer{% endif %}"
+                                   aria-label="{% if u.is_active %}Désactiver le compte de {{ u.get_full_name|default:u.username }}{% else %}Activer le compte de {{ u.get_full_name|default:u.username }}{% endif %}"
                                    onclick="return confirm('{% if u.is_active %}Désactiver le compte de {{ u.get_full_name|default:u.username }} ?{% else %}Activer le compte de {{ u.get_full_name|default:u.username }} ?{% endif %}')">
                                     <i class="bi bi-{% if u.is_active %}pause-circle{% else %}play-circle{% endif %}"></i>
                                 </a>
                                 <a href="{% url 'admin_supprimer_user' u.pk %}"
                                    class="btn btn-sm btn-outline-danger"
                                    title="Supprimer"
+                                   aria-label="Supprimer le compte de {{ u.get_full_name|default:u.username }}"
                                    onclick="return confirm('Supprimer définitivement le compte de {{ u.get_full_name|default:u.username }} ?')">
                                     <i class="bi bi-trash"></i>
                                 </a>
@@ -251,19 +254,7 @@
 {% endif %}
 
 <style>
-/* Style des cartes */
-.card {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border-radius: 16px;
-    overflow: hidden;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1) !important;
-}
-
-/* Animation */
+/* Animation d'entrée (le style des cartes/hover est géré par base.html) */
 .card {
     animation: fadeInUp 0.4s ease-out;
 }
@@ -395,12 +386,29 @@
         margin-right: 15px;
         flex: 1;
     }
+    /* Cellule d'état vide (icône + titre + texte + bouton) : ne doit pas être aplatie en ligne */
+    .table td.text-center {
+        display: block;
+        text-align: center;
+    }
+    .table td.text-center::before {
+        display: none;
+    }
     .table td .d-flex {
         justify-content: flex-end;
     }
     .page-link {
         padding: 0.3rem 0.8rem;
         font-size: 0.8rem;
+    }
+    /* Zones cliquables confortables pour les actions par ligne (≥ 38px) */
+    .table td .btn-sm {
+        min-width: 38px;
+        min-height: 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.4rem;
     }
 }
 
@@ -418,6 +426,12 @@
     .btn-sm {
         padding: 0.2rem 0.4rem;
         font-size: 0.7rem;
+    }
+    .table td .btn-sm {
+        min-width: 38px;
+        min-height: 38px;
+        padding: 0.4rem;
+        font-size: 0.8rem;
     }
 }
 </style>

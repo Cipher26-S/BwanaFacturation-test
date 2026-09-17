@@ -49,6 +49,9 @@
                                 <i class="bi bi-file-text me-1"></i>Description
                             </label>
                             {{ form.description }}
+                            {% if form.description.errors %}
+                                <div class="text-danger small mt-1">{{ form.description.errors }}</div>
+                            {% endif %}
                             <small class="text-muted">Description détaillée du produit/service</small>
                         </div>
 
@@ -58,6 +61,9 @@
                                 <i class="bi bi-folder me-1"></i>Catégorie
                             </label>
                             {{ form.categorie }}
+                            {% if form.categorie.errors %}
+                                <div class="text-danger small mt-1">{{ form.categorie.errors }}</div>
+                            {% endif %}
                             <div class="mt-2">
                                 <a href="#" class="small text-decoration-none" id="lien-nouvelle-categorie"
                                    style="color: #2d6a9f;" data-bs-toggle="modal" data-bs-target="#modalNouvelleCategorie">
@@ -72,6 +78,9 @@
                                 <i class="bi bi-rulers me-1"></i>Unité de vente
                             </label>
                             {{ form.unite_vente }}
+                            {% if form.unite_vente.errors %}
+                                <div class="text-danger small mt-1">{{ form.unite_vente.errors }}</div>
+                            {% endif %}
                             <div class="mt-2">
                                 <a href="#" class="small text-decoration-none" id="lien-nouvelle-unite"
                                    style="color: #2d6a9f;" data-bs-toggle="modal" data-bs-target="#modalNouvelleUnite">
@@ -90,6 +99,9 @@
                                 <span class="input-group-text bg-light border-end-0" id="devise-label" style="background: #f8f9fa;">FCFA</span>
                                 {{ form.prix_ht }}
                             </div>
+                            {% if form.prix_ht.errors %}
+                                <div class="text-danger small mt-1">{{ form.prix_ht.errors }}</div>
+                            {% endif %}
                             <small class="text-muted">Le prix hors taxes</small>
                         </div>
 
@@ -102,6 +114,9 @@
                                    title="Le pays détermine la devise et la TVA automatiquement"></i>
                             </label>
                             {{ form.pays }}
+                            {% if form.pays.errors %}
+                                <div class="text-danger small mt-1">{{ form.pays.errors }}</div>
+                            {% endif %}
                             <small class="text-muted" id="devise-helper">Sélectionnez le pays</small>
                         </div>
 
@@ -114,6 +129,9 @@
                                    title="Détermine la TVH/TPS/TVQ"></i>
                             </label>
                             {{ form.province }}
+                            {% if form.province.errors %}
+                                <div class="text-danger small mt-1">{{ form.province.errors }}</div>
+                            {% endif %}
                         </div>
 
                         <!-- Produit actif -->
@@ -129,16 +147,14 @@
 
                     <hr class="my-4" style="border-color: #e0e0e0;">
 
-                    <div class="d-flex gap-2 justify-content-between flex-wrap">
-                        <div class="d-flex gap-2">
-                            <button type="submit" class="btn px-4 py-2 fw-bold"
-                                    style="background: linear-gradient(135deg, #1e3a5f, #2d6a9f); color: white; border: none;">
-                                <i class="bi bi-check-lg me-2"></i>{{ bouton }}
-                            </button>
-                            <a href="{% url 'liste_produits' %}" class="btn btn-outline-secondary px-4 py-2">
-                                <i class="bi bi-x me-2"></i>Annuler
-                            </a>
-                        </div>
+                    <div class="d-flex gap-2 flex-wrap page-actions">
+                        <button type="submit" class="btn px-4 py-2 fw-bold"
+                                style="background: linear-gradient(135deg, #1e3a5f, #2d6a9f); color: white; border: none;">
+                            <i class="bi bi-check-lg me-2"></i>{{ bouton }}
+                        </button>
+                        <a href="{% url 'liste_produits' %}" class="btn btn-outline-secondary px-4 py-2">
+                            <i class="bi bi-x me-2"></i>Annuler
+                        </a>
                         {% if produit %}
                         <a href="{% url 'dupliquer_produit' produit.pk %}"
                            class="btn btn-outline-info px-4 py-2"
@@ -599,12 +615,6 @@ textarea.form-control {
 @media (max-width: 767px) {
     .card-body { padding: 1.5rem !important; }
     .form-label { font-size: 0.9rem; }
-    .d-flex.gap-2.justify-content-between {
-        flex-direction: column;
-        gap: 1rem !important;
-    }
-    .d-flex.gap-2.justify-content-between > div { width: 100%; }
-    .d-flex.gap-2.justify-content-between .btn  { flex: 1; }
 }
 @media (max-width: 575px) {
     .row.g-4 > [class*="col-"] { width: 100%; }

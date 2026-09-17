@@ -27,7 +27,8 @@
                                 <th>Nombre de produits</th>
                                 <th>Date création</th>
                                 <th class="text-center">Actions</th>
-                            </thead>
+                            </tr>
+                        </thead>
                         <tbody>
                             {% for categorie in categories %}
                             <tr>
@@ -46,16 +47,18 @@
                                     {{ categorie.date_creation|date:"d/m/Y" }}
                                 </td>
                                 <td data-label="Actions" class="text-center">
-                                    <a href="{% url 'modifier_categorie' categorie.pk %}" 
-                                       class="btn btn-sm btn-outline-warning me-1"
-                                       title="Modifier">
-                                        <i class="bi bi-pencil"></i>
-                                    </a>
-                                    <a href="{% url 'supprimer_categorie' categorie.pk %}" 
-                                       class="btn btn-sm btn-outline-danger"
-                                       title="Supprimer">
-                                        <i class="bi bi-trash"></i>
-                                    </a>
+                                    <div class="d-flex gap-2 justify-content-center">
+                                        <a href="{% url 'modifier_categorie' categorie.pk %}"
+                                           class="btn btn-sm btn-outline-warning"
+                                           title="Modifier" aria-label="Modifier la catégorie {{ categorie.nom }}">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <a href="{% url 'supprimer_categorie' categorie.pk %}"
+                                           class="btn btn-sm btn-outline-danger"
+                                           title="Supprimer" aria-label="Supprimer la catégorie {{ categorie.nom }}">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                             {% empty %}
@@ -187,6 +190,14 @@
         text-align: left;
         margin-right: 15px;
         flex: 1;
+    }
+    /* Cellule d'état vide (icône + titre + texte + bouton) : ne doit pas être aplatie en ligne */
+    .table td.text-center {
+        display: block;
+        text-align: center;
+    }
+    .table td.text-center::before {
+        display: none;
     }
     .table td .btn {
         margin: 0 2px;

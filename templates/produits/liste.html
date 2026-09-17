@@ -95,7 +95,8 @@
                             <th>TVA</th>
                             <th>Unité</th>
                             <th class="text-center">Actions</th>
-                        </thead>
+                        </tr>
+                    </thead>
                     <tbody>
                         {% for produit in produits %}
                         <tr>
@@ -138,20 +139,20 @@
                             </td>
                             <td data-label="Unité">{{ produit.get_unite_display }}</td>
                             <td data-label="Actions" class="text-center">
-                                <div class="d-flex gap-1 justify-content-center">
-                                    <a href="{% url 'modifier_produit' produit.pk %}" 
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <a href="{% url 'modifier_produit' produit.pk %}"
                                        class="btn btn-sm btn-outline-warning"
-                                       title="Modifier">
+                                       title="Modifier" aria-label="Modifier le produit {{ produit.nom }}">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <a href="{% url 'dupliquer_produit' produit.pk %}" 
+                                    <a href="{% url 'dupliquer_produit' produit.pk %}"
                                        class="btn btn-sm btn-outline-info"
-                                       title="Dupliquer">
+                                       title="Dupliquer" aria-label="Dupliquer le produit {{ produit.nom }}">
                                         <i class="bi bi-files"></i>
                                     </a>
-                                    <a href="{% url 'supprimer_produit' produit.pk %}" 
+                                    <a href="{% url 'supprimer_produit' produit.pk %}"
                                        class="btn btn-sm btn-outline-danger"
-                                       title="Supprimer">
+                                       title="Supprimer" aria-label="Supprimer le produit {{ produit.nom }}">
                                         <i class="bi bi-trash"></i>
                                     </a>
                                 </div>
@@ -162,7 +163,7 @@
                             <td colspan="8" class="text-center py-5">
                                 <i class="bi bi-box-seam display-1 text-muted" style="color: #344e65 !important;"></i>
                                 <h5 class="mt-3" style="color: #344e65;">Aucun produit</h5>
-                                <p class="text-muted">Commencez par ajouter votre premier produit</p>
+                                <p class="text-muted mb-3">Commencez par ajouter votre premier produit</p>
                                 <a href="{% url 'ajouter_produit' %}" class="btn" 
                                    style="background: linear-gradient(135deg, #1e3a5f, #2d6a9f); color: white;">
                                     <i class="bi bi-plus-circle"></i> Ajouter un produit
@@ -295,6 +296,14 @@
     }
     .table td .d-flex {
         justify-content: flex-end;
+    }
+    /* Cellule d'état vide (icône + titre + texte + bouton) : ne doit pas être aplatie en ligne */
+    .table td.text-center {
+        display: block !important;
+        text-align: center;
+    }
+    .table td.text-center::before {
+        display: none;
     }
     .card-header {
         padding: 1rem;
