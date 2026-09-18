@@ -142,8 +142,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # AUTHENTIFICATION
 # ══════════════════════════════════════════
 LOGIN_URL = '/BwanaFacturation/users/connexion/'
-LOGIN_REDIRECT_URL = '/devis/'
-LOGOUT_REDIRECT_URL = '/users/connexion/'
+LOGIN_REDIRECT_URL = '/BwanaFacturation/devis/tableau-de-bord/'
+LOGOUT_REDIRECT_URL = '/BwanaFacturation/users/connexion/'
 
 # ══════════════════════════════════════════
 # SESSIONS
