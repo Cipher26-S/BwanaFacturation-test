@@ -1,10 +1,26 @@
 """Service unique pour les emails transactionnels de l'application."""
 import logging
+from email.utils import formataddr, parseaddr
 
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives, get_connection
 
 logger = logging.getLogger(__name__)
+
+DISPLAY_NAMES = {
+    'principal': 'Bwana Facturation',
+    'factures': 'Bwana Facturation - Factures',
+}
+
+
+def _with_display_name(from_email, type_email):
+    """Ajoute un nom d'expéditeur lisible (ex: "Bwana Facturation <adresse>")
+    si l'adresse n'en a pas déjà un — aide à la fois la lisibilité pour le
+    destinataire et la classification anti-spam des boîtes de réception."""
+    name, addr = parseaddr(from_email)
+    if name:
+        return from_email
+    return formataddr((DISPLAY_NAMES.get(type_email, 'Bwana Facturation'), addr or from_email))
 
 
 def get_email_connection(type_email='principal', email_config=None):
@@ -40,6 +56,7 @@ def send_transactional_email(
 ):
     """Envoie un email et remonte l'erreur au code appelant, sans l'ignorer."""
     connection, from_email = get_email_connection(type_email, email_config=email_config)
+    from_email = _with_display_name(from_email, type_email)
     message = EmailMultiAlternatives(subject, text_body, from_email, [recipient], connection=connection)
     if html_body:
         message.attach_alternative(html_body, 'text/html')
