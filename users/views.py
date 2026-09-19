@@ -298,3 +298,4 @@ def conditions_utilisation(request):
 
 def politique_confidentialite(request):
     return render(request, 'users/politique_confidentialite.html')
+
