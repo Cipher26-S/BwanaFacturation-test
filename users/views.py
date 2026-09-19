@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
-from django.conf import settings
+from django.urls import reverse
 from .tokens import token_activation
 from .forms import InscriptionForm
 from .email_service import send_transactional_email
@@ -37,7 +37,7 @@ def inscription(request):
 
             uid   = urlsafe_base64_encode(force_bytes(user.pk))
             token = token_activation.make_token(user)
-            activation_url = f"{settings.SITE_URL}/users/activer/{uid}/{token}/"
+            activation_url = request.build_absolute_uri(reverse('activer_compte', args=[uid, token]))
 
             try:
                 html_message = render_to_string(
@@ -89,7 +89,7 @@ def renvoyer_activation(request):
     if user:
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         token = token_activation.make_token(user)
-        activation_url = f"{settings.SITE_URL}/users/activer/{uid}/{token}/"
+        activation_url = request.build_absolute_uri(reverse('activer_compte', args=[uid, token]))
         try:
             html_message = render_to_string(
                 'users/emails/activation_email.html',
@@ -236,7 +236,7 @@ def password_reset_request(request):
             user  = User.objects.get(email=email, is_active=True)
             uid   = urlsafe_base64_encode(force_bytes(user.pk))
             token = default_token_generator.make_token(user)
-            reset_url = f"{settings.SITE_URL}/users/password-reset/{uid}/{token}/"
+            reset_url = request.build_absolute_uri(reverse('password_reset_confirm', args=[uid, token]))
             html_message = render_to_string(
                 'users/emails/reset_password_email.html',
                 {'user': user, 'reset_url': reset_url}
@@ -298,3 +298,4 @@ def conditions_utilisation(request):
 
 def politique_confidentialite(request):
     return render(request, 'users/politique_confidentialite.html')
+
