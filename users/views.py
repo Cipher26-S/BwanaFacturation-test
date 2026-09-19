@@ -52,9 +52,9 @@ def inscription(request):
                 )
             except Exception:
                 messages.error(request, "Le compte a été créé mais l'email d'activation n'a pas pu être envoyé. Réessayez plus tard ou contactez le support.")
-                return render(request, 'users/activation_envoyee.html', {'email': user.email})
+                return render(request, 'users/activation_envoyee.html', {'email': user.email, 'email_envoye': False})
 
-            return render(request, 'users/activation_envoyee.html', {'email': user.email})
+            return render(request, 'users/activation_envoyee.html', {'email': user.email, 'email_envoye': True})
     else:
         form = InscriptionForm()
 
@@ -103,11 +103,11 @@ def renvoyer_activation(request):
             )
         except Exception:
             messages.error(request, "L'email d'activation n'a pas pu être envoyé. Réessayez plus tard.")
-            return render(request, 'users/activation_envoyee.html', {'email': email})
+            return render(request, 'users/activation_envoyee.html', {'email': email, 'email_envoye': False})
 
     # Même réponse pour ne pas révéler l'existence d'un compte.
     messages.success(request, "Si un compte non activé correspond à cette adresse, un nouveau lien a été envoyé.")
-    return render(request, 'users/activation_envoyee.html', {'email': email})
+    return render(request, 'users/activation_envoyee.html', {'email': email, 'email_envoye': True})
 
 
 # ══════════════════════════════════════════
