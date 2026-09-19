@@ -634,8 +634,12 @@
 
         <!-- FOOTER FIXE -->
         <div class="main-footer">
-            <span><i class="bi bi-c-circle"></i> {% now "Y" %}
-            <a href="https://bwanatech.com/" target="_blank" rel="noopener noreferrer">Bwana Tech</a> - Tous droits réservés</span>
+            <span>
+                <i class="bi bi-c-circle"></i> {% now "Y" %} ·
+                Designed by <a href="https://bwanatech.com/" target="_blank" rel="noopener noreferrer">Bwana Tech</a>
+                · <a href="#" data-bs-toggle="modal" data-bs-target="#modalAPropos">À propos</a>
+                · <a href="https://claude.ai/code/artifact/5576f516-a5f3-4b93-ae45-e1214b7374b3" target="_blank" rel="noopener noreferrer">Aide</a>
+            </span>
             <span class="version-text"><i class="bi bi-tag me-1"></i>v2.1.0</span>
         </div>
     </div>
@@ -645,11 +649,43 @@
     <div class="d-flex flex-column" style="min-height: 100vh;">
         {% block content_auth %}{% endblock %}
         <div class="main-footer mt-auto">
-            <i class="bi bi-c-circle"></i> {% now "Y" %} 
-            <a href="https://bwanatech.com/" target="_blank" rel="noopener noreferrer">Bwana Tech</a> - Tous droits réservés
+            <span>
+                <i class="bi bi-c-circle"></i> {% now "Y" %} ·
+                Designed by <a href="https://bwanatech.com/" target="_blank" rel="noopener noreferrer">Bwana Tech</a>
+                · <a href="#" data-bs-toggle="modal" data-bs-target="#modalAPropos">À propos</a>
+                · <a href="https://claude.ai/code/artifact/5576f516-a5f3-4b93-ae45-e1214b7374b3" target="_blank" rel="noopener noreferrer">Aide</a>
+            </span>
         </div>
     </div>
 {% endif %}
+
+<!-- MODALE À PROPOS -->
+<div class="modal fade" id="modalAPropos" tabindex="-1" aria-labelledby="modalAProposLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header" style="background: linear-gradient(135deg, #1e3a5f, #2d6a9f); color: white; border-bottom: none;">
+                <h5 class="modal-title" id="modalAProposLabel"><i class="bi bi-info-circle me-2"></i>À propos</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body text-center py-4">
+                <img src="{% static 'img/logo.png' %}" alt="Bwana Facturation" style="width:60px;height:60px;object-fit:contain;" class="mb-3">
+                <h5 class="fw-bold mb-1" style="color:#1e3a5f;">Bwana Facturation</h5>
+                <p class="text-muted mb-2">Version 2.1.0</p>
+                <p class="mb-3">Gestion de devis et factures pour indépendants et petites entreprises.</p>
+                <p class="small text-muted mb-0">
+                    Designed by
+                    <a href="https://bwanatech.com/" target="_blank" rel="noopener noreferrer" class="fw-semibold text-decoration-none">Bwana Tech</a>
+                </p>
+            </div>
+            <div class="modal-footer justify-content-center border-top-0 pt-0">
+                <a href="https://claude.ai/code/artifact/5576f516-a5f3-4b93-ae45-e1214b7374b3" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-question-circle me-1"></i>Consulter l'aide
+                </a>
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
