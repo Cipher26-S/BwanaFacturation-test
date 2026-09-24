@@ -259,6 +259,16 @@
                         <i class="bi bi-envelope-gear me-1"></i>
                         Configuration email
                     </a>
+                    <a href="{% url 'admin_taxes_pays_liste' %}"
+                       class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-globe me-1"></i>
+                        Pays & taxes (clients)
+                    </a>
+                    <a href="{% url 'admin_produits_pays_liste' %}"
+                       class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-globe-americas me-1"></i>
+                        Pays & taxes (produits)
+                    </a>
                     {% if maintenance.actif %}
                     <a href="{% url 'admin_maintenance' %}"
                        class="btn btn-danger btn-sm">

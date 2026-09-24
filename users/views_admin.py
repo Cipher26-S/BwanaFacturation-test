@@ -367,6 +367,285 @@ def admin_supprimer_annonce(request, pk):
 
 
 # ══════════════════════════════════════════
+# GESTION PAYS & TAXES — clients / devis / factures
+# ══════════════════════════════════════════
+@superadmin_required
+def admin_taxes_pays_liste(request):
+    from taxes.models import Pays
+    pays_list = Pays.objects.annotate(nb_taxes=Count('taxes')).order_by('nom')
+    return render(request, 'admin_bwana/taxes_pays_liste.html', {'pays_list': pays_list})
+
+
+@superadmin_required
+def admin_taxes_pays_ajouter(request):
+    from taxes.models import Pays
+    if request.method == 'POST':
+        nom = request.POST.get('nom', '').strip()
+        code = request.POST.get('code', '').strip().upper()
+        devise = request.POST.get('devise', '').strip().upper()
+        devise_symbole = request.POST.get('devise_symbole', '').strip()
+        if nom and code and devise:
+            if Pays.objects.filter(code=code).exists():
+                messages.error(request, f"❌ Le code pays « {code} » existe déjà.")
+            else:
+                Pays.objects.create(
+                    nom=nom, code=code, devise=devise,
+                    devise_symbole=devise_symbole or devise, actif=True,
+                )
+                messages.success(request, f"✅ Pays « {nom} » ajouté.")
+                return redirect('admin_taxes_pays_liste')
+        else:
+            messages.error(request, "❌ Nom, code et devise sont obligatoires.")
+    return render(request, 'admin_bwana/taxes_pays_form.html', {
+        'titre': 'Ajouter un pays', 'bouton': 'Ajouter',
+    })
+
+
+@superadmin_required
+def admin_taxes_pays_modifier(request, pk):
+    from taxes.models import Pays
+    pays = get_object_or_404(Pays, pk=pk)
+    if request.method == 'POST':
+        nom = request.POST.get('nom', '').strip()
+        code = request.POST.get('code', '').strip().upper()
+        devise = request.POST.get('devise', '').strip().upper()
+        devise_symbole = request.POST.get('devise_symbole', '').strip()
+        if nom and code and devise:
+            if Pays.objects.exclude(pk=pays.pk).filter(code=code).exists():
+                messages.error(request, f"❌ Le code pays « {code} » existe déjà.")
+            else:
+                pays.nom, pays.code = nom, code
+                pays.devise, pays.devise_symbole = devise, devise_symbole or devise
+                pays.save()
+                messages.success(request, f"✅ Pays « {nom} » mis à jour.")
+                return redirect('admin_taxes_pays_detail', pk=pays.pk)
+        else:
+            messages.error(request, "❌ Nom, code et devise sont obligatoires.")
+    return render(request, 'admin_bwana/taxes_pays_form.html', {
+        'titre': f'Modifier {pays.nom}', 'bouton': 'Enregistrer', 'pays': pays,
+    })
+
+
+@superadmin_required
+def admin_taxes_pays_toggle(request, pk):
+    from taxes.models import Pays
+    pays = get_object_or_404(Pays, pk=pk)
+    pays.actif = not pays.actif
+    pays.save()
+    statut = "activé" if pays.actif else "désactivé"
+    messages.success(request, f"✅ Pays « {pays.nom} » {statut}.")
+    return redirect('admin_taxes_pays_liste')
+
+
+@superadmin_required
+def admin_taxes_pays_detail(request, pk):
+    from taxes.models import Pays
+    pays = get_object_or_404(Pays, pk=pk)
+    taxes_list = pays.taxes.all().order_by('province', 'ordre')
+    return render(request, 'admin_bwana/taxes_pays_detail.html', {
+        'pays': pays, 'taxes_list': taxes_list,
+    })
+
+
+@superadmin_required
+def admin_taxe_ajouter(request, pays_pk):
+    from taxes.models import Pays, Taxe
+    pays = get_object_or_404(Pays, pk=pays_pk)
+    if request.method == 'POST':
+        nom = request.POST.get('nom', '').strip()
+        code = request.POST.get('code', '').strip().upper()
+        taux = request.POST.get('taux', '').strip()
+        province = request.POST.get('province', '').strip()
+        cumulative = request.POST.get('cumulative') == 'on'
+        par_defaut = request.POST.get('par_defaut') == 'on'
+        if nom and code and taux:
+            try:
+                taux_val = float(taux)
+            except ValueError:
+                taux_val = None
+            if taux_val is None or taux_val < 0 or taux_val > 100:
+                messages.error(request, "❌ Le taux doit être un nombre entre 0 et 100.")
+            elif Taxe.objects.filter(pays=pays, code=code, province=province or None).exists():
+                messages.error(request, "❌ Cette taxe existe déjà pour ce pays/cette province.")
+            else:
+                Taxe.objects.create(
+                    pays=pays, nom=nom, code=code, taux=taux_val,
+                    province=province or None, cumulative=cumulative,
+                    par_defaut=par_defaut, actif=True,
+                    ordre=pays.taxes.count() + 1,
+                )
+                messages.success(request, f"✅ Taxe « {code} » ajoutée à {pays.nom}.")
+        else:
+            messages.error(request, "❌ Nom, code et taux sont obligatoires.")
+    return redirect('admin_taxes_pays_detail', pk=pays_pk)
+
+
+@superadmin_required
+def admin_taxe_toggle(request, pk):
+    from taxes.models import Taxe
+    taxe = get_object_or_404(Taxe, pk=pk)
+    taxe.actif = not taxe.actif
+    taxe.save()
+    return redirect('admin_taxes_pays_detail', pk=taxe.pays_id)
+
+
+@superadmin_required
+def admin_taxe_supprimer(request, pk):
+    from taxes.models import Taxe
+    taxe = get_object_or_404(Taxe, pk=pk)
+    pays_pk = taxe.pays_id
+    if request.method == 'POST':
+        taxe.delete()
+        messages.success(request, "🗑️ Taxe supprimée.")
+    return redirect('admin_taxes_pays_detail', pk=pays_pk)
+
+
+# ══════════════════════════════════════════
+# GESTION PAYS & TAXES — catalogue produits
+# ══════════════════════════════════════════
+@superadmin_required
+def admin_produits_pays_liste(request):
+    from produits.models import Pays
+    pays_list = Pays.objects.annotate(
+        nb_types_taxe=Count('types_taxe', distinct=True),
+        nb_provinces=Count('provinces', distinct=True),
+    ).order_by('nom')
+    return render(request, 'admin_bwana/produits_pays_liste.html', {'pays_list': pays_list})
+
+
+@superadmin_required
+def admin_produits_pays_ajouter(request):
+    from produits.models import Pays
+    if request.method == 'POST':
+        nom = request.POST.get('nom', '').strip()
+        code = request.POST.get('code', '').strip().upper()
+        devise = request.POST.get('devise', '').strip().upper()
+        symbole_devise = request.POST.get('symbole_devise', '').strip()
+        if nom and code and devise:
+            if Pays.objects.filter(code=code).exists():
+                messages.error(request, f"❌ Le code pays « {code} » existe déjà.")
+            else:
+                Pays.objects.create(
+                    nom=nom, code=code, devise=devise,
+                    symbole_devise=symbole_devise or devise,
+                )
+                messages.success(request, f"✅ Pays « {nom} » ajouté au catalogue produits.")
+                return redirect('admin_produits_pays_liste')
+        else:
+            messages.error(request, "❌ Nom, code et devise sont obligatoires.")
+    return render(request, 'admin_bwana/produits_pays_form.html', {
+        'titre': 'Ajouter un pays (produits)', 'bouton': 'Ajouter',
+    })
+
+
+@superadmin_required
+def admin_produits_pays_modifier(request, pk):
+    from produits.models import Pays
+    pays = get_object_or_404(Pays, pk=pk)
+    if request.method == 'POST':
+        nom = request.POST.get('nom', '').strip()
+        code = request.POST.get('code', '').strip().upper()
+        devise = request.POST.get('devise', '').strip().upper()
+        symbole_devise = request.POST.get('symbole_devise', '').strip()
+        if nom and code and devise:
+            if Pays.objects.exclude(pk=pays.pk).filter(code=code).exists():
+                messages.error(request, f"❌ Le code pays « {code} » existe déjà.")
+            else:
+                pays.nom, pays.code = nom, code
+                pays.devise, pays.symbole_devise = devise, symbole_devise or devise
+                pays.save()
+                messages.success(request, f"✅ Pays « {nom} » mis à jour.")
+                return redirect('admin_produits_pays_detail', pk=pays.pk)
+        else:
+            messages.error(request, "❌ Nom, code et devise sont obligatoires.")
+    return render(request, 'admin_bwana/produits_pays_form.html', {
+        'titre': f'Modifier {pays.nom}', 'bouton': 'Enregistrer', 'pays': pays,
+    })
+
+
+@superadmin_required
+def admin_produits_pays_detail(request, pk):
+    from produits.models import Pays
+    pays = get_object_or_404(Pays, pk=pk)
+    types_taxe = pays.types_taxe.prefetch_related('taux').order_by('nom')
+    provinces = pays.provinces.all().order_by('nom')
+    return render(request, 'admin_bwana/produits_pays_detail.html', {
+        'pays': pays, 'types_taxe': types_taxe, 'provinces': provinces,
+    })
+
+
+@superadmin_required
+def admin_typetaxe_ajouter(request, pays_pk):
+    from produits.models import Pays, TypeTaxe, TauxTaxe
+    pays = get_object_or_404(Pays, pk=pays_pk)
+    if request.method == 'POST':
+        nom = request.POST.get('nom', '').strip()
+        code = request.POST.get('code', '').strip().upper()
+        taux = request.POST.get('taux', '').strip()
+        if nom and code and taux:
+            try:
+                taux_val = float(taux)
+            except ValueError:
+                taux_val = None
+            if taux_val is None or taux_val < 0 or taux_val > 100:
+                messages.error(request, "❌ Le taux doit être un nombre entre 0 et 100.")
+            elif TypeTaxe.objects.filter(pays=pays, code=code).exists():
+                messages.error(request, "❌ Ce code de taxe existe déjà pour ce pays.")
+            else:
+                type_taxe = TypeTaxe.objects.create(pays=pays, nom=nom, code=code)
+                TauxTaxe.objects.create(type_taxe=type_taxe, taux=taux_val, est_defaut=True)
+                messages.success(request, f"✅ Taxe « {code} » ajoutée à {pays.nom}.")
+        else:
+            messages.error(request, "❌ Nom, code et taux sont obligatoires.")
+    return redirect('admin_produits_pays_detail', pk=pays_pk)
+
+
+@superadmin_required
+def admin_typetaxe_supprimer(request, pk):
+    from produits.models import TypeTaxe
+    type_taxe = get_object_or_404(TypeTaxe, pk=pk)
+    pays_pk = type_taxe.pays_id
+    if request.method == 'POST':
+        type_taxe.delete()
+        messages.success(request, "🗑️ Taxe supprimée.")
+    return redirect('admin_produits_pays_detail', pk=pays_pk)
+
+
+@superadmin_required
+def admin_province_ajouter(request, pays_pk):
+    from produits.models import Pays, Province
+    pays = get_object_or_404(Pays, pk=pays_pk)
+    if request.method == 'POST':
+        nom = request.POST.get('nom', '').strip()
+        code = request.POST.get('code', '').strip().upper()
+        tps = request.POST.get('tps', '0').strip() or '0'
+        tvq = request.POST.get('tvq', '0').strip() or '0'
+        tvh = request.POST.get('tvh') == 'on'
+        if nom and code:
+            if Province.objects.filter(pays=pays, code=code).exists():
+                messages.error(request, "❌ Cette province existe déjà pour ce pays.")
+            else:
+                Province.objects.create(
+                    pays=pays, nom=nom, code=code, tps=tps, tvq=tvq, tvh=tvh,
+                )
+                messages.success(request, f"✅ Province « {nom} » ajoutée à {pays.nom}.")
+        else:
+            messages.error(request, "❌ Nom et code sont obligatoires.")
+    return redirect('admin_produits_pays_detail', pk=pays_pk)
+
+
+@superadmin_required
+def admin_province_supprimer(request, pk):
+    from produits.models import Province
+    province = get_object_or_404(Province, pk=pk)
+    pays_pk = province.pays_id
+    if request.method == 'POST':
+        province.delete()
+        messages.success(request, "🗑️ Province supprimée.")
+    return redirect('admin_produits_pays_detail', pk=pays_pk)
+
+
+# ══════════════════════════════════════════
 # CONFIGURATION EMAIL (NOUVEAU)
 # ══════════════════════════════════════════
 

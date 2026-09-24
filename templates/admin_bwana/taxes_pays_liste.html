@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Pays & taxes — Administration{% endblock %}
+{% block page_title %}🌍 Pays & taxes (clients / devis / factures){% endblock %}
+
+{% block content %}
+
+<div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-3 mb-4">
+    <div>
+        <p class="text-muted mb-0">
+            <i class="bi bi-info-circle me-1"></i>Détermine la devise et les taxes disponibles pour les clients, devis et factures.
+        </p>
+    </div>
+    <a href="{% url 'admin_taxes_pays_ajouter' %}" class="btn" style="background: linear-gradient(135deg, #1e3a5f, #2d6a9f); color: white;">
+        <i class="bi bi-plus-lg me-2"></i>Ajouter un pays
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white border-0 py-3 py-md-4 px-3 px-md-4">
+        <div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-2">
+            <h5 class="mb-0 fw-bold" style="color: #1e3a5f;">
+                <i class="bi bi-table me-2"></i>Liste des pays
+            </h5>
+            <span class="badge" style="background: #e8f0fe; color: #1e3a5f;">{{ pays_list|length }} pays</span>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead style="background: #f8f9fa; border-bottom: 2px solid #e0e0e0;">
+                    <tr style="color: #1e3a5f;">
+                        <th class="py-3 px-3 px-md-4">Pays</th>
+                        <th class="py-3 d-none d-md-table-cell">Code</th>
+                        <th class="py-3">Devise</th>
+                        <th class="text-center py-3 d-none d-md-table-cell">Taxes</th>
+                        <th class="text-center py-3" style="width: 90px;">Statut</th>
+                        <th class="text-center py-3" style="width: 120px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pays in pays_list %}
+                    <tr class="border-bottom">
+                        <td class="py-3 px-3 px-md-4" data-label="Pays">
+                            <a href="{% url 'admin_taxes_pays_detail' pays.pk %}" class="fw-semibold text-decoration-none" style="color: #1e3a5f;">{{ pays.nom }}</a>
+                        </td>
+                        <td class="py-3 d-none d-md-table-cell" data-label="Code">{{ pays.code }}</td>
+                        <td class="py-3" data-label="Devise">{{ pays.devise }} ({{ pays.devise_symbole }})</td>
+                        <td class="text-center py-3 d-none d-md-table-cell" data-label="Taxes">
+                            <span class="badge" style="background: #e8f0fe; color: #1e3a5f;">{{ pays.nb_taxes }}</span>
+                        </td>
+                        <td class="text-center py-3" data-label="Statut">
+                            {% if pays.actif %}
+                                <span class="badge px-3 py-2" style="background: #2d6a9f; color: white;"><i class="bi bi-check-circle me-1"></i>Actif</span>
+                            {% else %}
+                                <span class="badge px-3 py-2 bg-secondary"><i class="bi bi-x-circle me-1"></i>Inactif</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-center py-3" data-label="Actions">
+                            <div class="d-flex gap-1 gap-md-2 justify-content-center">
+                                <a href="{% url 'admin_taxes_pays_detail' pays.pk %}" class="btn btn-sm btn-outline-info" title="Gérer les taxes" aria-label="Gérer les taxes de {{ pays.nom }}">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a href="{% url 'admin_taxes_pays_modifier' pays.pk %}" class="btn btn-sm btn-outline-warning" title="Modifier" aria-label="Modifier {{ pays.nom }}">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a href="{% url 'admin_taxes_pays_toggle' pays.pk %}" class="btn btn-sm {% if pays.actif %}btn-outline-secondary{% else %}btn-outline-success{% endif %}"
+                                   title="{% if pays.actif %}Désactiver{% else %}Activer{% endif %}"
+                                   aria-label="{% if pays.actif %}Désactiver{% else %}Activer{% endif %} {{ pays.nom }}"
+                                   onclick="return confirm('{% if pays.actif %}Désactiver{% else %}Activer{% endif %} {{ pays.nom }} ?')">
+                                    <i class="bi bi-{% if pays.actif %}pause-circle{% else %}play-circle{% endif %}"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center py-5">
+                            <i class="bi bi-globe display-1 text-muted" style="color: #344e65 !important;"></i>
+                            <h5 class="mt-3" style="color: #344e65;">Aucun pays</h5>
+                            <p class="text-muted mb-3">Commencez par ajouter votre premier pays</p>
+                            <a href="{% url 'admin_taxes_pays_ajouter' %}" class="btn" style="background: linear-gradient(135deg, #1e3a5f, #2d6a9f); color: white;">
+                                <i class="bi bi-plus-circle me-1"></i>Ajouter un pays
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="{% url 'admin_dashboard' %}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-2"></i>Retour au tableau de bord
+    </a>
+</div>
+
+<style>
+.card { animation: fadeInUp 0.4s ease-out; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.badge { font-weight: 500; border-radius: 20px; padding: 0.4rem 0.8rem; font-size: 0.7rem; }
+.btn-sm { padding: 0.25rem 0.5rem; font-size: 0.75rem; border-radius: 8px; transition: all 0.2s ease; }
+.btn-sm:hover { transform: translateY(-2px); }
+.table th { font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.table td { vertical-align: middle; font-size: 0.85rem; }
+@media (max-width: 767px) {
+    .table thead { display: none; }
+    .table tr { display: block; margin-bottom: 1rem; border: 1px solid #dee2e6; border-radius: 12px; padding: 0.75rem; background: white; }
+    .table td { display: flex; justify-content: space-between; align-items: center; text-align: right; border: none; padding: 0.5rem; border-bottom: 1px solid #f0f0f0; }
+    .table td:last-child { border-bottom: none; }
+    .table td::before { content: attr(data-label); font-weight: 600; color: #1e3a5f; text-align: left; margin-right: 15px; flex: 1; }
+    .table td.text-center { display: block; text-align: center; }
+    .table td.text-center::before { display: none; }
+    .table td .d-flex { justify-content: flex-end; }
+}
+</style>
+{% endblock %}

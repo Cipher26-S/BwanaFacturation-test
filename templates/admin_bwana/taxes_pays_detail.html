@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% block title %}{{ pays.nom }} — Taxes — Admin{% endblock %}
+{% block page_title %}🌍 {{ pays.nom }}{% endblock %}
+
+{% block content %}
+
+<div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-3 mb-4">
+    <div>
+        <span class="badge" style="background: #e8f0fe; color: #1e3a5f;">{{ pays.code }}</span>
+        <span class="text-muted ms-2">{{ pays.devise }} ({{ pays.devise_symbole }})</span>
+    </div>
+    <a href="{% url 'admin_taxes_pays_modifier' pays.pk %}" class="btn btn-outline-warning">
+        <i class="bi bi-pencil me-2"></i>Modifier ce pays
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white border-0 py-3 px-3 px-md-4">
+        <h5 class="mb-0 fw-bold" style="color: #1e3a5f;"><i class="bi bi-percent me-2"></i>Taxes de {{ pays.nom }}</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead style="background: #f8f9fa; border-bottom: 2px solid #e0e0e0;">
+                    <tr style="color: #1e3a5f;">
+                        <th class="py-3 px-3 px-md-4">Code</th>
+                        <th class="py-3">Nom</th>
+                        <th class="text-center py-3">Taux</th>
+                        <th class="py-3 d-none d-md-table-cell">Province</th>
+                        <th class="text-center py-3 d-none d-md-table-cell">Cumulative</th>
+                        <th class="text-center py-3" style="width: 90px;">Statut</th>
+                        <th class="text-center py-3" style="width: 90px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for taxe in taxes_list %}
+                    <tr class="border-bottom">
+                        <td class="py-3 px-3 px-md-4 fw-semibold" data-label="Code">{{ taxe.code }}</td>
+                        <td class="py-3" data-label="Nom">{{ taxe.nom }}{% if taxe.par_defaut %} <span class="badge bg-light text-dark border">défaut</span>{% endif %}</td>
+                        <td class="text-center py-3" data-label="Taux">{{ taxe.taux }}%</td>
+                        <td class="py-3 d-none d-md-table-cell" data-label="Province">{{ taxe.province|default:"—" }}</td>
+                        <td class="text-center py-3 d-none d-md-table-cell" data-label="Cumulative">
+                            {% if taxe.cumulative %}<i class="bi bi-check-lg text-success"></i>{% else %}<i class="bi bi-dash text-muted"></i>{% endif %}
+                        </td>
+                        <td class="text-center py-3" data-label="Statut">
+                            {% if taxe.actif %}
+                                <span class="badge px-3 py-2" style="background: #2d6a9f; color: white;">Active</span>
+                            {% else %}
+                                <span class="badge px-3 py-2 bg-secondary">Inactive</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-center py-3" data-label="Actions">
+                            <div class="d-flex gap-1 justify-content-center">
+                                <a href="{% url 'admin_taxe_toggle' taxe.pk %}" class="btn btn-sm {% if taxe.actif %}btn-outline-secondary{% else %}btn-outline-success{% endif %}"
+                                   title="{% if taxe.actif %}Désactiver{% else %}Activer{% endif %}" aria-label="{% if taxe.actif %}Désactiver{% else %}Activer{% endif %} la taxe {{ taxe.code }}">
+                                    <i class="bi bi-{% if taxe.actif %}pause-circle{% else %}play-circle{% endif %}"></i>
+                                </a>
+                                <form method="post" action="{% url 'admin_taxe_supprimer' taxe.pk %}" class="d-inline" onsubmit="return confirm('Supprimer la taxe {{ taxe.code }} ?')">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Supprimer" aria-label="Supprimer la taxe {{ taxe.code }}">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center py-5">
+                            <i class="bi bi-percent display-1 text-muted" style="color: #344e65 !important;"></i>
+                            <h5 class="mt-3" style="color: #344e65;">Aucune taxe pour ce pays</h5>
+                            <p class="text-muted mb-0">Ajoutez-en une ci-dessous.</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-header bg-white border-0 py-3 px-3 px-md-4">
+        <h5 class="mb-0 fw-bold" style="color: #1e3a5f;"><i class="bi bi-plus-circle me-2"></i>Ajouter une taxe</h5>
+    </div>
+    <div class="card-body">
+        <form method="post" action="{% url 'admin_taxe_ajouter' pays.pk %}">
+            {% csrf_token %}
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Code <span class="text-danger">*</span></label>
+                    <input type="text" name="code" class="form-control" placeholder="Ex: TVA" maxlength="10" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Nom <span class="text-danger">*</span></label>
+                    <input type="text" name="nom" class="form-control" placeholder="Ex: Taxe sur la valeur ajoutée" required>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label fw-semibold">Taux (%) <span class="text-danger">*</span></label>
+                    <input type="number" name="taux" class="form-control" step="0.01" min="0" max="100" placeholder="18.00" required>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Province</label>
+                    <input type="text" name="province" class="form-control" placeholder="Optionnel">
+                </div>
+            </div>
+            <div class="d-flex flex-wrap gap-3 mt-3">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="cumulative" id="cumulative">
+                    <label class="form-check-label" for="cumulative">Taxe cumulative</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="par_defaut" id="par_defaut">
+                    <label class="form-check-label" for="par_defaut">Sélectionnée par défaut</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">
+                <i class="bi bi-plus-lg me-2"></i>Ajouter la taxe
+            </button>
+        </form>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="{% url 'admin_taxes_pays_liste' %}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-2"></i>Retour à la liste des pays
+    </a>
+</div>
+
+<style>
+.card { animation: fadeInUp 0.4s ease-out; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.badge { font-weight: 500; border-radius: 20px; padding: 0.4rem 0.8rem; font-size: 0.7rem; }
+.btn-sm { padding: 0.25rem 0.5rem; font-size: 0.75rem; border-radius: 8px; }
+.table th { font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.table td { vertical-align: middle; font-size: 0.85rem; }
+@media (max-width: 767px) {
+    .table thead { display: none; }
+    .table tr { display: block; margin-bottom: 1rem; border: 1px solid #dee2e6; border-radius: 12px; padding: 0.75rem; background: white; }
+    .table td { display: flex; justify-content: space-between; align-items: center; text-align: right; border: none; padding: 0.5rem; border-bottom: 1px solid #f0f0f0; }
+    .table td:last-child { border-bottom: none; }
+    .table td::before { content: attr(data-label); font-weight: 600; color: #1e3a5f; text-align: left; margin-right: 15px; flex: 1; }
+    .table td.text-center { display: block; text-align: center; }
+    .table td.text-center::before { display: none; }
+    .table td .d-flex { justify-content: flex-end; }
+}
+</style>
+{% endblock %}

@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% block title %}{{ pays.nom }} — Taxes produits — Admin{% endblock %}
+{% block page_title %}📦 {{ pays.nom }}{% endblock %}
+
+{% block content %}
+
+<div class="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center gap-3 mb-4">
+    <div>
+        <span class="badge" style="background: #e8f0fe; color: #1e3a5f;">{{ pays.code }}</span>
+        <span class="text-muted ms-2">{{ pays.devise }} ({{ pays.symbole_devise }})</span>
+    </div>
+    <a href="{% url 'admin_produits_pays_modifier' pays.pk %}" class="btn btn-outline-warning">
+        <i class="bi bi-pencil me-2"></i>Modifier ce pays
+    </a>
+</div>
+
+<!-- Types de taxe -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white border-0 py-3 px-3 px-md-4">
+        <h5 class="mb-0 fw-bold" style="color: #1e3a5f;"><i class="bi bi-percent me-2"></i>Types de taxe</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead style="background: #f8f9fa; border-bottom: 2px solid #e0e0e0;">
+                    <tr style="color: #1e3a5f;">
+                        <th class="py-3 px-3 px-md-4">Code</th>
+                        <th class="py-3">Nom</th>
+                        <th class="text-center py-3">Taux par défaut</th>
+                        <th class="text-center py-3" style="width: 70px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for type_taxe in types_taxe %}
+                    <tr class="border-bottom">
+                        <td class="py-3 px-3 px-md-4 fw-semibold" data-label="Code">{{ type_taxe.code }}</td>
+                        <td class="py-3" data-label="Nom">{{ type_taxe.nom }}</td>
+                        <td class="text-center py-3" data-label="Taux">
+                            {% with defaut=type_taxe.taux_par_defaut %}
+                                {% if defaut %}{{ defaut }}%{% else %}—{% endif %}
+                            {% endwith %}
+                        </td>
+                        <td class="text-center py-3" data-label="Actions">
+                            <form method="post" action="{% url 'admin_typetaxe_supprimer' type_taxe.pk %}" class="d-inline" onsubmit="return confirm('Supprimer la taxe {{ type_taxe.code }} ?')">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Supprimer" aria-label="Supprimer {{ type_taxe.code }}">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center py-4 text-muted">Aucun type de taxe pour ce pays.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-body border-top">
+        <form method="post" action="{% url 'admin_typetaxe_ajouter' pays.pk %}">
+            {% csrf_token %}
+            <div class="row g-3 align-items-end">
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Code <span class="text-danger">*</span></label>
+                    <input type="text" name="code" class="form-control" placeholder="Ex: TVA" maxlength="20" required>
+                </div>
+                <div class="col-md-5">
+                    <label class="form-label fw-semibold">Nom <span class="text-danger">*</span></label>
+                    <input type="text" name="nom" class="form-control" placeholder="Ex: Taxe sur la valeur ajoutée" required>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label fw-semibold">Taux (%) <span class="text-danger">*</span></label>
+                    <input type="number" name="taux" class="form-control" step="0.01" min="0" max="100" placeholder="18.00" required>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-plus-lg me-1"></i>Ajouter
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Provinces -->
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white border-0 py-3 px-3 px-md-4">
+        <h5 class="mb-0 fw-bold" style="color: #1e3a5f;"><i class="bi bi-map me-2"></i>Provinces / régions</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead style="background: #f8f9fa; border-bottom: 2px solid #e0e0e0;">
+                    <tr style="color: #1e3a5f;">
+                        <th class="py-3 px-3 px-md-4">Code</th>
+                        <th class="py-3">Nom</th>
+                        <th class="text-center py-3">Taxes</th>
+                        <th class="text-center py-3" style="width: 70px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for province in provinces %}
+                    <tr class="border-bottom">
+                        <td class="py-3 px-3 px-md-4 fw-semibold" data-label="Code">{{ province.code }}</td>
+                        <td class="py-3" data-label="Nom">{{ province.nom }}</td>
+                        <td class="text-center py-3" data-label="Taxes">{{ province.description_taxe }}</td>
+                        <td class="text-center py-3" data-label="Actions">
+                            <form method="post" action="{% url 'admin_province_supprimer' province.pk %}" class="d-inline" onsubmit="return confirm('Supprimer la province {{ province.nom }} ?')">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Supprimer" aria-label="Supprimer {{ province.nom }}">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center py-4 text-muted">Aucune province pour ce pays.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-body border-top">
+        <form method="post" action="{% url 'admin_province_ajouter' pays.pk %}">
+            {% csrf_token %}
+            <div class="row g-3 align-items-end">
+                <div class="col-md-2">
+                    <label class="form-label fw-semibold">Code <span class="text-danger">*</span></label>
+                    <input type="text" name="code" class="form-control" placeholder="Ex: QC" maxlength="3" required>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Nom <span class="text-danger">*</span></label>
+                    <input type="text" name="nom" class="form-control" placeholder="Ex: Québec" required>
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label fw-semibold">TPS (%)</label>
+                    <input type="number" name="tps" class="form-control" step="0.01" min="0" value="5.00">
+                </div>
+                <div class="col-md-2">
+                    <label class="form-label fw-semibold">TVQ (%)</label>
+                    <input type="number" name="tvq" class="form-control" step="0.01" min="0" value="9.975">
+                </div>
+                <div class="col-md-1 form-check mt-4">
+                    <input class="form-check-input" type="checkbox" name="tvh" id="tvh">
+                    <label class="form-check-label small" for="tvh">TVH</label>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-plus-lg me-1"></i>Ajouter
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="{% url 'admin_produits_pays_liste' %}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-2"></i>Retour à la liste des pays
+    </a>
+</div>
+
+<style>
+.card { animation: fadeInUp 0.4s ease-out; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.badge { font-weight: 500; border-radius: 20px; padding: 0.4rem 0.8rem; font-size: 0.7rem; }
+.btn-sm { padding: 0.25rem 0.5rem; font-size: 0.75rem; border-radius: 8px; }
+.table th { font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.table td { vertical-align: middle; font-size: 0.85rem; }
+@media (max-width: 767px) {
+    .table thead { display: none; }
+    .table tr { display: block; margin-bottom: 1rem; border: 1px solid #dee2e6; border-radius: 12px; padding: 0.75rem; background: white; }
+    .table td { display: flex; justify-content: space-between; align-items: center; text-align: right; border: none; padding: 0.5rem; border-bottom: 1px solid #f0f0f0; }
+    .table td:last-child { border-bottom: none; }
+    .table td::before { content: attr(data-label); font-weight: 600; color: #1e3a5f; text-align: left; margin-right: 15px; flex: 1; }
+    .table td.text-center { display: block; text-align: center; }
+    .table td.text-center::before { display: none; }
+}
+</style>
+{% endblock %}
